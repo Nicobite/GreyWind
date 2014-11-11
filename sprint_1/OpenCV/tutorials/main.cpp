@@ -1,70 +1,58 @@
-#include "opencv2/objdetect.hpp"
-#include "opencv2/videoio.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgproc.hpp"
+
+#include "opencv2/opencv.hpp"
 #include <iostream>
 #include <stdio.h>
+
+#include "facedetection.hpp"
+
+#define DEBUG(arg) printf("%s[DEBUG] %s%s\n","\033[1;36m",arg,"\033[0m")
+#define ERROR(arg) printf("%s[ERROR] %s%s\n","\033[1;31m",arg,"\033[0m")
+
+#define FRAMES_B4_DETECT 50
+
 using namespace std;
 using namespace cv;
-/** Function Headers */
-void detectAndDisplay( Mat frame );
-/** Global variables */
-String face_cascade_name = "haarcascade_frontalface_alt.xml";
-String eyes_cascade_name = "haarcascade_eye_tree_eyeglasses.xml";
-CascadeClassifier face_cascade;
-CascadeClassifier eyes_cascade;
-String window_name = "Capture - Face detection";
+
+
+
+//TODO: RELEASE LA CONNEXION LOL
+
+
+
+
 /** @function main */
-int main( void )
-{
+int main( void ){
+
+    const string source = "tcp://@192.168.1.1:5555";
+    //const string source = 0;
+
     VideoCapture capture;
     Mat frame;
-    //-- 1. Load the cascades
-    if( !face_cascade.load( face_cascade_name ) ){ printf("--(!)Error loading face cascade\n"); return -1; };
-    if( !eyes_cascade.load( eyes_cascade_name ) ){ printf("--(!)Error loading eyes cascade\n"); return -1; };
+    FaceDetection faceDetector(FRAMES_B4_DETECT);
+
     //-- 2. Read the video stream
-    capture.open( 0 );
-    if ( !capture.isOpened() ) { printf("--(!)Error opening video capture\n"); return -1; }
-    while ( capture.read(frame) )
-    {
-        if( frame.empty() )
-        {
-            printf(" --(!) No captured frame -- Break!");
+    DEBUG("just before isOpened");
+    capture.open(source);
+
+    if ( !capture.isOpened() ) {
+        ERROR("opening video capture"); return -1;
+    }
+
+    DEBUG("open seems ok...");
+
+    while (capture.read(frame) ) {
+        if(frame.empty()){
+            ERROR("no captured frame -- Break!");
             break;
         }
+
         //-- 3. Apply the classifier to the frame
-        detectAndDisplay( frame );
+        faceDetector.detectAndDisplay(frame);
+
         int c = waitKey(10);
         if( (char)c == 27 ) { break; } // escape
     }
+    DEBUG("Exiting main");
+    capture.release();
     return 0;
-}
-/** @function detectAndDisplay */
-void detectAndDisplay( Mat frame )
-{
-    std::vector<Rect> faces;
-    Mat frame_gray;
-    cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
-    equalizeHist( frame_gray, frame_gray );
-    //-- Detect faces
-    face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
-    for ( size_t i = 0; i < faces.size(); i++ )
-    {
-        Point center( faces[i].x + faces[i].width/2, faces[i].y + faces[i].height/2 );
-        ellipse( frame, center, Size( faces[i].width/2, faces[i].height/2 ), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
-        Mat faceROI = frame_gray( faces[i] );
-        std::vector<Rect> eyes;
-        printf("TEST DETECT \n");
-        //-- In each face, detect eyes
-        //eyes_cascade.detectMultiScale( faceROI, eyes, 1.1, 2, 0 |CASCADE_SCALE_IMAGE, Size(30, 30) );
-        printf("TEST DETECT 2 \n");
-        /*for ( size_t j = 0; j < eyes.size(); j++ )
-        {
-            Point eye_center( faces[i].x + eyes[j].x + eyes[j].width/2, faces[i].y + eyes[j].y + eyes[j].height/2 );
-            int radius = cvRound( (eyes[j].width + eyes[j].height)*0.25 );
-            circle( frame, eye_center, radius, Scalar( 255, 0, 0 ), 4, 8, 0 );
-        }*/
-    }
-    //-- Show what you got
-    imshow( window_name, frame );
-}
+ }
