@@ -27,8 +27,8 @@ public:
     void findTheContours (Mat &binaryPhoto, vector<vector<Point> > &contours);
     void contours2Coordinates(vector<vector<Point>  > contours);
 private:
-    float x;
-    float y;
+    float m_x;
+    float m_y;
 };
 
 #endif // LASERDETECT_HPP

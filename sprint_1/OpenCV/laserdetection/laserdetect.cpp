@@ -8,14 +8,14 @@
 
 
 laserDetect::laserDetect(){
-    x = 0;
-    y = 0;
+    m_x = 0;
+    m_y = 0;
 }
 
 laserDetect::laserDetect(float c_x, float c_y)
 {
-    x = c_x;
-    y = c_y;
+    m_x = c_x;
+    m_y = c_y;
 }
 
 void laserDetect::createBinaryPhoto(Mat &src, Mat &dest, Scalar rangeInf, Scalar rangeHig){
@@ -58,6 +58,6 @@ float laserDetect::getY(void){
 
 void laserDetect::setCoord(float c_x, float c_y)
 {
-    x = c_x;
-    y = c_y;
+    m_x = c_x;
+    m_y = c_y;
 }
