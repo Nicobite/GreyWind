@@ -91,56 +91,56 @@ C_RESULT update_autonom(void)
 #if DEBUG
                     printf("[Debug] Fly forward.\n");
 #endif
-                    pitch = -1.0;
+                    pitch = -0.3;
                 }
                 else if( strcmp(buf, "bw") == 0)
                 {
 #if DEBUG
                     printf("[Debug] Fly backward.\n");
 #endif
-                    pitch = 1.0;
+                    pitch = 0.3;
                 }
                 else if( strcmp(buf, "ri") == 0)
                 {
 #if DEBUG
                     printf("[Debug] Fly to right side.\n");
 #endif
-                    roll = 1.0;
+                    roll = 0.3;
                 }
                 else if( strcmp(buf, "le") == 0)
                 {
 #if DEBUG
                     printf("[Debug] Fly to left side.\n");
 #endif
-                    roll = -1.0;
+                    roll = -0.3;
                 }
                 else if( strcmp(buf, "tl") == 0)
                 {
 #if DEBUG
                     printf("[Debug] Turn to left side.\n");
 #endif
-                    yaw = -1.0;
+                    yaw = -0.3;
                 }
                 else if( strcmp(buf, "tr") == 0)
                 {
 #if DEBUG
                     printf("[Debug] Turn to right side.\n");
 #endif
-                    yaw = 1.0;
+                    yaw = 0.3;
                 }
                 else if( strcmp(buf, "up") == 0)
                 {
 #if DEBUG
                     printf("[Debug] Get up.\n");
 #endif
-                    gaz = 1.0;
+                    gaz = 0.4;
                 }
                 else if( strcmp(buf, "do") == 0)
                 {
 #if DEBUG
                     printf("[Debug] Get down.\n");
 #endif
-                    gaz = -1.0;
+                    gaz = -0.4;
                 }
                 else if( strcmp(buf, "cl") == 0)
                 {

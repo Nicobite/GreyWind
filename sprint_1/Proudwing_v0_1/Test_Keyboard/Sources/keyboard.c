@@ -11,7 +11,6 @@
 #include <sys/stat.h>
 
 
-
 int fd_fifo;
 sem_t *sem_full;
 sem_t *sem_empty;
@@ -79,13 +78,11 @@ gint key_press_cb(GtkWidget *widget, GdkEventKey *kevent, gpointer data)  {
                     g_message("clear");
                     write(fd_fifo,"cl",2) ;
                 }
-               // printf("Done.\n");
-
-                close(fd_fifo);
-
-                sem_post(sem_full);
-                //printf("Done.\n");
             }
+             close(fd_fifo);
+
+             sem_post(sem_full);
+             //printf("Done.\n");
         }
     }
 
@@ -97,6 +94,38 @@ gint key_press_cb(GtkWidget *widget, GdkEventKey *kevent, gpointer data)  {
     g_signal_emit_by_name(G_OBJECT(widget), "activate", NULL);
     return TRUE;
 }
+
+gint key_release_cb(GtkWidget *widget, GdkEventKey *kevent, gpointer data)  {
+    GtkWidget *btn = (GtkWidget *)data;
+
+    /* ============================================================================= */
+
+    if(sem_trywait(sem_empty)==0){
+
+        if((fd_fifo=open("/tmp/proudwing_control", O_WRONLY)) == - 1)
+        {
+          fprintf(stderr, "Can't get connection to the fifo pipe .....\n");
+          exit(0);
+        } else{
+
+            if(kevent->type == GDK_KEY_RELEASE)  {
+                g_message("%d, %c;", kevent->keyval, kevent->keyval);
+                g_message("clear");
+                write(fd_fifo,"cl",2) ;
+            }
+
+            close(fd_fifo);
+
+            sem_post(sem_full);
+        }
+    }
+
+    /* ================================================================================== */
+
+    g_signal_emit_by_name(G_OBJECT(widget), "activate", NULL);
+    return TRUE;
+}
+
 
 int main(int argc, char *argv[]) 
 {
@@ -118,6 +147,7 @@ int main(int argc, char *argv[])
     gtk_widget_show_all(window);
 
     g_signal_connect(G_OBJECT(button), "key_press_event", G_CALLBACK(key_press_cb), button);
+    g_signal_connect(G_OBJECT(button), "key_release_event", G_CALLBACK(key_release_cb), button);
 
     gtk_main();
     
