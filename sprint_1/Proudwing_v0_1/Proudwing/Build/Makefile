@@ -17,7 +17,7 @@ else
    ARDRONE_TARGET_DIR=$(PROJECT_PATH)/Build/Debug
 endif
 
-TARGET= sdk_tuto
+TARGET= proudwing
 
 SRC_DIR:=$(PROJECT_PATH)/Sources
 
@@ -26,31 +26,32 @@ GENERIC_BINARIES_SOURCE_DIR:=$(SRC_DIR)
 
 GENERIC_BINARIES_COMMON_SOURCE_FILES+=			\
    Navdata/navdata.c    \
-   UI/gui.c		\
-   Video/video_stage.c
+   Video/video.c        \
+   UI/gui.c             \
+   UI/control_cmd.c
 
 GENERIC_INCLUDES+=					\
 	$(SRC_DIR) \
 	$(LIB_DIR) \
 	$(SDK_PATH)/Soft/Common \
 	$(SDK_PATH)/Soft/Lib
+	###
 
 GENERIC_TARGET_BINARIES_PREFIX=
 
 GENERIC_TARGET_BINARIES_DIR=$(ARDRONE_TARGET_DIR)
 
 GENERIC_BINARIES_SOURCE_ENTRYPOINTS+=			\
-   ardrone_testing_tool.c
+   proudwing_daemon.c
 
 GENERIC_INCLUDES:=$(addprefix -I,$(GENERIC_INCLUDES))
 
 GENERIC_LIB_PATHS=-L$(GENERIC_TARGET_BINARIES_DIR)
-GENERIC_LIBS=-lpc_ardrone -lgtk-x11-2.0 -lrt `pkg-config gtk+-2.0 --libs --cflags` -lgthread-2.0
+GENERIC_LIBS=-lm -liw -lpc_ardrone -lgtk-x11-2.0 -lrt `pkg-config gtk+-2.0 --cflags --libs` -lgthread-2.0
 
-GENERIC_LIBS+= -lm
 
 SDK_FLAGS+="USE_APP=yes"
-SDK_FLAGS+="APP_ID=linux_sdk_demo"
+SDK_FLAGS+="APP_ID=linux_sdk_gui_tuto"
 
 export GENERIC_CFLAGS
 export GENERIC_LIBS
@@ -71,8 +72,8 @@ export GENERIC_LIBRARY_SOURCE_DIR=$(GENERIC_BINARIES_SOURCE_DIR)
 all: build_libs $(TARGET)
 
 $(TARGET):
-	@$(MAKE) -C $(SDK_PATH)/VP_SDK/Build $(TMP_SDK_FLAGS) $(SDK_FLAGS) $(MAKECMDGOALS) USE_LINUX=yes
-	mv $(ARDRONE_TARGET_DIR)/ardrone_testing_tool $(TARGET)
+	@$(MAKE) -C $(SDK_PATH)/VP_SDK/Build $(TMP_SDK_FLAGS) $(SDK_FLAGS) -lm $(MAKECMDGOALS) USE_LINUX=yes
+	mv $(ARDRONE_TARGET_DIR)/proudwing_daemon $(TARGET)
 	mv $(TARGET) $(ARDRONE_TARGET_DIR)/
 
 $(MAKECMDGOALS): build_libs
@@ -80,4 +81,8 @@ $(MAKECMDGOALS): build_libs
 
 build_libs:
 	@$(MAKE) -C $(SDK_PATH)/Soft/Build $(TMP_SDK_FLAGS) $(SDK_FLAGS) $(MAKECMDGOALS) USE_LINUX=yes
+
+
+
+
 
