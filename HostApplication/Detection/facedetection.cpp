@@ -1,4 +1,7 @@
 #include "facedetection.hpp"
+#include "mainwindow.h"
+#include <QImage>
+#include <QApplication>
 
 FaceDetection::FaceDetection(int framesBeforeDetect):
     m_framesBeforeDetect(framesBeforeDetect)
@@ -37,7 +40,11 @@ void FaceDetection::detectAndDisplay(Mat frame){
     m_frameCounter++;
 
     //-- Show what you got
-    imshow( m_window_name, frame );
+    //imshow( m_window_name, frame );
+    QImage image = QImage((const unsigned char*)frame.data,frame.cols,frame.rows,frame.step,QImage::Format_RGB888);
+    //w.getView()->updateView(image);
+    //TODO CANCER
+
 }
 
 void FaceDetection::set_framesBeforeDetect(int framesBeforeDetect){

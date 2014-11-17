@@ -50,10 +50,10 @@ void laserDetect::contours2Coordinates(vector<vector<Point> > contours){
 }
 
 float laserDetect::getX(void){
-    return x;}
+    return m_x;}
 
 float laserDetect::getY(void){
-    return y;
+    return m_y;
 }
 
 void laserDetect::setCoord(float c_x, float c_y)

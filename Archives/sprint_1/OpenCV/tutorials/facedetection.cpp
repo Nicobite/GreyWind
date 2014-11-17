@@ -17,6 +17,7 @@ void FaceDetection::detectAndDisplay(Mat frame){
     //DEBUG("Entering detectAndDisplay");
 
     Mat frame_gray;
+    
     cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
     equalizeHist( frame_gray, frame_gray );
 

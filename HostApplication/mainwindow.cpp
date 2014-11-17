@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "UI/videoview.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,3 +13,8 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+/*VideoView* MainWindow::getView()
+{
+    return ui->theFrame;
+}//*/
