@@ -1,14 +1,8 @@
 #include "facethread.h"
-
+#include "Includes.h"
 #include "opencv2/opencv.hpp"
 #include <iostream>
 #include <stdio.h>
-
-#include "Detection/facedetection.hpp"
-
-#define FRAMES_B4_DETECT 50
-#define DEBUG(arg) printf("%s[DEBUG] %s%s\n","\033[1;36m",arg,"\033[0m")
-#define ERROR(arg) printf("%s[ERROR] %s%s\n","\033[1;31m",arg,"\033[0m")
 
 using namespace std;
 using namespace cv;
@@ -29,9 +23,11 @@ void Facethread::run()
     Mat frame;
     FaceDetection faceDetector(FRAMES_B4_DETECT);
 
+    dispFrame(QImage("/home/nikko/Desktop/screen1.png"));
+
     //-- 2. Read the video stream
     DEBUG("just before isOpened");
-    capture.open(source);
+    capture.open(0);
 
     if ( !capture.isOpened() ) {
         ERROR("opening video capture");
@@ -46,11 +42,15 @@ void Facethread::run()
         }
 
         //-- 3. Apply the classifier to the frame
-        faceDetector.detectAndDisplay(frame);
+        dispFrame(faceDetector.detectAndDisplay(frame));
 
         int c = waitKey(10);
         if( (char)c == 27 ) { break; } // escape
     }
     DEBUG("Exiting main");
     capture.release();
+}
+
+void Facethread::dispFrame(QImage image){
+    emit displayedFrame(image);
 }

@@ -1,22 +1,22 @@
+#include "Includes.h"
 #include "facedetection.hpp"
-#include "mainwindow.h"
-#include <QImage>
 #include <QApplication>
+#include <QPainter>
 
-FaceDetection::FaceDetection(int framesBeforeDetect):
-    m_framesBeforeDetect(framesBeforeDetect)
+FaceDetection::FaceDetection(int framesBeforeDetect)
 {
-    m_face_cascade_name =   "haarcascade_frontalface_alt.xml";
-    m_window_name =         "Capture - Face detection";
-    m_frameCounter =        1;
+    m_framesBeforeDetect    =   framesBeforeDetect;
+    m_face_cascade_name     =   "haarcascade_frontalface_alt.xml";
+    m_window_name           =   "Capture - Face detection";
+    m_frameCounter          =   1;
     if( !m_face_cascade.load( m_face_cascade_name ) ){
-        printf("%s[ERROR] %s%s\n","\033[1;31m","loading face cascade","\033[0m");
+        ERROR("loading face cascade");
     };
 }
 
 FaceDetection::~FaceDetection(){}
 
-void FaceDetection::detectAndDisplay(Mat frame){
+QImage FaceDetection::detectAndDisplay(Mat frame){
     //DEBUG("Entering detectAndDisplay");
 
     Mat frame_gray;
@@ -41,12 +41,16 @@ void FaceDetection::detectAndDisplay(Mat frame){
 
     //-- Show what you got
     //imshow( m_window_name, frame );
+
     QImage image = QImage((const unsigned char*)frame.data,frame.cols,frame.rows,frame.step,QImage::Format_RGB888);
-    //w.getView()->updateView(image);
-    //TODO CANCER
+
+    //QImage image = QImage("/home/nikko/Desktop/screen1.png");
+    return image;
 
 }
 
 void FaceDetection::set_framesBeforeDetect(int framesBeforeDetect){
     m_framesBeforeDetect = framesBeforeDetect;
 }
+
+

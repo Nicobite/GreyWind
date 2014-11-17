@@ -20,6 +20,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+
 #include "UI/videoview.h"
 
 QT_BEGIN_NAMESPACE

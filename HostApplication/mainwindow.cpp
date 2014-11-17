@@ -18,3 +18,7 @@ MainWindow::~MainWindow()
 {
     return ui->theFrame;
 }//*/
+
+void MainWindow::getFrame(QImage image){
+    ui->theFrame->updateView(image);
+}

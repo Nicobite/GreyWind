@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+public slots:
+    void getFrame(QImage image);
+
+signals:
+
 };
 
 #endif // MAINWINDOW_H
