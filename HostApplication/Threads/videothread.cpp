@@ -1,24 +1,13 @@
-/**
- * This is an old version of the detection thread class. It will be later replaced by a more generic and configurable class.
- */
-
 #include "includes.h"
-#include "facethread.h"
-#include "opencv2/opencv.hpp"
-#include <iostream>
+#include "videothread.hpp"
 
-using namespace std;
-using namespace cv;
-
-
-Facethread::Facethread(QObject *parent) :
+VideoThread::VideoThread(QObject *parent) :
     QThread(parent)
 {
     m_source = "Local";
 }
 
-
-void Facethread::run()
+void VideoThread::run()
 {
     // Initiating needed objects
     VideoCapture capture;
@@ -49,7 +38,7 @@ void Facethread::run()
         }
 
         // Send output of algorithm to main window
-        dispFrame(faceDetector.detectAndDisplay(frame));
+        displayFrame(faceDetector.detectAndDisplay(frame));
 
         // Save m_source for later
         m_source_old = m_source;
@@ -61,7 +50,7 @@ void Facethread::run()
     DEBUG("exiting Facethread::run()");
 }
 
-int Facethread::openVideo(VideoCapture * capture){
+int VideoThread::openVideo(VideoCapture * capture){
     DEBUG("entering openVideo");
     if (m_source == "Local"){   capture->open(SRC_DEFAULT);  } else
     if (m_source == "TCP")  {   capture->open(SRC_TCP);      }
@@ -79,16 +68,10 @@ int Facethread::openVideo(VideoCapture * capture){
 // Signals/Slots
 //
 
-void Facethread::dispFrame(QImage image){
-    emit displayedFrame(image);
+void VideoThread::displayFrame(QImage image){
+    emit sigFrameToGUI(image);
 }
 
-// @Deprecated
-void Facethread::getSrc(){
-    emit sigReqSrc();
-}
-
-void Facethread::updateSrc(std::string src){
+void VideoThread::updateSrc(std::string src){
     m_source = src;
 }
-

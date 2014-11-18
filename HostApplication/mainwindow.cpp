@@ -1,4 +1,4 @@
-#include "Includes.h"
+#include "includes.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "videoview.h"

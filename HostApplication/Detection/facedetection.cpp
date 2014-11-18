@@ -1,4 +1,4 @@
-#include "Includes.h"
+#include "includes.h"
 #include "facedetection.hpp"
 #include <QApplication>
 #include <QPainter>
