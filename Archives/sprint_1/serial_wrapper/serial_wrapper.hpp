@@ -33,6 +33,7 @@ public:
     ~SerialDevice();
     void    writeChar(char c);
     char    readChar();
+    int     get_fd() const;
 };
 
 #endif // SERIAL_WRAPPER_HPP

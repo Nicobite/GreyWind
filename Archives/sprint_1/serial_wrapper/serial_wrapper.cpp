@@ -94,3 +94,7 @@ void SerialDevice::set_blocking (int fd, int should_block){
         if (tcsetattr (fd, TCSANOW, &tty) != 0)
                 printf ("error %d setting term attributes", errno);
 }
+
+void SerialDevice::get_fd() const{
+        return m_fd;
+}
