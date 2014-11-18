@@ -21,9 +21,8 @@ int main(int argc, char *argv[])
     QObject::connect(&w         , SIGNAL(   sigResponsesSrc(std::string)    ),
                      &thread1   , SLOT  (   updateSrc(std::string))         );
 
+    // Starting up the threads
     w.show();
-
     thread1.start();
-
     return a.exec();
 }

@@ -7,11 +7,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    // Setting up UI
     ui->setupUi(this);
+
+    // Connecting the qcombobox with the main window
     QObject::connect(ui->srcSelect  , SIGNAL(   currentIndexChanged(int)          ),
                      this           , SLOT  (   getSrc())                         );
 
-    ui->theFrame->setAutoFillBackground(true); // IMPORTANT!
+    // Coloring the video frame for style points
+    ui->theFrame->setAutoFillBackground(true);
     QPalette pal = ui->theFrame->palette();
     pal.setColor(QPalette::Window, QColor(Qt::black));
     ui->theFrame->setPalette(pal);
@@ -23,21 +27,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/*VideoView* MainWindow::getView()
-{
-    return ui->theFrame;
-}//*/
-
 void MainWindow::getFrame(QImage image){
     ui->theFrame->updateView(image);
 }
 
 void MainWindow::getSrc(){
     emit sigResponsesSrc(ui->srcSelect->currentText().toStdString());
-#if DBG
     DEBUG("MainWindow: sigResponsesSrc");
+#if DBG
     printf("\t->(%s)\n",ui->srcSelect->currentText().toStdString().c_str());
 #endif
 }
-
-//    ui->srcSelect->currentText().toStdString();
