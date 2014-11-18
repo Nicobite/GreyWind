@@ -17,9 +17,7 @@ FaceDetection::FaceDetection(int framesBeforeDetect)
 FaceDetection::~FaceDetection(){}
 
 QImage FaceDetection::detectAndDisplay(Mat frame){
-#if DBG
     //DEBUG("Entering detectAndDisplay");
-#endif
     Mat frame_gray;
     cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
     equalizeHist( frame_gray, frame_gray );

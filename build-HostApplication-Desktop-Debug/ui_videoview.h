@@ -45,7 +45,7 @@ public:
     void retranslateUi(QWidget *VideoView)
     {
         VideoView->setWindowTitle(QApplication::translate("VideoView", "Form", 0));
-        videoLabel->setText(QApplication::translate("VideoView", "TextLabel", 0));
+        videoLabel->setText(QApplication::translate("VideoView", "This is a slylish black background for the video frame", 0));
     } // retranslateUi
 
 };

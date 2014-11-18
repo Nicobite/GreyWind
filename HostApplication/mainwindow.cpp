@@ -10,6 +10,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     QObject::connect(ui->srcSelect  , SIGNAL(   currentIndexChanged(int)          ),
                      this           , SLOT  (   getSrc())                         );
+
+    ui->theFrame->setAutoFillBackground(true); // IMPORTANT!
+    QPalette pal = ui->theFrame->palette();
+    pal.setColor(QPalette::Window, QColor(Qt::black));
+    ui->theFrame->setPalette(pal);
+
 }
 
 MainWindow::~MainWindow()
@@ -30,6 +36,7 @@ void MainWindow::getSrc(){
     emit sigResponsesSrc(ui->srcSelect->currentText().toStdString());
 #if DBG
     DEBUG("MainWindow: sigResponsesSrc");
+    printf("\t->(%s)\n",ui->srcSelect->currentText().toStdString().c_str());
 #endif
 }
 

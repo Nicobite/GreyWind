@@ -20,15 +20,16 @@ protected:
 private:
      FaceDetection m_algo;
      std::string m_source;
+     int openVideo(VideoCapture * capture);
 
 public slots:
     void dispFrame(QImage image);
-    void getSrc();
+    void getSrc(); // Deprecated
     void updateSrc(std::string src);
 
 signals:
     void displayedFrame(QImage image);
-    void sigReqSrc();
+    void sigReqSrc(); // Deprecated
 
 };
 

@@ -47,7 +47,7 @@
     </size>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>This is a slylish black background for the video frame</string>
    </property>
   </widget>
  </widget>
