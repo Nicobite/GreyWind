@@ -13,15 +13,16 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
-
-#include "UI/videoview.h"
+#include "videoview.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -30,6 +31,8 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     VideoView *theFrame;
+    QComboBox *srcSelect;
+    QLabel *label_src;
     QStatusBar *statusBar;
     QToolBar *toolBar;
     QToolBar *mainToolBar;
@@ -48,9 +51,15 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         theFrame = new VideoView(centralWidget);
         theFrame->setObjectName(QStringLiteral("theFrame"));
-        theFrame->setGeometry(QRect(30, 20, 640, 360));
+        theFrame->setGeometry(QRect(10, 60, 640, 360));
         theFrame->setMinimumSize(QSize(640, 360));
         theFrame->setMaximumSize(QSize(1280, 720));
+        srcSelect = new QComboBox(centralWidget);
+        srcSelect->setObjectName(QStringLiteral("srcSelect"));
+        srcSelect->setGeometry(QRect(10, 20, 61, 27));
+        label_src = new QLabel(centralWidget);
+        label_src->setObjectName(QStringLiteral("label_src"));
+        label_src->setGeometry(QRect(10, 0, 31, 21));
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -81,6 +90,12 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        srcSelect->clear();
+        srcSelect->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "Local", 0)
+         << QApplication::translate("MainWindow", "TCP", 0)
+        );
+        label_src->setText(QApplication::translate("MainWindow", "SRC", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));
         menuGreyWind_Host_Application->setTitle(QApplication::translate("MainWindow", "GreyWind Host Application", 0));
         toolBar_2->setWindowTitle(QApplication::translate("MainWindow", "toolBar_2", 0));

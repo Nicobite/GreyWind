@@ -14,14 +14,17 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    Ui::MainWindow *ui;
 
 private:
-    Ui::MainWindow *ui;
+
 
 public slots:
     void getFrame(QImage image);
+    void getSrc();
 
 signals:
+    void sigResponsesSrc(std::string src);
 
 };
 

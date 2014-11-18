@@ -17,8 +17,9 @@ FaceDetection::FaceDetection(int framesBeforeDetect)
 FaceDetection::~FaceDetection(){}
 
 QImage FaceDetection::detectAndDisplay(Mat frame){
+#if DBG
     //DEBUG("Entering detectAndDisplay");
-
+#endif
     Mat frame_gray;
     cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
     equalizeHist( frame_gray, frame_gray );
@@ -45,7 +46,7 @@ QImage FaceDetection::detectAndDisplay(Mat frame){
     QImage image = QImage((const unsigned char*)frame.data,frame.cols,frame.rows,frame.step,QImage::Format_RGB888);
 
     //QImage image = QImage("/home/nikko/Desktop/screen1.png");
-    return image;
+    return image.rgbSwapped(); //Because OpenCV return BGR frames instead of RGB
 
 }
 

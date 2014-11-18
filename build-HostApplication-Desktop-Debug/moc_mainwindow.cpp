@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[4];
-    char stringdata[28];
+    QByteArrayData data[8];
+    char stringdata[67];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,11 +30,16 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10),
-QT_MOC_LITERAL(1, 11, 8),
-QT_MOC_LITERAL(2, 20, 0),
-QT_MOC_LITERAL(3, 21, 5)
+QT_MOC_LITERAL(1, 11, 15),
+QT_MOC_LITERAL(2, 27, 0),
+QT_MOC_LITERAL(3, 28, 11),
+QT_MOC_LITERAL(4, 40, 3),
+QT_MOC_LITERAL(5, 44, 8),
+QT_MOC_LITERAL(6, 53, 5),
+QT_MOC_LITERAL(7, 59, 6)
     },
-    "MainWindow\0getFrame\0\0image\0"
+    "MainWindow\0sigResponsesSrc\0\0std::string\0"
+    "src\0getFrame\0image\0getSrc\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -44,18 +49,26 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   29,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   19,    2, 0x0a,
+       5,    1,   32,    2, 0x0a,
+       7,    0,   35,    2, 0x0a,
+
+ // signals: parameters
+    QMetaType::Void, 0x80000000 | 3,    4,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QImage,    3,
+    QMetaType::Void, QMetaType::QImage,    6,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -65,8 +78,19 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         MainWindow *_t = static_cast<MainWindow *>(_o);
         switch (_id) {
-        case 0: _t->getFrame((*reinterpret_cast< QImage(*)>(_a[1]))); break;
+        case 0: _t->sigResponsesSrc((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 1: _t->getFrame((*reinterpret_cast< QImage(*)>(_a[1]))); break;
+        case 2: _t->getSrc(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        void **func = reinterpret_cast<void **>(_a[1]);
+        {
+            typedef void (MainWindow::*_t)(std::string );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::sigResponsesSrc)) {
+                *result = 0;
+            }
         }
     }
 }
@@ -96,14 +120,21 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 1;
+        _id -= 3;
     }
     return _id;
+}
+
+// SIGNAL 0
+void MainWindow::sigResponsesSrc(std::string _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

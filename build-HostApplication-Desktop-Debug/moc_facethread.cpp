@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Facethread_t {
-    QByteArrayData data[5];
-    char stringdata[44];
+    QByteArrayData data[10];
+    char stringdata[87];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,10 +33,16 @@ QT_MOC_LITERAL(0, 0, 10),
 QT_MOC_LITERAL(1, 11, 14),
 QT_MOC_LITERAL(2, 26, 0),
 QT_MOC_LITERAL(3, 27, 5),
-QT_MOC_LITERAL(4, 33, 9)
+QT_MOC_LITERAL(4, 33, 9),
+QT_MOC_LITERAL(5, 43, 9),
+QT_MOC_LITERAL(6, 53, 6),
+QT_MOC_LITERAL(7, 60, 9),
+QT_MOC_LITERAL(8, 70, 11),
+QT_MOC_LITERAL(9, 82, 3)
     },
     "Facethread\0displayedFrame\0\0image\0"
-    "dispFrame\0"
+    "sigReqSrc\0dispFrame\0getSrc\0updateSrc\0"
+    "std::string\0src\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -46,24 +52,30 @@ static const uint qt_meta_data_Facethread[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   24,    2, 0x06,
+       1,    1,   39,    2, 0x06,
+       4,    0,   42,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-       4,    1,   27,    2, 0x0a,
+       5,    1,   43,    2, 0x0a,
+       6,    0,   46,    2, 0x0a,
+       7,    1,   47,    2, 0x0a,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QImage,    3,
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QImage,    3,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 8,    9,
 
        0        // eod
 };
@@ -74,7 +86,10 @@ void Facethread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Facethread *_t = static_cast<Facethread *>(_o);
         switch (_id) {
         case 0: _t->displayedFrame((*reinterpret_cast< QImage(*)>(_a[1]))); break;
-        case 1: _t->dispFrame((*reinterpret_cast< QImage(*)>(_a[1]))); break;
+        case 1: _t->sigReqSrc(); break;
+        case 2: _t->dispFrame((*reinterpret_cast< QImage(*)>(_a[1]))); break;
+        case 3: _t->getSrc(); break;
+        case 4: _t->updateSrc((*reinterpret_cast< std::string(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -84,6 +99,12 @@ void Facethread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             typedef void (Facethread::*_t)(QImage );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Facethread::displayedFrame)) {
                 *result = 0;
+            }
+        }
+        {
+            typedef void (Facethread::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Facethread::sigReqSrc)) {
+                *result = 1;
             }
         }
     }
@@ -114,13 +135,13 @@ int Facethread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 5;
     }
     return _id;
 }
@@ -130,5 +151,11 @@ void Facethread::displayedFrame(QImage _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void Facethread::sigReqSrc()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, 0);
 }
 QT_END_MOC_NAMESPACE
