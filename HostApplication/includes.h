@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#define FRAMES_B4_DETECT 15
+#define FRAMES_B4_DETECT 40
 #define SRC_DEFAULT 0
 #define SRC_TCP "tcp://@192.168.1.1:5555"
 

@@ -56,7 +56,7 @@ void Facethread::run()
 
         //DEBUG("end of the while...");
     }
-
+    DEBUG("just before last realease");
     capture.release();
     DEBUG("exiting Facethread::run()");
 }

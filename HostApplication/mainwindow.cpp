@@ -20,6 +20,14 @@ MainWindow::MainWindow(QWidget *parent) :
     pal.setColor(QPalette::Window, QColor(Qt::black));
     ui->theFrame->setPalette(pal);
 
+    ui->navDataLabel->setAutoFillBackground(true);
+    pal = ui->navDataLabel->palette();
+    pal.setColor(QPalette::Window, QColor(Qt::green));
+    ui->navDataLabel->setPalette(pal);
+
+    ui->algSelect->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    ui->algSelect->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+
 }
 
 MainWindow::~MainWindow()

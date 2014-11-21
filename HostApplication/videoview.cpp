@@ -13,7 +13,6 @@ VideoView::~VideoView()
     delete ui;
 }
 
-//Custom
 void VideoView::updateView(QImage image)
 {
    ui->videoLabel->setPixmap(QPixmap::fromImage(image));
