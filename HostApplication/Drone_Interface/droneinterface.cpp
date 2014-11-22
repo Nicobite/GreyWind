@@ -3,7 +3,6 @@
 DroneInterface::DroneInterface()
 {
     this->m_daemon_interface = new DaemonInterface();
-    this->m_udp_client = new UDPClient();
 }
 
 DroneInterface::~DroneInterface()

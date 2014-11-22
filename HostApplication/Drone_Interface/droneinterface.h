@@ -13,6 +13,8 @@ private:
 public:
     DroneInterface();
     ~DroneInterface();
+    DaemonInterface* get_daemon();
+    UDPClient* get_udp();
 };
 
 #endif // DRONEINTERFACE_H

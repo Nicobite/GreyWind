@@ -26,7 +26,7 @@ public:
     DaemonInterface();
     ~DaemonInterface();
 
-    bool connect_daemon();
+    bool connect_daemon(bool mp4codec=0, bool videothread=0);
     void kill_daemon();
 
     void launch_navdata_handler();

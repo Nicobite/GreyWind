@@ -27,7 +27,7 @@
 extern int framesB4Detect;
 
 /* S+: pour integration, temp */
-#define NBM 0
+#define NBM 1
 /* S- */
 
 #endif // INCLUDES_H

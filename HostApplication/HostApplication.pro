@@ -20,7 +20,13 @@ SOURCES += main.cpp\
     Threads/facethread.cpp \
     Threads/videothread.cpp \
     includes.cpp \
-    help.cpp
+    help.cpp	\
+    Drone_Interface/droneinterface.cpp \
+    Drone_Interface/Daemon_Interface/controlthread.cpp \
+    Drone_Interface/Daemon_Interface/daemoninterface.cpp \
+    Drone_Interface/Daemon_Interface/navdatathread.cpp \
+    Drone_Interface/UDP_Interface/udp_wrapper.cpp	\
+    proudwing.cpp
 
 LIBS += `pkg-config opencv --libs`
 
@@ -32,7 +38,15 @@ HEADERS  += mainwindow.h \
     includes.h \
     includes.h \
     Threads/videothread.hpp \
-    help.h
+    help.h	\
+    Drone_Interface/droneinterface.h \
+    Drone_Interface/Daemon_Interface/control_states.h \
+    Drone_Interface/Daemon_Interface/controlthread.h \
+    Drone_Interface/Daemon_Interface/daemoninterface.h \
+    Drone_Interface/Daemon_Interface/daemoninterface.h.autosave \
+    Drone_Interface/Daemon_Interface/navdatathread.h \
+    Drone_Interface/UDP_Interface/udp_wrapper.hpp \
+    proudwing.h
 
 FORMS    += mainwindow.ui \
     videoview.ui \
