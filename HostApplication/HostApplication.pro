@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     videoview.cpp \
     Threads/facethread.cpp \
     Threads/videothread.cpp \
-    includes.cpp
+    includes.cpp \
+    help.cpp
 
 LIBS += `pkg-config opencv --libs`
 
@@ -30,7 +31,9 @@ HEADERS  += mainwindow.h \
     Threads/facethread.h \
     includes.h \
     includes.h \
-    Threads/videothread.hpp
+    Threads/videothread.hpp \
+    help.h
 
 FORMS    += mainwindow.ui \
-    videoview.ui
+    videoview.ui \
+    help.ui
