@@ -26,4 +26,8 @@
 //#define FRAMES_B4_DETECT 40
 extern int framesB4Detect;
 
+/* S+: pour integration, temp */
+#define NBM 0
+/* S- */
+
 #endif // INCLUDES_H
