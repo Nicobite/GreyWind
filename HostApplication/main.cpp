@@ -1,12 +1,13 @@
 #include <QApplication>
 
-#include "mainwindow.h"
-#include "Detection/facedetection.hpp"
-#include "Threads/facethread.h"
+#include "proudwing.h"
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+#if NBM
     MainWindow w;
     Facethread thread1;
 
@@ -24,5 +25,11 @@ int main(int argc, char *argv[])
     // Starting up the threads
     w.show();
     thread1.start();
+
+#else
+    Proudwing app;
+    app.show();
+#endif
+
     return a.exec();
 }
