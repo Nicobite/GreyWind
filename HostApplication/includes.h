@@ -2,6 +2,7 @@
 #define INCLUDES_H
 
 #include <stdio.h>
+#include <QDebug>>
 
 #define SRC_DEFAULT 0
 #define SRC_TCP "tcp://@192.168.1.1:5555"
@@ -23,6 +24,6 @@
 #endif
 
 //#define FRAMES_B4_DETECT 40
-static int framesB4Detect = 40;
+extern int framesB4Detect;
 
 #endif // INCLUDES_H

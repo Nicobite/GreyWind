@@ -23,7 +23,7 @@ QImage FaceDetection::detectAndDisplay(Mat frame){
 
     if(m_frameCounter == framesB4Detect){
 #if DBG
-        printf("\tframesB4Detect->%d\n",*framesB4Detect);
+        //printf("\tframesB4Detect->%d\n",framesB4Detect);
 #endif
         //-- Detect faces every "framesBeforeDetect" frame
         m_face_cascade.detectMultiScale( frame_gray, m_faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
