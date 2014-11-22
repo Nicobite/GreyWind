@@ -10,15 +10,19 @@ MainWindow::MainWindow(QWidget *parent) :
     // Setting up UI
     ui->setupUi(this);
 
-    // Connecting the qcombobox with the main window
+    // Connect the qcombobox with the main window
     QObject::connect(ui->srcSelect  , SIGNAL(   currentIndexChanged(int)        ),
                      this           , SLOT  (   getSrc())                       );
 
-    // Connecting qdoublespinbox
+    // Connect qdoublespinbox
     QObject::connect(ui->framesB4Detect , SIGNAL(   valueChanged(double)                ),
                      this               , SLOT  (   getFramesB4Detect(double))          );
     QObject::connect(this               , SIGNAL(   sigDispToCuteConsole(QString)       ),
                      ui->cuteConsole    , SLOT  (   appendPlainText(QString))           );
+
+    // Connect help button
+    QObject::connect(ui->helpButton ,     SIGNAL(   clicked()                           ),
+                     this               , SLOT  (   displayHelp())                      );
 
     // Coloring the video frame for style points
     ui->theFrame->setAutoFillBackground(true);
@@ -52,7 +56,11 @@ void MainWindow::getSrc(){
 }
 
 void MainWindow::getFramesB4Detect(double fbd){
-    DEBUG("MainWindow: sigResponsesSrc");
+    //DEBUG("MainWindow: sigResponsesSrc");
     framesB4Detect = (int)fbd;
     emit sigDispToCuteConsole(QString::fromStdString("[Detect] Frames before detection changed to ")+QString::number(fbd));
+}
+
+void MainWindow::displayHelp(){
+    m_helpWindow.show();
 }

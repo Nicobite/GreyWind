@@ -88,7 +88,7 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>290</x>
       <y>380</y>
       <width>181</width>
       <height>271</height>
@@ -186,8 +186,14 @@
      <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>
      </property>
+     <property name="keyboardTracking">
+      <bool>false</bool>
+     </property>
      <property name="decimals">
       <number>0</number>
+     </property>
+     <property name="maximum">
+      <double>200.000000000000000</double>
      </property>
      <property name="value">
       <double>40.000000000000000</double>
@@ -272,7 +278,7 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>490</x>
       <y>380</y>
       <width>181</width>
       <height>271</height>
@@ -281,11 +287,80 @@
     <property name="title">
      <string>Commands</string>
     </property>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>131</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Measure distance:</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="laserOn">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>97</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Laser aim</string>
+     </property>
+    </widget>
+    <widget class="QLCDNumber" name="distanceDisplay">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(centimeters)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="segmentStyle">
+      <enum>QLCDNumber::Flat</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="getDistance">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>70</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>../../../Desktop/Link to GreyWind/HostApplication/ressources/system-software-update.png</normalon>
+      </iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
    </widget>
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>443</x>
+      <x>463</x>
       <y>380</y>
       <width>20</width>
       <height>261</height>
@@ -298,11 +373,14 @@
    <widget class="QLCDNumber" name="lcdNumber">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>440</y>
-      <width>64</width>
-      <height>23</height>
+      <x>30</x>
+      <y>410</y>
+      <width>191</width>
+      <height>121</height>
      </rect>
+    </property>
+    <property name="segmentStyle">
+     <enum>QLCDNumber::Flat</enum>
     </property>
     <property name="value" stdset="0">
      <double>80085.000000000000000</double>
@@ -342,6 +420,71 @@
     </property>
     <property name="backgroundVisible">
      <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>380</y>
+      <width>20</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="helpButton">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>380</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click for help&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../Desktop/Link to GreyWind/HostApplication/ressources/Help-icon.png</normaloff>../../../Desktop/Link to GreyWind/HostApplication/ressources/Help-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="Line" name="line_3">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>380</y>
+      <width>20</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_4">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>380</y>
+      <width>20</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
     </property>
    </widget>
   </widget>

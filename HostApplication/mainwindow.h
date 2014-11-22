@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "help.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,12 +18,13 @@ public:
     Ui::MainWindow *ui;
 
 private:
-
+    Help m_helpWindow;
 
 public slots:
     void getFrame(QImage image);
     void getSrc();
     void getFramesB4Detect(double fbd);
+    void displayHelp();
 
 signals:
     void sigResponsesSrc(std::string src);
