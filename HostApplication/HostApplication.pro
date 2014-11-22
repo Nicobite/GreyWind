@@ -13,8 +13,24 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    Detection/laserdetect.cpp \
+    Detection/facedetection.cpp \
+    videoview.cpp \
+    Threads/facethread.cpp \
+    Threads/videothread.cpp \
+    includes.cpp
 
-HEADERS  += mainwindow.h
+LIBS += `pkg-config opencv --libs`
 
-FORMS    += mainwindow.ui
+HEADERS  += mainwindow.h \
+    Detection/laserdetect.hpp \
+    Detection/facedetection.hpp \
+    videoview.h \
+    Threads/facethread.h \
+    includes.h \
+    includes.h \
+    Threads/videothread.hpp
+
+FORMS    += mainwindow.ui \
+    videoview.ui
