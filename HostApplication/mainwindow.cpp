@@ -11,8 +11,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // Connecting the qcombobox with the main window
-    QObject::connect(ui->srcSelect  , SIGNAL(   currentIndexChanged(int)          ),
-                     this           , SLOT  (   getSrc())                         );
+    QObject::connect(ui->srcSelect  , SIGNAL(   currentIndexChanged(int)        ),
+                     this           , SLOT  (   getSrc())                       );
+
+    // Connecting qdoublespinbox
+    QObject::connect(ui->framesB4Detect , SIGNAL(   valueChanged(double)                ),
+                     this               , SLOT  (   getFramesB4Detect(double))          );
+    QObject::connect(this               , SIGNAL(   sigDispToCuteConsole(QString)       ),
+                     ui->cuteConsole    , SLOT  (   appendPlainText(QString))           );
 
     // Coloring the video frame for style points
     ui->theFrame->setAutoFillBackground(true);
@@ -20,13 +26,11 @@ MainWindow::MainWindow(QWidget *parent) :
     pal.setColor(QPalette::Window, QColor(Qt::black));
     ui->theFrame->setPalette(pal);
 
+    // Coloring navdata panel (temporary)
     ui->navDataLabel->setAutoFillBackground(true);
     pal = ui->navDataLabel->palette();
     pal.setColor(QPalette::Window, QColor(Qt::green));
     ui->navDataLabel->setPalette(pal);
-
-    ui->algSelect->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    ui->algSelect->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
 }
 
@@ -41,8 +45,14 @@ void MainWindow::getFrame(QImage image){
 
 void MainWindow::getSrc(){
     emit sigResponsesSrc(ui->srcSelect->currentText().toStdString());
-    DEBUG("MainWindow: sigResponsesSrc");
+    //DEBUG("MainWindow: sigResponsesSrc");
 #if DBG
     printf("\t->(%s)\n",ui->srcSelect->currentText().toStdString().c_str());
 #endif
+}
+
+void MainWindow::getFramesB4Detect(double fbd){
+    DEBUG("MainWindow: sigResponsesSrc");
+    framesB4Detect = (int)fbd;
+    emit sigDispToCuteConsole(QString::fromStdString("[Detect] Frames before detection changed to ")+QString::number(fbd));
 }

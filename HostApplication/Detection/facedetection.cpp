@@ -3,9 +3,8 @@
 #include <QApplication>
 #include <QPainter>
 
-FaceDetection::FaceDetection(int framesBeforeDetect)
+FaceDetection::FaceDetection()
 {
-    m_framesBeforeDetect    =   framesBeforeDetect;
     m_face_cascade_name     =   "haarcascade_frontalface_alt.xml";
     m_window_name           =   "Capture - Face detection";
     m_frameCounter          =   1;
@@ -22,7 +21,10 @@ QImage FaceDetection::detectAndDisplay(Mat frame){
     cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
     equalizeHist( frame_gray, frame_gray );
 
-    if(m_frameCounter == m_framesBeforeDetect){
+    if(m_frameCounter == framesB4Detect){
+#if DBG
+        printf("\tframesB4Detect->%d\n",*framesB4Detect);
+#endif
         //-- Detect faces every "framesBeforeDetect" frame
         m_face_cascade.detectMultiScale( frame_gray, m_faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
         m_frameCounter = 0;
@@ -47,9 +49,4 @@ QImage FaceDetection::detectAndDisplay(Mat frame){
     return image.rgbSwapped(); //Because OpenCV return BGR frames instead of RGB
 
 }
-
-void FaceDetection::set_framesBeforeDetect(int framesBeforeDetect){
-    m_framesBeforeDetect = framesBeforeDetect;
-}
-
 

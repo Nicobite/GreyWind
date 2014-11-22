@@ -22,9 +22,11 @@ private:
 public slots:
     void getFrame(QImage image);
     void getSrc();
+    void getFramesB4Detect(double fbd);
 
 signals:
     void sigResponsesSrc(std::string src);
+    void sigDispToCuteConsole(QString);
 
 };
 

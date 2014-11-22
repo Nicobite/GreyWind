@@ -268,15 +268,6 @@
       </property>
      </widget>
     </widget>
-    <zorder>label</zorder>
-    <zorder>label</zorder>
-    <zorder>srcSelect</zorder>
-    <zorder>label_4</zorder>
-    <zorder>algSelect</zorder>
-    <zorder>framesB4Detect</zorder>
-    <zorder>label_2</zorder>
-    <zorder>label_3</zorder>
-    <zorder>tasksCheckboxes</zorder>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
@@ -288,7 +279,7 @@
      </rect>
     </property>
     <property name="title">
-     <string>...</string>
+     <string>Commands</string>
     </property>
    </widget>
    <widget class="Line" name="line">
@@ -376,22 +367,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>srcSelect</sender>
-   <signal>currentTextChanged(QString)</signal>
-   <receiver>cuteConsole</receiver>
-   <slot>appendPlainText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>340</x>
-     <y>458</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>590</x>
-     <y>713</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

@@ -17,12 +17,10 @@ private:
     CascadeClassifier   m_face_cascade;
     std::vector<Rect>   m_faces;
     int                 m_frameCounter;
-    int                 m_framesBeforeDetect;
 public:
-    FaceDetection(int framesBeforeDetect=30);
+    FaceDetection();
     ~FaceDetection();
     QImage detectAndDisplay(Mat frame);
-    void set_framesBeforeDetect(int framesBeforeDetect);
 public slots:
 
 signals:

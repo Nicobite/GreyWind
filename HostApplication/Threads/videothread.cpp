@@ -12,7 +12,7 @@ void VideoThread::run() //TODO
     // Initiating needed objects
     VideoCapture capture;
     Mat frame;
-    FaceDetection faceDetector(FRAMES_B4_DETECT);
+    FaceDetection faceDetector;
 
     // First video open
     openVideo(&capture);

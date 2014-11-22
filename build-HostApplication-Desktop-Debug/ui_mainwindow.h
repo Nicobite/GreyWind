@@ -118,15 +118,6 @@ public:
         pyramid = new QCheckBox(tasksCheckboxes);
         pyramid->setObjectName(QStringLiteral("pyramid"));
         pyramid->setGeometry(QRect(10, 30, 97, 22));
-        label->raise();
-        label->raise();
-        srcSelect->raise();
-        label_4->raise();
-        algSelect->raise();
-        framesB4Detect->raise();
-        label_2->raise();
-        label_3->raise();
-        tasksCheckboxes->raise();
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(470, 380, 181, 271));
@@ -163,7 +154,6 @@ public:
         MainWindow->setMenuBar(menuBar);
 
         retranslateUi(MainWindow);
-        QObject::connect(srcSelect, SIGNAL(currentTextChanged(QString)), cuteConsole, SLOT(appendPlainText(QString)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -200,7 +190,7 @@ public:
         face->setText(QApplication::translate("MainWindow", "face", 0));
         banana->setText(QApplication::translate("MainWindow", "banana", 0));
         pyramid->setText(QApplication::translate("MainWindow", "pyramid", 0));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "...", 0));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "Commands", 0));
         cuteConsole->setPlainText(QApplication::translate("MainWindow", "Welcome to GreyWind's host application!", 0));
     } // retranslateUi
 

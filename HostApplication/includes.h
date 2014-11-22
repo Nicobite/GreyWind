@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 
-#define FRAMES_B4_DETECT 40
 #define SRC_DEFAULT 0
 #define SRC_TCP "tcp://@192.168.1.1:5555"
 
@@ -22,5 +21,8 @@
     #define DEBUG(arg)
     #define ERROR(arg)
 #endif
+
+//#define FRAMES_B4_DETECT 40
+static int framesB4Detect = 40;
 
 #endif // INCLUDES_H
