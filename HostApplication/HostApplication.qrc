@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/HostApplication">
+        <file>ressources/keys/z.png</file>
+        <file>ressources/keys/s.png</file>
+        <file>ressources/keys/q.png</file>
+        <file>ressources/keys/f.png</file>
+        <file>ressources/keys/d.png</file>
+        <file>ressources/keys/arrows.png</file>
+        <file>ressources/system-software-update.png</file>
+        <file>ressources/no.png</file>
+        <file>ressources/Help-icon.png</file>
+    </qresource>
+</RCC>

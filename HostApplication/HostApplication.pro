@@ -51,3 +51,6 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     videoview.ui \
     help.ui
+
+RESOURCES += \
+    HostApplication.qrc

@@ -345,9 +345,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset>
-       <normalon>../../../Desktop/Link to GreyWind/HostApplication/ressources/system-software-update.png</normalon>
-      </iconset>
+      <iconset resource="HostApplication.qrc">
+       <normaloff>:/HostApplication/ressources/system-software-update.png</normaloff>:/HostApplication/ressources/system-software-update.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -451,8 +450,8 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>../../../Desktop/Link to GreyWind/HostApplication/ressources/Help-icon.png</normaloff>../../../Desktop/Link to GreyWind/HostApplication/ressources/Help-icon.png</iconset>
+     <iconset resource="HostApplication.qrc">
+      <normaloff>:/HostApplication/ressources/Help-icon.png</normaloff>:/HostApplication/ressources/Help-icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -509,6 +508,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="HostApplication.qrc"/>
+ </resources>
  <connections/>
 </ui>

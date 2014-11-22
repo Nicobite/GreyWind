@@ -1,6 +1,7 @@
 #include <QApplication>
 
 #include "proudwing.h"
+#include "includes.h"
 
 
 int main(int argc, char *argv[])
@@ -8,6 +9,10 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
 #if NBM
+#include <QMainWindow>
+#include "Detection/facedetection.hpp"
+#include "Threads/facethread.h"
+
     MainWindow w;
     Facethread thread1;
 
