@@ -6,6 +6,7 @@
 FaceDetection::FaceDetection()
 {
     m_face_cascade_name     =   "haarcascade_frontalface_alt.xml";
+    //m_face_cascade_name     =   "cascade_pyramide.xml";
     m_window_name           =   "Capture - Face detection";
     m_frameCounter          =   1;
     if( !m_face_cascade.load( m_face_cascade_name ) ){
@@ -34,8 +35,8 @@ QImage FaceDetection::detectAndDisplay(Mat frame){
         for (size_t i = 0;i < m_faces.size();i++){
             Point center( m_faces[i].x + m_faces[i].width/2, m_faces[i].y + m_faces[i].height/2 );
             ellipse( frame, center, Size( m_faces[i].width/2, m_faces[i].height/2 ), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
-            Mat faceROI = frame_gray( m_faces[i] );
-            std::vector<Rect> eyes;
+            //Mat faceROI = frame_gray( m_faces[i] );
+            //std::vector<Rect> eyes;
         }
 
     m_frameCounter++;

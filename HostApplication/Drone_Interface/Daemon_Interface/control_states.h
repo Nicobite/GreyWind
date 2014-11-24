@@ -7,7 +7,7 @@
 
 #ifndef _CONTROL_STATES_H_
 #define _CONTROL_STATES_H_
-
+#define CTRL_STATES_STRING
 #ifdef CTRL_STATES_STRING
 typedef char ctrl_string_t[32];
 #endif

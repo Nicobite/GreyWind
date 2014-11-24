@@ -17,47 +17,64 @@ Facethread::Facethread(QObject *parent) :
     m_source = "Local";
 }
 
+Facethread::~Facethread(){
+    this->m_running = false;
+    this->quit();
+    this->wait();
+}
+
 
 void Facethread::run()
 {
     // Initiating needed objects
-    VideoCapture capture;
+    VideoCapture* capture;
     Mat frame;
     FaceDetection faceDetector;
 
     // First video open
-    openVideo(&capture);
+    capture = new VideoCapture;
+    openVideo(capture);
 
     // Saving m_source before 1st iteration
     std::string m_source_old = m_source;
+    m_running = true;
 
-    while ( capture.read(frame) ) { // TODONEXT: Update source quite often
+    while (  m_running ) { // TODONEXT: Update source quite often
         //DEBUG("beginning of the while...");
-
+        if(capture->isOpened())
+        {
+            capture->read(frame);
+        } else{
+            DEBUG("Source disappeared.");
+        }
         // Checking m_source changes
         if(m_source_old != m_source){
             DEBUG("Source actually changed in the last iteration");
             // then opening a new video stream for next iteration
-            capture.release();
-            openVideo(&capture);
+            capture->release();
+            //while(capture->isOpened());
+            capture->~VideoCapture();
+            capture = new VideoCapture;
+            openVideo(capture);
+        } else{
+
+            // Just a check
+            if(frame.empty()){
+                ERROR("no captured frame -- Break!");
+                break;
+            }
+
+            // Send output of algorithm to main window
+            dispFrame(faceDetector.detectAndDisplay(frame));
         }
-
-        // Just a check
-        if(frame.empty()){
-            ERROR("no captured frame -- Break!");
-            break;
-        }
-
-        // Send output of algorithm to main window
-        dispFrame(faceDetector.detectAndDisplay(frame));
-
         // Save m_source for later
         m_source_old = m_source;
 
         //DEBUG("end of the while...");
     }
     DEBUG("just before last realease");
-    capture.release();
+    capture->release();
+    delete capture;
     DEBUG("exiting Facethread::run()");
 }
 

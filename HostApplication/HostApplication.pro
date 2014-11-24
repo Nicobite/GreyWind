@@ -26,7 +26,7 @@ SOURCES += main.cpp\
     Drone_Interface/Daemon_Interface/daemoninterface.cpp \
     Drone_Interface/Daemon_Interface/navdatathread.cpp \
     Drone_Interface/UDP_Interface/udp_wrapper.cpp	\
-    proudwing.cpp
+    controlview.cpp
 
 LIBS += `pkg-config opencv --libs`
 
@@ -46,11 +46,12 @@ HEADERS  += mainwindow.h \
     Drone_Interface/Daemon_Interface/daemoninterface.h.autosave \
     Drone_Interface/Daemon_Interface/navdatathread.h \
     Drone_Interface/UDP_Interface/udp_wrapper.hpp \
-    proudwing.h
+    controlview.h
 
 FORMS    += mainwindow.ui \
     videoview.ui \
-    help.ui
+    help.ui \
+    controlview.ui
 
 RESOURCES += \
     HostApplication.qrc

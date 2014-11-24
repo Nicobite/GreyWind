@@ -11,7 +11,7 @@ private:
     UDPClient *m_udp_client;
 
 public:
-    DroneInterface();
+    DroneInterface(int childPID=0, char* childSemFD=NULL, int childPipeWrFD=0);
     ~DroneInterface();
     DaemonInterface* get_daemon();
     UDPClient* get_udp();

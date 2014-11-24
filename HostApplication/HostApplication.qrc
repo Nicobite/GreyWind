@@ -9,5 +9,6 @@
         <file>ressources/system-software-update.png</file>
         <file>ressources/no.png</file>
         <file>ressources/Help-icon.png</file>
+        <file>ressources/joystick.png</file>
     </qresource>
 </RCC>

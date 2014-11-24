@@ -39,6 +39,7 @@ public:
 
     void set_samplig_period(int samp_us);
 
+public slots:
     void key_press_cmd(int key_val);
     void key_release_cmd();
 };

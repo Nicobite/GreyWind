@@ -9,6 +9,23 @@
 #include <cstdlib>
 #include <signal.h>
 
+
+
+class DaemonThread : public QThread
+{
+
+    int m_log_fd;
+    bool m_mp4codec, m_videothread;
+protected:
+    void run();
+
+public:
+    DaemonThread(bool mp4codec=0, bool videothread=0);
+    ~DaemonThread();
+};
+
+
+
 class DaemonInterface
 {
 private:
@@ -22,8 +39,10 @@ private:
     ControlThread *m_ctrl_thread;
     bool m_ctrl_state;
 
+    int m_childPID, m_childPipeWrFD;
+    char* m_childSemFD;
 public:
-    DaemonInterface();
+    DaemonInterface(int childPID=0, char* childSemFD=NULL, int childPipeWrFD=0);
     ~DaemonInterface();
 
     bool connect_daemon(bool mp4codec=0, bool videothread=0);

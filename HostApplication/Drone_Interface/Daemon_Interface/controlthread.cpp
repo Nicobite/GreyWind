@@ -59,7 +59,7 @@ void ControlThread::key_press_cmd(int key_val)
 {
     switch(key_val)
     {
-    case 32:        //SPACE: take off/land
+    case 32:           //SPACE: take off/land
         m_cmd_fifo.push("st");
         break;
     case 16777235:     //up arrow: go forward
@@ -94,7 +94,6 @@ void ControlThread::key_press_cmd(int key_val)
         break;
     }
 }
-
 
 void ControlThread::key_release_cmd()
 {

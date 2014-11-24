@@ -15,8 +15,8 @@
         #define DEBUG(arg) printf("%s[DEBUG] %s%s\n","\033[1;36m",arg,"\033[0m")
         #define ERROR(arg) printf("%s[ERROR] %s%s\n","\033[1;31m",arg,"\033[0m")
     #else
-        #define DEBUG(arg) printf("[DEBUG] %s\n",arg)
-        #define ERROR(arg) printf("[ERROR] %s\n",arg)
+        #define DEBUG(arg) qDebug() << "[DEBUG] " << arg << endl;
+        #define ERROR(arg) qDebug() << "[ERROR] " << arg << endl;
     #endif
 #else
     #define DEBUG(arg)
@@ -27,7 +27,7 @@
 extern int framesB4Detect;
 
 /* S+: pour integration, temp */
-#define NBM 1
+#define NBM 0
 /* S- */
 
 #endif // INCLUDES_H
