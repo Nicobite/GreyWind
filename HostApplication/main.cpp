@@ -1,6 +1,5 @@
 #include <QApplication>
 
-
 #include "mainwindow.h"
 #include "includes.h"
 #include "semaphore.h"
