@@ -7,7 +7,7 @@ VideoThread::VideoThread(QObject *parent) :
     m_source = "Local";
 }
 
-void VideoThread::run() //TODO
+void VideoThread::run() //TODO + TODO2 make better folders
 {
     // Initiating needed objects
     VideoCapture capture;

@@ -8,15 +8,15 @@
 #define SRC_TCP "tcp://@192.168.1.1:5555"
 
 #define DBG 1
-#define COLORFUL 0
+#define COLORFULC 0
 
 #if DBG
-    #if COLORFUL
+    #if COLORFULC
         #define DEBUG(arg) printf("%s[DEBUG] %s%s\n","\033[1;36m",arg,"\033[0m")
         #define ERROR(arg) printf("%s[ERROR] %s%s\n","\033[1;31m",arg,"\033[0m")
     #else
-        #define DEBUG(arg) qDebug() << "[DEBUG] " << arg << endl;
-        #define ERROR(arg) qDebug() << "[ERROR] " << arg << endl;
+        #define DEBUG(arg) qDebug() << "[DEBUG] " << arg;
+        #define ERROR(arg) qDebug() << "[ERROR] " << arg;
     #endif
 #else
     #define DEBUG(arg)

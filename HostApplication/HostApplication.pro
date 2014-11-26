@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     Drone_Interface/Daemon_Interface/daemoninterface.cpp \
     Drone_Interface/Daemon_Interface/navdatathread.cpp \
     Drone_Interface/UDP_Interface/udp_wrapper.cpp	\
-    controlview.cpp
+    controlview.cpp \
+    control.cpp
 
 LIBS += `pkg-config opencv --libs`
 
@@ -46,7 +47,8 @@ HEADERS  += mainwindow.h \
     Drone_Interface/Daemon_Interface/daemoninterface.h.autosave \
     Drone_Interface/Daemon_Interface/navdatathread.h \
     Drone_Interface/UDP_Interface/udp_wrapper.hpp \
-    controlview.h
+    controlview.h \
+    control.h
 
 FORMS    += mainwindow.ui \
     videoview.ui \

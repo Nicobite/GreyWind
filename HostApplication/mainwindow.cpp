@@ -13,20 +13,21 @@ MainWindow::MainWindow(int childPID, char *childSemFD, int childPipeWrFD, QWidge
     m_connected = false;
     m_interface = new DroneInterface(childPID, childSemFD, childPipeWrFD);
 
+    /* Connecting GUI widgets with QMainWindow instance */
     // Connect the qcombobox with the main window
     QObject::connect(ui->srcSelect  , SIGNAL(   currentIndexChanged(int)        ),
                      this           , SLOT  (   getSrc())                       );
-
     // Connect qdoublespinbox
     QObject::connect(ui->framesB4Detect , SIGNAL(   valueChanged(double)                ),
                      this               , SLOT  (   getFramesB4Detect(double))          );
     QObject::connect(this               , SIGNAL(   sigDispToCuteConsole(QString)       ),
                      ui->cuteConsole    , SLOT  (   appendPlainText(QString))           );
-
-
     // Connect control button
     QObject::connect(ui->controlButton, SIGNAL(clicked()),
                      this             , SLOT(displayControl()));
+    // Set connect button
+    QObject::connect(ui->connectButton, SIGNAL(clicked()),
+                     this             , SLOT(connectDrone()));
 
     // Coloring the video frame for style points
     ui->theFrame->setAutoFillBackground(true);
@@ -34,12 +35,8 @@ MainWindow::MainWindow(int childPID, char *childSemFD, int childPipeWrFD, QWidge
     pal.setColor(QPalette::Window, QColor(Qt::black));
     ui->theFrame->setPalette(pal);
 
-    //Set connect button
-    QObject::connect(ui->connectButton, SIGNAL(clicked()),
-                     this             , SLOT(connectDrone()));
 
-
-#if !NBM
+#if !NBM // TODO Delete this shit
     // Connecting main window and thread
     // * updating video on main widget
     QObject::connect(&m_thread1   , SIGNAL(   displayedFrame(QImage)          ),
@@ -53,6 +50,7 @@ MainWindow::MainWindow(int childPID, char *childSemFD, int childPipeWrFD, QWidge
 
     this->show();
 
+    // TODO Delete this shit
     // Starting up the threads
     m_thread1.start();
 
@@ -61,7 +59,7 @@ MainWindow::MainWindow(int childPID, char *childSemFD, int childPipeWrFD, QWidge
 
 MainWindow::~MainWindow()
 {
-    m_interface->get_daemon()->kill_daemon();
+    m_interface->get_daemon()->kill_daemon(); // TODO Delete this shit ?
     delete m_interface;
     delete ui;
 }
@@ -106,7 +104,7 @@ void MainWindow::displayControl(){
     m_controlWindow.show();
 }
 
-void MainWindow::connectDrone(){
+void MainWindow::connectDrone(){ // TODO 1. Delete this shit but create new signals/slots OR 2. pass interface as argument... 2. is bad.
     //Connect to the daemon
     m_interface->get_daemon()->connect_daemon();
     if(m_interface->get_daemon()->is_drone_available())

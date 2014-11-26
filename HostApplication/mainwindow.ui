@@ -512,7 +512,7 @@
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>0</x>
        <y>110</y>
        <width>120</width>
        <height>25</height>
@@ -1113,16 +1113,6 @@
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <zorder>connectButton</zorder>
-    <zorder>label_5</zorder>
-    <zorder>controlButton</zorder>
-    <zorder>line_5</zorder>
-    <zorder>label_7</zorder>
-    <zorder>gridLayoutWidget</zorder>
-    <zorder>connectLabel</zorder>
-    <zorder>helpButton_2</zorder>
-    <zorder>label_11</zorder>
-    <zorder>line_6</zorder>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
