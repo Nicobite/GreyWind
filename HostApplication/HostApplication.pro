@@ -26,8 +26,10 @@ SOURCES += main.cpp\
     Drone_Interface/Daemon_Interface/daemoninterface.cpp \
     Drone_Interface/Daemon_Interface/navdatathread.cpp \
     Drone_Interface/UDP_Interface/udp_wrapper.cpp	\
-    controlview.cpp \
-    control.cpp
+    control.cpp \
+    Detection/detectionalgo.cpp \
+    Detection/haarfacedetectionalgo.cpp \
+    controlview.cpp
 
 LIBS += `pkg-config opencv --libs`
 
@@ -48,7 +50,9 @@ HEADERS  += mainwindow.h \
     Drone_Interface/Daemon_Interface/navdatathread.h \
     Drone_Interface/UDP_Interface/udp_wrapper.hpp \
     controlview.h \
-    control.h
+    control.h \
+    Detection/detectionalgo.h \
+    Detection/haarfacedetectionalgo.h
 
 FORMS    += mainwindow.ui \
     videoview.ui \

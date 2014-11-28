@@ -2,7 +2,8 @@
 #define FACETHREAD_H
 
 #include <QThread>
-
+#include "opencv2/opencv.hpp"
+#include <iostream>
 #include "Detection/facedetection.hpp"
 
 class Facethread : public QThread

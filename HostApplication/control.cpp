@@ -8,7 +8,7 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD, QWidget * p
 
     // Connecting main window and thread
     // * updating video on main widget
-    QObject::connect(&m_face        , SIGNAL(   displayedFrame(QImage)          ),
+    /*QObject::connect(&m_face        , SIGNAL(   displayedFrame(QImage)          ),
                      &m_mainWindow  , SLOT  (   getFrame(QImage))               );
     // * requesting source update
     QObject::connect(&m_face        , SIGNAL(   sigReqSrc()                     ),
@@ -16,10 +16,10 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD, QWidget * p
     // * sending back new source
     QObject::connect(&m_mainWindow  , SIGNAL(   sigResponsesSrc(std::string)    ),
                      &m_face        , SLOT  (   updateSrc(std::string))         );
-
+    */
     // Starting up the threads
     m_mainWindow.show();
-    m_face.start();
+    //m_face.start();
 
 }
 

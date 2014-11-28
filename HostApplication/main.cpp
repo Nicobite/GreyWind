@@ -41,6 +41,12 @@ int main(int argc, char *argv[])
 
 #else
 
+    signal (SIGABRT, &controlCHandler);
+    signal (SIGTERM, &controlCHandler);
+    signal (SIGINT, &controlCHandler);
+    signal (SIGABRT, &controlCHandler);
+    signal (SIGSEGV, &controlCHandler);
+
     char child_sem_fd[] = "connectDaemon";
     int pipefd[2];      //daemon launcher-APP pipe
     int log_fd;
@@ -91,12 +97,6 @@ int main(int argc, char *argv[])
         break;
     default:        //parent
         close(pipefd[0]); //close the read-end of the pipe
-
-        signal (SIGABRT, &controlCHandler);
-        signal (SIGTERM, &controlCHandler);
-        signal (SIGINT, &controlCHandler);
-        signal (SIGABRT, &controlCHandler);
-        signal (SIGSEGV, &controlCHandler);
 
         QApplication a(argc, argv);
 

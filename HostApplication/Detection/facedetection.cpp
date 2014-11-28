@@ -7,6 +7,7 @@ FaceDetection::FaceDetection()
 {
     m_face_cascade_name     =   "haarcascade_frontalface_alt.xml";
     //m_face_cascade_name     =   "cascade_pyramide.xml";
+    //m_face_cascade_name     =   "banana_classifier.xml";
     m_window_name           =   "Capture - Face detection";
     m_frameCounter          =   1;
     if( !m_face_cascade.load( m_face_cascade_name ) ){

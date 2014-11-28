@@ -2,29 +2,38 @@
 #define VIDEOTHREAD_HPP
 
 #include <QThread>
+#include <QColor>
+#include <QPainter>
+#include "opencv2/opencv.hpp"
+#include <iostream>
 
-#include "Detection/facedetection.hpp"
+
+using namespace std;
+using namespace cv;
 
 class VideoThread : public QThread
 {
     Q_OBJECT
 public:
     explicit VideoThread(QObject *parent = 0);
+    ~VideoThread();
 
 protected:
      void run();
 
 private:
-     FaceDetection m_algo;
+     bool m_running;
+     int m_nbFramesBeforeDetect;
      std::string m_source;
      int openVideo(VideoCapture * capture);
 
 public slots:
-    void displayFrame(QImage image);
-    void updateSrc(std::string src);
+    void setSource(std::string src);
+    void setDetectionPeriod(int nbFramesBeforeDetect);
 
 signals:
-    void sigFrameToGUI(QImage image);
+    void sendDetectionFrame(Mat frame);
+    void sendVideoFrame(QImage frame);
 
 };
 
