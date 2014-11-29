@@ -10,27 +10,32 @@
 #include "help.h"
 #include "controlview.h"
 #include "Drone_Interface/droneinterface.h"
-#include "Detection/facedetection.hpp"
-#include "Threads/facethread.h"
 #include "Threads/videothread.hpp"
+#include "Detection/detectionalgo.h"
+#include "Detection/haarfacedetectionalgo.h"
 
-class Control
+class Control: public QObject
 {
+    Q_OBJECT
+
 public:
-    Control(int childPID=0, char* childSemFD=NULL, int childPipeWrFD=0, QWidget *parent = 0);
+    Control(int childPID=0, char* childSemFD=NULL, int childPipeWrFD=0, QObject *parent = 0);
     ~Control();
 
 private:
-    QMainWindow m_mainWindow;
-    //Facethread m_face;
-    VideoThread* m_vidThread;
-    DroneInterface* m_interface;
+    MainWindow m_mainWindow;
+
     bool m_connected;
+    DroneInterface* m_interface;
+
+    VideoThread* m_vidThread;
+    DetectionAlgo* m_detectionAlgo;
 
 signals:
     //un signal pour les pts + taille detectés
 
 public slots:
+    void changeVideoSource(std::string src, int err=0);
 
 };
 

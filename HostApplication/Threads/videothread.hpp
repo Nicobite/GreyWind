@@ -35,6 +35,7 @@ signals:
     void sendDetectionFrame(Mat frame);
     void sendVideoFrame(QImage frame);
 
+    void cannotChangeSource(std::string src, int err);
 };
 
 #endif // VIDEOTHREAD_HPP

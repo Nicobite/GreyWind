@@ -22,12 +22,13 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(int childPID=0, char* childSemFD=NULL, int childPipeWrFD=0, QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     Ui::MainWindow *ui;
 
     //void keyPressEvent(QKeyEvent* e);
     //void keyReleaseEvent(QKeyEvent* e);
+    void dispToCuteConsole(QString message);
 
 private:
     ControlView m_controlWindow;
@@ -36,16 +37,21 @@ private:
     bool m_connected;
 
 public slots:
-    void getFrame(QImage image);
-    void getSrc();
-    void getFramesB4Detect(double fbd);
-    void displayControl();
-    void connectDrone();
+    void setFrame(QImage image);
     void updateNavdataView(navdata_t nd);
+    void drawDetectedEllipse(Point center, Size size);
+
+    //void displayControl();
+    //void connectDrone();
+
+private slots:
+    void emitVidSource(const QString& text);
+    void emitFramesB4Detect(double fbd);
 
 signals:
-    void sigResponsesSrc(std::string src);
-    void sigDispToCuteConsole(QString);
+    void vidSourceChanged(std::string src);
+    void detectFrameRateChanged(int fbd);
+    //void dispToCuteConsole(QString);
 
 };
 

@@ -35,7 +35,6 @@ void VideoThread::run() //TODO + TODO2 make better folders
     int frameCounter = 0;
 
     while (m_running) {
-
         // Checking m_source changes
         if(m_source_old != m_source){
             DEBUG("[VideoThread]: Source actually changed in the last iteration");
@@ -52,39 +51,47 @@ void VideoThread::run() //TODO + TODO2 make better folders
             //DEBUG("[VideoThread]: beginning of the while...");
             if(capture->isOpened())
             {
-                capture->read(frame);
+                try{
+                    capture->read(frame);
 
-                // Just a check
-                if(frame.empty()){
-                    ERROR("[VideoThread]: no captured frame -- Break!");
-                    break;
+                    // Just a check
+                    if(frame.empty()){
+                        ERROR("[VideoThread]: no captured frame -- Break!");
+                        break;
+                    }
+
+                    if(frameCounter >= m_nbFramesBeforeDetect){
+                        emit sendDetectionFrame(frame);
+                        frameCounter = 0;
+                    } else{
+                        frameCounter++;
+                    }
+
+                    QImage image = QImage((const unsigned char*)frame.data,frame.cols,frame.rows,frame.step,QImage::Format_RGB888);
+
+                    emit sendVideoFrame(image.rgbSwapped());
+
+                } catch(cv::Exception e){
+                    ERROR("[VideoThread]: Read failed!");
+                    emit cannotChangeSource(m_source, 1);
+                    m_source = "None";
                 }
-
-                if(frameCounter == m_nbFramesBeforeDetect){
-                    emit sendDetectionFrame(frame);
-                    frameCounter = 0;
-                } else{
-                    frameCounter++;
-                }
-
-                // Send output of video feed to the video view
-                QImage image = QImage((const unsigned char*)frame.data,frame.cols,frame.rows,frame.step,QImage::Format_RGB888);
-                //Because OpenCV return BGR frames instead of RGB
-                emit sendVideoFrame(image.rgbSwapped());
-
             } else{
                 DEBUG("[VideoThread]: Source disappeared.");
+                emit cannotChangeSource(m_source, 1);
+                m_source = "None";
             }
         } else{
-            QImage image = QImage(320, 240, QImage::Format_RGB888);
+            QImage image = QImage(640, 360, QImage::Format_RGB888);
             image.fill(Qt::black);
             QPainter p(&image);
 
             p.setPen(QPen(Qt::white));
-            p.setFont(QFont("Times", 10, QFont::Bold));
+            p.setFont(QFont("Times", 16, QFont::Bold));
             p.drawText(image.rect(), Qt::AlignCenter, "No display source is selected.");
             emit sendVideoFrame(image.rgbSwapped());
         }
+        usleep(1000);
     }
     DEBUG("[VideoThread]: just before last realease");
     capture->release();
