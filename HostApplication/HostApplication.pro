@@ -13,14 +13,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     Detection/laserdetect.cpp \
-    Detection/facedetection.cpp \
-    videoview.cpp \
-    Threads/facethread.cpp \
-    Threads/videothread.cpp \
     includes.cpp \
-    help.cpp	\
     Drone_Interface/droneinterface.cpp \
     Drone_Interface/Daemon_Interface/controlthread.cpp \
     Drone_Interface/Daemon_Interface/daemoninterface.cpp \
@@ -29,19 +23,15 @@ SOURCES += main.cpp\
     control.cpp \
     Detection/detectionalgo.cpp \
     Detection/haarfacedetectionalgo.cpp \
-    controlview.cpp
+    GUI/help.cpp \
+    GUI/mainwindow.cpp \
+    GUI/videoview.cpp \
+    Video/videothread.cpp
 
 LIBS += `pkg-config opencv --libs`
 
-HEADERS  += mainwindow.h \
-    Detection/laserdetect.hpp \
-    Detection/facedetection.hpp \
-    videoview.h \
-    Threads/facethread.h \
+HEADERS  += Detection/laserdetect.hpp \
     includes.h \
-    includes.h \
-    Threads/videothread.hpp \
-    help.h	\
     Drone_Interface/droneinterface.h \
     Drone_Interface/Daemon_Interface/control_states.h \
     Drone_Interface/Daemon_Interface/controlthread.h \
@@ -49,15 +39,17 @@ HEADERS  += mainwindow.h \
     Drone_Interface/Daemon_Interface/daemoninterface.h.autosave \
     Drone_Interface/Daemon_Interface/navdatathread.h \
     Drone_Interface/UDP_Interface/udp_wrapper.hpp \
-    controlview.h \
     control.h \
     Detection/detectionalgo.h \
-    Detection/haarfacedetectionalgo.h
+    Detection/haarfacedetectionalgo.h \
+    GUI/help.h \
+    GUI/mainwindow.h \
+    GUI/videoview.h \
+    Video/videothread.hpp
 
-FORMS    += mainwindow.ui \
-    videoview.ui \
-    help.ui \
-    controlview.ui
+FORMS    += GUI/help.ui \
+    GUI/mainwindow.ui \
+    GUI/videoview.ui
 
 RESOURCES += \
     HostApplication.qrc

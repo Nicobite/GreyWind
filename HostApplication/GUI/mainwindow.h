@@ -2,16 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "help.h"
-#include "controlview.h"
+#include "GUI/help.h"
 #include <QGridLayout>
 
 #include <QWidget>
-#include "Drone_Interface/droneinterface.h"
 #include <QKeyEvent>
-#include "Detection/facedetection.hpp"
-#include "Threads/facethread.h"
 #include "includes.h"
+#include "GUI/videoview.h"
+#include "Drone_Interface/droneinterface.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,28 +28,35 @@ public:
     //void keyReleaseEvent(QKeyEvent* e);
     void dispToCuteConsole(QString message);
 
+    void keyPressEvent(QKeyEvent* e);
+    void keyReleaseEvent(QKeyEvent* e);
+    void focusInEvent(QFocusEvent* event);
+    void focusOutEvent(QFocusEvent* event);
+
+
 private:
-    ControlView m_controlWindow;
-    DroneInterface* m_interface;
-    Facethread m_thread1;
     bool m_connected;
+    Help m_helpWindow;
 
 public slots:
     void setFrame(QImage image);
     void updateNavdataView(navdata_t nd);
     void drawDetectedEllipse(Point center, Size size);
-
-    //void displayControl();
-    //void connectDrone();
+    void updateConnectionStatus(bool status);
 
 private slots:
     void emitVidSource(const QString& text);
     void emitFramesB4Detect(double fbd);
+    void emitConnectButton();
+    void displayHelp();
 
 signals:
     void vidSourceChanged(std::string src);
     void detectFrameRateChanged(int fbd);
-    //void dispToCuteConsole(QString);
+    void connectButtonClicked();
+
+    void pressCmd(int keyval);
+    void releaseCmd();
 
 };
 

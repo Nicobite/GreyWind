@@ -1,4 +1,4 @@
-#include "detectionalgo.h"
+#include "Detection/detectionalgo.h"
 
 DetectionAlgo::DetectionAlgo(QObject *parent): QObject(parent){
 

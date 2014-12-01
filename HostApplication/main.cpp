@@ -1,6 +1,5 @@
 #include <QApplication>
 
-#include "mainwindow.h"
 #include "includes.h"
 #include "semaphore.h"
 #include "control.h"
@@ -13,33 +12,7 @@ void controlCHandler (int signal)
 
 int main(int argc, char *argv[])
 {
-#if NBM
-#include <QMainWindow>
-#include "Detection/facedetection.hpp"
-#include "Threads/facethread.h"
-    QApplication a(argc, argv);
 
-    MainWindow w;
-    Facethread thread1;
-
-    // Connecting main window and thread
-    // * updating video on main widget
-    QObject::connect(&thread1   , SIGNAL(   displayedFrame(QImage)          ),
-                     &w         , SLOT  (   getFrame(QImage))               );
-    // * requesting source update
-    QObject::connect(&thread1   , SIGNAL(   sigReqSrc()                     ),
-                     &w         , SLOT  (   getSrc())                       );
-    // * sending back new source
-    QObject::connect(&w         , SIGNAL(   sigResponsesSrc(std::string)    ),
-                     &thread1   , SLOT  (   updateSrc(std::string))         );
-
-    // Starting up the threads
-    w.show();
-    thread1.start();
-
-    return a.exec();
-
-#else
 
     signal (SIGABRT, &controlCHandler);
     signal (SIGTERM, &controlCHandler);
@@ -105,7 +78,5 @@ int main(int argc, char *argv[])
 
         return a.exec();
     }
-
-#endif
 
 }

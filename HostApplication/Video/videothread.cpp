@@ -1,5 +1,5 @@
 #include "includes.h"
-#include "videothread.hpp"
+#include "Video/videothread.hpp"
 #include "opencv2/opencv.hpp"
 
 
@@ -55,22 +55,25 @@ void VideoThread::run() //TODO + TODO2 make better folders
                     capture->read(frame);
 
                     // Just a check
-                    if(frame.empty()){
-                        ERROR("[VideoThread]: no captured frame -- Break!");
-                        break;
-                    }
+                    if(!frame.empty()){
 
-                    if(frameCounter >= m_nbFramesBeforeDetect){
-                        emit sendDetectionFrame(frame);
-                        frameCounter = 0;
+                        if(frameCounter >= m_nbFramesBeforeDetect){
+                            emit sendDetectionFrame(frame);
+                            frameCounter = 0;
+                        } else{
+                            frameCounter++;
+                        }
+
+                        QImage image = QImage((const unsigned char*)frame.data,frame.cols,frame.rows,frame.step,QImage::Format_RGB888);
+
+                        emit sendVideoFrame(image.rgbSwapped());
+
                     } else{
-                        frameCounter++;
+                        ERROR("[VideoThread]: no captured frame -- Break!");
+                        emit cannotChangeSource(m_source, 1);
+                        m_source = "None";
+
                     }
-
-                    QImage image = QImage((const unsigned char*)frame.data,frame.cols,frame.rows,frame.step,QImage::Format_RGB888);
-
-                    emit sendVideoFrame(image.rgbSwapped());
-
                 } catch(cv::Exception e){
                     ERROR("[VideoThread]: Read failed!");
                     emit cannotChangeSource(m_source, 1);

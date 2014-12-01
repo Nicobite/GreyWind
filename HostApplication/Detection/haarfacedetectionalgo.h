@@ -2,7 +2,7 @@
 #define HAARFACEDETECTIONALGO_H
 
 #include "opencv2/opencv.hpp"
-#include "detectionalgo.h"
+#include "Detection/detectionalgo.h"
 
 class HaarFaceDetectionAlgo : public DetectionAlgo
 {

@@ -6,11 +6,10 @@
 #include <QKeyEvent>
 #include <QGridLayout>
 
-#include "mainwindow.h"
-#include "help.h"
-#include "controlview.h"
+#include "GUI/mainwindow.h"
+#include "GUI/help.h"
 #include "Drone_Interface/droneinterface.h"
-#include "Threads/videothread.hpp"
+#include "Video/videothread.hpp"
 #include "Detection/detectionalgo.h"
 #include "Detection/haarfacedetectionalgo.h"
 
@@ -28,15 +27,21 @@ private:
     bool m_connected;
     DroneInterface* m_interface;
 
+    std::string m_currentVidSource;
     VideoThread* m_vidThread;
+
     DetectionAlgo* m_detectionAlgo;
 
 signals:
-    //un signal pour les pts + taille detectés
+    void sendFrameToDetect(Mat frame);
+    void sendDetectedObject(Point point, Size size);
+    void sendConnectionStatus(bool status);
 
 public slots:
     void changeVideoSource(std::string src, int err=0);
-
+    void handleFrame(Mat frame);
+    void handleDetectedObject(Point point, Size size);
+    void connectDrone();
 };
 
 #endif // CONTROL_H

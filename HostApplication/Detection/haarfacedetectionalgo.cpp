@@ -1,4 +1,4 @@
-#include "haarfacedetectionalgo.h"
+#include "Detection/haarfacedetectionalgo.h"
 #include "opencv2/opencv.hpp"
 
 HaarFaceDetectionAlgo::HaarFaceDetectionAlgo(String face_cascade_name): DetectionAlgo()
@@ -23,18 +23,33 @@ void HaarFaceDetectionAlgo::detect(Mat &frame)
     Size size;
     //DEBUG("Entering detectAndDisplay");
     Mat frame_gray;
-    cvtColor(frame, frame_gray, COLOR_BGR2GRAY );
-    equalizeHist(frame_gray, frame_gray );
 
-    m_face_cascade.detectMultiScale( frame_gray, m_faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+    if(frame.empty()){
+        ERROR("[HaarDetect] This frame seems to be empty.");
+    } else{
 
-    for (size_t i = 0;i < m_faces.size();i++){
-        center = Point( m_faces[i].x + m_faces[i].width/2, m_faces[i].y + m_faces[i].height/2 );
-        size = Size( m_faces[i].width/2, m_faces[i].height/2 );
-        //ellipse( frame, center, Size( m_faces[i].width/2, m_faces[i].height/2 ), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
+        if(frame.channels()>1){
+            cvtColor(frame, frame_gray, COLOR_BGR2GRAY );
+        } else{
+            frame_gray = frame;
+        }
 
-        emit detectedObject(center, size);
+        equalizeHist(frame_gray, frame_gray );
+        try{
+            m_face_cascade.detectMultiScale( frame_gray, m_faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+
+            for (size_t i = 0;i < m_faces.size();i++){
+                center = Point( m_faces[i].x + m_faces[i].width/2, m_faces[i].y + m_faces[i].height/2 );
+                size = Size( m_faces[i].width/2, m_faces[i].height/2 );
+                //ellipse( frame, center, Size( m_faces[i].width/2, m_faces[i].height/2 ), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
+
+                emit detectedObject(center, size);
+            }
+        } catch(...){
+            ERROR("[HaarDetect] Something wicked somewhere around here.")
+        }
     }
+
 }
 
 

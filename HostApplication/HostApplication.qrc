@@ -10,5 +10,6 @@
         <file>ressources/no.png</file>
         <file>ressources/Help-icon.png</file>
         <file>ressources/joystick.png</file>
+        <file>ressources/joystick_inactive.png</file>
     </qresource>
 </RCC>

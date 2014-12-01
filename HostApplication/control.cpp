@@ -7,10 +7,15 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     qRegisterMetaType<std::string> ("std::string");
     qRegisterMetaType<Mat> ("Mat");
 
-    //Creating interfaces and video threads
+    //Drone interface
     m_connected = false;
     m_interface = new DroneInterface(childPID, childSemFD, childPipeWrFD);
+    QObject::connect(this,              SIGNAL(sendConnectionStatus(bool)),
+                     &m_mainWindow,     SLOT(updateConnectionStatus(bool)));
+    QObject::connect(&m_mainWindow,     SIGNAL(connectButtonClicked()),
+                     this,              SLOT(connectDrone()));
 
+    //Video management with source selection and detection rate settings
     m_vidThread = new VideoThread();
     QObject::connect(m_vidThread,       SIGNAL(sendVideoFrame(QImage)),
                      &m_mainWindow,     SLOT(setFrame(QImage)));
@@ -20,32 +25,32 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      this,              SLOT(changeVideoSource(std::string)));
     QObject::connect(m_vidThread,       SIGNAL(cannotChangeSource(std::string,int)),
                      this,              SLOT(changeVideoSource(std::string,int)));
-    /* QObject::connect(&m_mainWindow,     SIGNAL(vidSourceChanged(std::string)),
-                     this,              SLOT(changeVideoSource(std::string)));
-    */m_vidThread->start();
+    m_currentVidSource  = "None";
+    m_vidThread->start();
 
-    m_detectionAlgo = new HaarFaceDetectionAlgo("haarcascade_frontalface_alt.xml");
+    //Detection related handlers:
     QObject::connect(m_vidThread,       SIGNAL(sendDetectionFrame(Mat)),
-                     m_detectionAlgo,   SLOT(handleFrame(Mat)));
-    QObject::connect(m_detectionAlgo,   SIGNAL(detectedObject(Point,Size)),
+                     this,              SLOT(handleFrame(Mat)));
+    QObject::connect(this,   SIGNAL(sendDetectedObject(Point,Size)),
                      &m_mainWindow,     SLOT(drawDetectedEllipse(Point,Size)));
-    // Connecting main window and thread
-    // * updating video on main widget
-    /*    // * requesting source update
-    QObject::connect(&m_face        , SIGNAL(   sigReqSrc()                     ),
-                     &m_mainWindow  , SLOT  (   getSrc())                       );
-    // * sending back new source
-    QObject::connect(&m_mainWindow  , SIGNAL(   sigResponsesSrc(std::string)    ),
-                     &m_face        , SLOT  (   updateSrc(std::string))         );
-    */
+
+
+    /*TODO : lol change that shit       */
+    m_detectionAlgo = new HaarFaceDetectionAlgo("haarcascade_frontalface_alt.xml");
+    QObject::connect(this,              SIGNAL(sendFrameToDetect(Mat)),
+                     m_detectionAlgo,   SLOT(handleFrame(Mat)));
+
+    QObject::connect(m_detectionAlgo,   SIGNAL(detectedObject(Point,Size)),
+                     this,     SLOT(handleDetectedObject(Point,Size)));
+    /* END TODO                         */
+
     // Starting up the threads
     m_mainWindow.show();
-    //m_face.start();
 
 }
 
 Control::~Control(){
-    m_interface->get_daemon()->kill_daemon(); // TODO Delete this shit ?
+    m_interface->get_daemon()->kill_daemon();
     delete m_interface;
 }
 
@@ -56,11 +61,49 @@ void Control::changeVideoSource(std::string src, int err){
             "[Control]: Cannot change source to "+src+", drone is not connected!"
             ));
         }else{
+            m_currentVidSource = src;
             m_vidThread->setSource(src);
         }
     }else if(err==1){
+        m_currentVidSource = "None";
         m_mainWindow.dispToCuteConsole(QString::fromStdString(
         "[Control]: Cannot change source to "+src+", device cannot be opened!"
         ));
+    }
+}
+
+void Control::handleFrame(Mat frame){
+    //TODO : add intelligence
+    emit sendFrameToDetect(frame);
+}
+
+
+void Control::handleDetectedObject(Point point, Size size){
+    //TODO : add some fucking intelligence
+    emit sendDetectedObject(point, size);
+}
+
+void Control::connectDrone(){
+    //Connect to the daemon
+    m_interface->get_daemon()->connect_daemon();
+    if(m_interface->get_daemon()->is_drone_available())
+    {
+        m_interface->get_daemon()->launch_navdata_handler();
+        m_interface->get_daemon()->launch_control_handler();
+        m_connected = true;
+
+        emit sendConnectionStatus(true);
+
+        //Set navdata
+        QObject::connect(this->m_interface->get_daemon()->get_navdata_thread(), SIGNAL(sendCurrentND(navdata_t)),
+                         &m_mainWindow                                        , SLOT(updateNavdataView(navdata_t)));
+
+        if(m_interface->get_daemon()->is_control_running())
+        {
+            QObject::connect(&m_mainWindow,                                         SIGNAL(pressCmd(int)),
+                             this->m_interface->get_daemon()->get_control_thread(), SLOT(key_press_cmd(int)));
+            QObject::connect(&m_mainWindow,                                         SIGNAL(releaseCmd()),
+                             this->m_interface->get_daemon()->get_control_thread(), SLOT(key_release_cmd()));
+        }
     }
 }
