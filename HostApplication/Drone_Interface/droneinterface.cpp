@@ -17,7 +17,13 @@ DaemonInterface* DroneInterface::get_daemon()
 }
 
 
-UDPClient* DroneInterface::get_udp()
+SensorThread* DroneInterface::get_sensor_thread()
 {
-    return this->m_udp_client;
+    return this->m_sensor_thread;
+}
+
+void DroneInterface::launch_sensor_thread()
+{
+    this->m_sensor_thread = new SensorThread();
+    this->m_sensor_thread->start();
 }

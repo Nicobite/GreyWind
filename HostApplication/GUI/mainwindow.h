@@ -43,17 +43,22 @@ public slots:
     void updateNavdataView(navdata_t nd);
     void drawDetectedEllipse(Point center, Size size);
     void updateConnectionStatus(bool status);
+    void updateSonarView(int distance);
 
 private slots:
     void emitVidSource(const QString& text);
     void emitFramesB4Detect(double fbd);
     void emitConnectButton();
+    void emitLaserState(int state);
+    void emitSonarRequest();
     void displayHelp();
 
 signals:
     void vidSourceChanged(std::string src);
     void detectFrameRateChanged(int fbd);
     void connectButtonClicked();
+    void laserState(bool state);
+    void sonarRequest();
 
     void pressCmd(int keyval);
     void releaseCmd();

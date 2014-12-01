@@ -24,13 +24,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Connect qdoublespinbox
     QObject::connect(ui->framesB4Detect,  SIGNAL(valueChanged(double)),
-                       this,                SLOT(emitFramesB4Detect(double)));
+                       this,              SLOT(emitFramesB4Detect(double)));
+
+    QObject::connect(ui->laserOn,         SIGNAL(stateChanged(int)),
+                     this,                SLOT(emitLaserState(int)));
+    QObject::connect(ui->getDistance,         SIGNAL(clicked()),
+                     this,                SLOT(emitSonarRequest()));
 }
 
 MainWindow::~MainWindow(){
     delete ui;
 }
-
 
 
 void MainWindow::dispToCuteConsole(QString message){
@@ -148,8 +152,12 @@ void MainWindow::updateConnectionStatus(bool status){
     this->ui->connectButton->setEnabled(false);
 
     m_connected = true;
-    this->ui->controlGraphicLabel->setPixmap(QPixmap(":/ressources/joystick.png"));
+    this->ui->controlGraphicLabel->setPixmap(QPixmap(":/HostApplication/ressources/joystick.png"));
     this->ui->controlTextLabel->setText("No command.");
+}
+
+void MainWindow::updateSonarView(int distance){
+    ui->distanceDisplay->display(distance);
 }
 
 
@@ -179,4 +187,16 @@ void MainWindow::emitConnectButton(){
 
 void MainWindow::displayHelp(){
     m_helpWindow.show();
+}
+
+void MainWindow::emitLaserState(int state){
+    if(state==Qt::Unchecked){
+        emit laserState(false);
+    } else if(state == Qt::Checked){
+        emit laserState(true);
+    }
+}
+
+void MainWindow::emitSonarRequest(){
+    emit sonarRequest();
 }

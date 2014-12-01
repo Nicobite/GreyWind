@@ -73,7 +73,6 @@ int main(int argc, char *argv[])
 
         QApplication a(argc, argv);
 
-        //MainWindow w(child, child_sem_fd, pipefd[1]);
         Control c(child, child_sem_fd, pipefd[1]);
 
         return a.exec();

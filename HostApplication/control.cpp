@@ -90,6 +90,7 @@ void Control::connectDrone(){
     {
         m_interface->get_daemon()->launch_navdata_handler();
         m_interface->get_daemon()->launch_control_handler();
+        m_interface->launch_sensor_thread();
         m_connected = true;
 
         emit sendConnectionStatus(true);
@@ -97,6 +98,14 @@ void Control::connectDrone(){
         //Set navdata
         QObject::connect(this->m_interface->get_daemon()->get_navdata_thread(), SIGNAL(sendCurrentND(navdata_t)),
                          &m_mainWindow                                        , SLOT(updateNavdataView(navdata_t)));
+
+        //Sensor connections
+        QObject::connect(&m_mainWindow,                             SIGNAL(laserState(bool)),
+                         this->m_interface->get_sensor_thread(),    SLOT(setLaserState(bool)));
+        QObject::connect(&m_mainWindow,                             SIGNAL(sonarRequest()),
+                         this->m_interface->get_sensor_thread(),    SLOT(requestSonarData()));
+        QObject::connect(this->m_interface->get_sensor_thread(),    SIGNAL(newSonarData(int)),
+                         &m_mainWindow,                             SLOT(updateSonarView(int)));
 
         if(m_interface->get_daemon()->is_control_running())
         {
