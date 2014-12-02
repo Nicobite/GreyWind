@@ -66,6 +66,8 @@ void VideoThread::run() //TODO + TODO2 make better folders
 
                         QImage image = QImage((const unsigned char*)frame.data,frame.cols,frame.rows,frame.step,QImage::Format_RGB888);
 
+                        //DEBUG(frame.cols << " " << frame.rows);
+
                         emit sendVideoFrame(image.rgbSwapped());
 
                     } else{
@@ -93,26 +95,27 @@ void VideoThread::run() //TODO + TODO2 make better folders
             p.setFont(QFont("Times", 16, QFont::Bold));
             p.drawText(image.rect(), Qt::AlignCenter, "No display source is selected.");
             emit sendVideoFrame(image.rgbSwapped());
+            usleep(33333);
         }
         usleep(1000);
     }
-    DEBUG("[VideoThread]: just before last realease");
+    DEBUG("[VideoThread] just before last realease");
     capture->release();
     delete capture;
-    DEBUG("[VideoThread]: exiting Facethread::run()");
+    DEBUG("[VideoThread] exiting Facethread::run()");
 }
 
 int VideoThread::openVideo(VideoCapture * capture){
-    DEBUG("[VideoThread]: entering openVideo");
+    DEBUG("[VideoThread] entering openVideo");
     if( m_source == "None" ){                                }else
     if (m_source == "Local"){   capture->open(SRC_DEFAULT);  } else
     if (m_source == "TCP")  {   capture->open(SRC_TCP);      }
     if (m_source!="None" && !capture->isOpened() ) {
-        ERROR("[VideoThread]: opening video capture, getting back to Local source."); // TODO: Make this a thing :$
+        ERROR("[VideoThread] opening video capture, getting back to Local source."); // TODO: Make this a thing :$
         m_source = "Local";
         return -1;
     }
-    DEBUG("[VideoThread]: exiting openVideo with status Ok");
+    DEBUG("[VideoThread] exiting openVideo with status Ok");
     return 0;
 }
 

@@ -28,8 +28,8 @@ private:
     DroneInterface* m_interface;
 
     std::string m_currentVidSource;
-    VideoThread* m_vidThread;
 
+    VideoThread* m_vidThread;
     DetectionAlgo* m_detectionAlgo;
 
 signals:

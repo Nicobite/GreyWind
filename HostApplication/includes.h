@@ -2,7 +2,7 @@
 #define INCLUDES_H
 
 #include <stdio.h>
-#include <QDebug>>
+#include <QDebug>
 
 #define SRC_DEFAULT 0
 #define SRC_TCP "tcp://@192.168.1.1:5555"

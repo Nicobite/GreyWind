@@ -2,10 +2,11 @@
 #define VIDEOVIEW_H
 
 #include <QWidget>
-#include "includes.h"
+#include <QPainter>
 #include <queue>
 #include "opencv2/opencv.hpp"
-#include <QPainter>
+#include "includes.h"
+#include "painterthread.h"
 
 namespace Ui {
 class VideoView;
@@ -22,13 +23,22 @@ public:
     ~VideoView();
     void updateView(QImage image);
     void pushEllipse(Point point, Size size);
+    void updateVideo(QImage);
+    void updateDraw();
 
 private:
-    Ui::VideoView *ui;
+    Ui::VideoView * ui;
+    PainterThread m_painterThread;
+
     std::queue<Point> m_drawPointFIFO;
     std::queue<Size> m_drawSizeFIFO;
     QPoint m_ellipsePoint;
-    int m_ellipseWidth, m_ellipseHeight;
+    int m_ellipseWidth;
+    int m_ellipseHeight;//*/
+
+public slots:
+    void slotDrawToView(QPixmap pixmap);
+
 };
 
 #endif // VIDEOVIEW_H

@@ -7,7 +7,7 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     qRegisterMetaType<std::string> ("std::string");
     qRegisterMetaType<Mat> ("Mat");
 
-    //Drone interface
+    // Drone interface
     m_connected = false;
     m_interface = new DroneInterface(childPID, childSemFD, childPipeWrFD);
     QObject::connect(this,              SIGNAL(sendConnectionStatus(bool)),
@@ -15,7 +15,7 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     QObject::connect(&m_mainWindow,     SIGNAL(connectButtonClicked()),
                      this,              SLOT(connectDrone()));
 
-    //Video management with source selection and detection rate settings
+    // Video management with source selection and detection rate settings
     m_vidThread = new VideoThread();
     QObject::connect(m_vidThread,       SIGNAL(sendVideoFrame(QImage)),
                      &m_mainWindow,     SLOT(setFrame(QImage)));
@@ -28,10 +28,10 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     m_currentVidSource  = "None";
     m_vidThread->start();
 
-    //Detection related handlers:
+    // Detection related handlers:
     QObject::connect(m_vidThread,       SIGNAL(sendDetectionFrame(Mat)),
                      this,              SLOT(handleFrame(Mat)));
-    QObject::connect(this,   SIGNAL(sendDetectedObject(Point,Size)),
+    QObject::connect(this,              SIGNAL(sendDetectedObject(Point,Size)),
                      &m_mainWindow,     SLOT(drawDetectedEllipse(Point,Size)));
 
 
@@ -41,7 +41,7 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      m_detectionAlgo,   SLOT(handleFrame(Mat)));
 
     QObject::connect(m_detectionAlgo,   SIGNAL(detectedObject(Point,Size)),
-                     this,     SLOT(handleDetectedObject(Point,Size)));
+                     this,              SLOT(handleDetectedObject(Point,Size)));
     /* END TODO                         */
 
     // Starting up the threads
