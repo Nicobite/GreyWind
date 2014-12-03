@@ -1,6 +1,8 @@
 #include "videoview.h"
 #include "ui_videoview.h"
 
+#define THREADED_DRAWING 0
+
 VideoView::VideoView(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::VideoView)
@@ -8,9 +10,11 @@ VideoView::VideoView(QWidget *parent) :
     DEBUG("VideowView constructor 1");
     ui->setupUi(this);
     // Connecting videoview with drawing thread
-    /*QObject::connect(&m_painterThread,   SIGNAL(sigDrawToView(QPixmap))  ,
+#if THREADED_DRAWING
+    QObject::connect(&m_painterThread,   SIGNAL(sigDrawToView(QPixmap))  ,
                      this,              SLOT(slotDrawToView(QPixmap))   );//*/
     m_painterThread.start();
+#endif
     DEBUG("VideowView constructor 2");
 }
 
@@ -22,7 +26,9 @@ VideoView::~VideoView()
 
 void VideoView::updateView(QImage image){
     updateVideo(image);
-    //updateDraw();
+#if !THREADED_DRAWING
+    updateDraw();
+#endif
 }
 
 
@@ -54,13 +60,19 @@ void VideoView::updateDraw(){
 }
 
 void VideoView::slotDrawToView(QPixmap pixmap){
+    ui->videoLabel->setPixmap(QPixmap());
     ui->drawLabel->setPixmap(pixmap);
-    ui->drawLabel->repaint();
+    ui->drawLabel->show();
 }
 
 
 void VideoView::pushEllipse(Point point, Size size){
+#if THREADED_DRAWING
     m_painterThread.m_drawPointFIFO.push(point);
     m_painterThread.m_drawSizeFIFO.push(size);
-    DEBUG("Pushing ellipse - DONE");
+#else
+    m_drawPointFIFO.push(point);
+    m_drawSizeFIFO.push(size);
+#endif
+    //DEBUG("Pushing ellipse - DONE");
 }
