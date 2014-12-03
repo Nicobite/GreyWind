@@ -1,4 +1,5 @@
 #include "control.h"
+#include <QTime>
 
 Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *parent) :
     QObject(parent)
@@ -80,6 +81,7 @@ void Control::handleFrame(Mat frame){
 
 void Control::handleDetectedObject(Point point, Size size){
     //TODO : add some fucking intelligence
+    DEBUG("handleDetectedObject " << QTime::currentTime().toString("h:mm:ss:zzz"));
     emit sendDetectedObject(point, size);
 }
 
@@ -107,8 +109,7 @@ void Control::connectDrone(){
         QObject::connect(this->m_interface->get_sensor_thread(),    SIGNAL(newSonarData(int)),
                          &m_mainWindow,                             SLOT(updateSonarView(int)));
 
-        if(m_interface->get_daemon()->is_control_running())
-        {
+        if(m_interface->get_daemon()->is_control_running()){
             QObject::connect(&m_mainWindow,                                         SIGNAL(pressCmd(int)),
                              this->m_interface->get_daemon()->get_control_thread(), SLOT(key_press_cmd(int)));
             QObject::connect(&m_mainWindow,                                         SIGNAL(releaseCmd()),

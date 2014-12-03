@@ -1,7 +1,7 @@
 #include "includes.h"
 #include "Video/videothread.hpp"
 #include "opencv2/opencv.hpp"
-
+#include <QTime>
 
 
 VideoThread::VideoThread(QObject *parent) :
@@ -68,6 +68,7 @@ void VideoThread::run() //TODO + TODO2 make better folders
 
                         //DEBUG(frame.cols << " " << frame.rows);
 
+                        //DEBUG("VideoThread: sendVideoFrame " << QTime::currentTime().toString("h:mm:ss:zzz"));
                         emit sendVideoFrame(image.rgbSwapped());
 
                     } else{

@@ -25,9 +25,10 @@ VideoView::~VideoView()
 
 
 void VideoView::updateView(QImage image){
+    DEBUG("VideoView: updateView ");
     updateVideo(image);
 #if !THREADED_DRAWING
-    updateDraw();
+    //updateDraw();
 #endif
 }
 
