@@ -21,7 +21,7 @@ void HaarFaceDetectionAlgo::detect(Mat &frame)
 {
     Point center;
     Size size;
-    //DEBUG("Entering detectAndDisplay");
+    DEBUG("> Entering detect\t" << CURRENT_TIME);
     Mat frame_gray;
 
     if(frame.empty()){
@@ -36,13 +36,14 @@ void HaarFaceDetectionAlgo::detect(Mat &frame)
 
         equalizeHist(frame_gray, frame_gray );
         try{
+            //DEBUG("B4 detectMS\t\t" << CURRENT_TIME);
             m_face_cascade.detectMultiScale( frame_gray, m_faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+            //DEBUG("Af detectMS\t\t" << CURRENT_TIME);
 
             for (size_t i = 0;i < m_faces.size();i++){
                 center = Point( m_faces[i].x + m_faces[i].width/2, m_faces[i].y + m_faces[i].height/2 );
                 size = Size( m_faces[i].width/2, m_faces[i].height/2 );
                 //ellipse( frame, center, Size( m_faces[i].width/2, m_faces[i].height/2 ), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
-
                 emit detectedObject(center, size);
             }
         } catch(...){

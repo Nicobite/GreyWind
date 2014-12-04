@@ -18,14 +18,20 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
 
     // Video management with source selection and detection rate settings
     m_vidThread = new VideoThread();
+    // * Displaying the video frame
     QObject::connect(m_vidThread,       SIGNAL(sendVideoFrame(QImage)),
                      &m_mainWindow,     SLOT(setFrame(QImage)));
+    // * Updating FramesB4Detect
     QObject::connect(&m_mainWindow,     SIGNAL(detectFrameRateChanged(int)),
                      m_vidThread,       SLOT(setDetectionPeriod(int)));
+    // * Updating source
     QObject::connect(&m_mainWindow,     SIGNAL(vidSourceChanged(std::string)),
                      this,              SLOT(changeVideoSource(std::string)));
+    // * Couldn't change source
     QObject::connect(m_vidThread,       SIGNAL(cannotChangeSource(std::string,int)),
                      this,              SLOT(changeVideoSource(std::string,int)));
+
+    // Starting videoThread
     m_currentVidSource  = "None";
     m_vidThread->start();
 
@@ -45,7 +51,6 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      this,              SLOT(handleDetectedObject(Point,Size)));
     /* END TODO                         */
 
-    // Starting up the threads
     m_mainWindow.show();
 
 }
@@ -78,10 +83,11 @@ void Control::handleFrame(Mat frame){
     emit sendFrameToDetect(frame);
 }
 
-
+// when detectionAlgo
+// sends signal to mainWindow
 void Control::handleDetectedObject(Point point, Size size){
     //TODO : add some fucking intelligence
-    DEBUG("handleDetectedObject " << QTime::currentTime().toString("h:mm:ss:zzz"));
+    DEBUG("handleDetectedObject " << CURRENT_TIME);
     emit sendDetectedObject(point, size);
 }
 

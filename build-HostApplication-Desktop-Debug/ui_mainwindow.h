@@ -27,6 +27,7 @@
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -38,28 +39,7 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QGroupBox *groupBox;
-    QLabel *label;
-    QComboBox *srcSelect;
-    QLabel *label_4;
-    QComboBox *algSelect;
-    QDoubleSpinBox *framesB4Detect;
-    QLabel *label_2;
-    QLabel *label_3;
-    QWidget *tasksCheckboxes;
-    QCheckBox *face;
-    QCheckBox *banana;
-    QCheckBox *pyramid;
-    QGroupBox *groupBox_2;
-    QLabel *label_6;
-    QCheckBox *laserOn;
-    QLCDNumber *distanceDisplay;
-    QPushButton *getDistance;
-    QFrame *line;
     QPlainTextEdit *cuteConsole;
-    QFrame *line_2;
-    QFrame *line_3;
-    QFrame *line_4;
     QGroupBox *groupBox_3;
     QPushButton *connectButton;
     QLabel *label_5;
@@ -106,6 +86,28 @@ public:
     QLabel *label_24;
     QLabel *ppsiLabel;
     VideoView *theFrame;
+    QTabWidget *mainTabWidget;
+    QWidget *tab;
+    QGroupBox *groupBox;
+    QLabel *label;
+    QComboBox *srcSelect;
+    QLabel *label_4;
+    QComboBox *algSelect;
+    QDoubleSpinBox *framesB4Detect;
+    QLabel *label_2;
+    QLabel *label_3;
+    QWidget *tasksCheckboxes;
+    QCheckBox *face;
+    QCheckBox *banana;
+    QCheckBox *pyramid;
+    QGroupBox *groupBox_2;
+    QLabel *label_6;
+    QCheckBox *laserOn;
+    QLCDNumber *distanceDisplay;
+    QPushButton *getDistance;
+    QFrame *line_3;
+    QFrame *line_4;
+    QWidget *tab_2;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
     QToolBar *toolBar;
@@ -122,87 +124,9 @@ public:
         MainWindow->setToolButtonStyle(Qt::ToolButtonIconOnly);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        groupBox = new QGroupBox(centralWidget);
-        groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(290, 380, 181, 271));
-        label = new QLabel(groupBox);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(20, 20, 67, 17));
-        srcSelect = new QComboBox(groupBox);
-        srcSelect->setObjectName(QStringLiteral("srcSelect"));
-        srcSelect->setGeometry(QRect(40, 40, 70, 27));
-        srcSelect->setFocusPolicy(Qt::NoFocus);
-        label_4 = new QLabel(groupBox);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(20, 170, 51, 17));
-        algSelect = new QComboBox(groupBox);
-        algSelect->setObjectName(QStringLiteral("algSelect"));
-        algSelect->setGeometry(QRect(40, 90, 91, 27));
-        algSelect->setFocusPolicy(Qt::NoFocus);
-        framesB4Detect = new QDoubleSpinBox(groupBox);
-        framesB4Detect->setObjectName(QStringLiteral("framesB4Detect"));
-        framesB4Detect->setGeometry(QRect(40, 140, 69, 27));
-        framesB4Detect->setFocusPolicy(Qt::ClickFocus);
-#ifndef QT_NO_TOOLTIP
-        framesB4Detect->setToolTip(QStringLiteral("<html><head/><body><p>WARNING: The lower the number, the heavier the LAAAG</p></body></html>"));
-#endif // QT_NO_TOOLTIP
-        framesB4Detect->setLayoutDirection(Qt::RightToLeft);
-        framesB4Detect->setKeyboardTracking(false);
-        framesB4Detect->setDecimals(0);
-        framesB4Detect->setMaximum(200);
-        framesB4Detect->setValue(40);
-        label_2 = new QLabel(groupBox);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(20, 70, 91, 17));
-        label_3 = new QLabel(groupBox);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(20, 120, 161, 17));
-        tasksCheckboxes = new QWidget(groupBox);
-        tasksCheckboxes->setObjectName(QStringLiteral("tasksCheckboxes"));
-        tasksCheckboxes->setGeometry(QRect(30, 180, 120, 80));
-        face = new QCheckBox(tasksCheckboxes);
-        face->setObjectName(QStringLiteral("face"));
-        face->setGeometry(QRect(10, 10, 97, 22));
-        face->setFocusPolicy(Qt::NoFocus);
-        banana = new QCheckBox(tasksCheckboxes);
-        banana->setObjectName(QStringLiteral("banana"));
-        banana->setGeometry(QRect(10, 50, 97, 22));
-        banana->setFocusPolicy(Qt::NoFocus);
-        pyramid = new QCheckBox(tasksCheckboxes);
-        pyramid->setObjectName(QStringLiteral("pyramid"));
-        pyramid->setGeometry(QRect(10, 30, 97, 22));
-        pyramid->setFocusPolicy(Qt::NoFocus);
-        groupBox_2 = new QGroupBox(centralWidget);
-        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setGeometry(QRect(490, 380, 181, 271));
-        label_6 = new QLabel(groupBox_2);
-        label_6->setObjectName(QStringLiteral("label_6"));
-        label_6->setGeometry(QRect(20, 50, 131, 17));
-        laserOn = new QCheckBox(groupBox_2);
-        laserOn->setObjectName(QStringLiteral("laserOn"));
-        laserOn->setGeometry(QRect(20, 20, 97, 22));
-        laserOn->setFocusPolicy(Qt::NoFocus);
-        distanceDisplay = new QLCDNumber(groupBox_2);
-        distanceDisplay->setObjectName(QStringLiteral("distanceDisplay"));
-        distanceDisplay->setGeometry(QRect(20, 70, 101, 31));
-        distanceDisplay->setFrameShape(QFrame::StyledPanel);
-        distanceDisplay->setSegmentStyle(QLCDNumber::Flat);
-        getDistance = new QPushButton(groupBox_2);
-        getDistance->setObjectName(QStringLiteral("getDistance"));
-        getDistance->setGeometry(QRect(130, 70, 41, 31));
-        getDistance->setFocusPolicy(Qt::NoFocus);
-        QIcon icon;
-        icon.addFile(QStringLiteral(":/HostApplication/ressources/system-software-update.png"), QSize(), QIcon::Normal, QIcon::Off);
-        getDistance->setIcon(icon);
-        getDistance->setIconSize(QSize(24, 24));
-        line = new QFrame(centralWidget);
-        line->setObjectName(QStringLiteral("line"));
-        line->setGeometry(QRect(463, 380, 20, 261));
-        line->setFrameShape(QFrame::VLine);
-        line->setFrameShadow(QFrame::Sunken);
         cuteConsole = new QPlainTextEdit(centralWidget);
         cuteConsole->setObjectName(QStringLiteral("cuteConsole"));
-        cuteConsole->setGeometry(QRect(280, 650, 631, 91));
+        cuteConsole->setGeometry(QRect(270, 680, 641, 61));
         QFont font;
         font.setFamily(QStringLiteral("Courier 10 Pitch"));
         font.setPointSize(10);
@@ -215,21 +139,6 @@ public:
         cuteConsole->setFrameShadow(QFrame::Sunken);
         cuteConsole->setReadOnly(true);
         cuteConsole->setBackgroundVisible(false);
-        line_2 = new QFrame(centralWidget);
-        line_2->setObjectName(QStringLiteral("line_2"));
-        line_2->setGeometry(QRect(680, 380, 20, 261));
-        line_2->setFrameShape(QFrame::VLine);
-        line_2->setFrameShadow(QFrame::Sunken);
-        line_3 = new QFrame(centralWidget);
-        line_3->setObjectName(QStringLiteral("line_3"));
-        line_3->setGeometry(QRect(900, 380, 20, 261));
-        line_3->setFrameShape(QFrame::VLine);
-        line_3->setFrameShadow(QFrame::Sunken);
-        line_4 = new QFrame(centralWidget);
-        line_4->setObjectName(QStringLiteral("line_4"));
-        line_4->setGeometry(QRect(260, 380, 20, 351));
-        line_4->setFrameShape(QFrame::VLine);
-        line_4->setFrameShadow(QFrame::Sunken);
         groupBox_3 = new QGroupBox(centralWidget);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
         groupBox_3->setGeometry(QRect(10, 10, 250, 731));
@@ -427,9 +336,9 @@ public:
         helpButton->setObjectName(QStringLiteral("helpButton"));
         helpButton->setGeometry(QRect(150, 50, 45, 30));
         helpButton->setFocusPolicy(Qt::NoFocus);
-        QIcon icon1;
-        icon1.addFile(QStringLiteral(":/HostApplication/ressources/Help-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        helpButton->setIcon(icon1);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/HostApplication/ressources/Help-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        helpButton->setIcon(icon);
         helpButton->setIconSize(QSize(24, 24));
         verticalLayoutWidget = new QWidget(groupBox_3);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
@@ -581,6 +490,98 @@ public:
         theFrame->setGeometry(QRect(270, 10, 640, 360));
         theFrame->setMinimumSize(QSize(640, 360));
         theFrame->setMaximumSize(QSize(1280, 720));
+        mainTabWidget = new QTabWidget(centralWidget);
+        mainTabWidget->setObjectName(QStringLiteral("mainTabWidget"));
+        mainTabWidget->setGeometry(QRect(270, 380, 641, 291));
+        tab = new QWidget();
+        tab->setObjectName(QStringLiteral("tab"));
+        groupBox = new QGroupBox(tab);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        groupBox->setGeometry(QRect(10, 0, 181, 261));
+        label = new QLabel(groupBox);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(20, 20, 67, 17));
+        srcSelect = new QComboBox(groupBox);
+        srcSelect->setObjectName(QStringLiteral("srcSelect"));
+        srcSelect->setGeometry(QRect(40, 40, 70, 27));
+        srcSelect->setFocusPolicy(Qt::NoFocus);
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(20, 170, 51, 17));
+        algSelect = new QComboBox(groupBox);
+        algSelect->setObjectName(QStringLiteral("algSelect"));
+        algSelect->setGeometry(QRect(40, 90, 91, 27));
+        algSelect->setFocusPolicy(Qt::NoFocus);
+        framesB4Detect = new QDoubleSpinBox(groupBox);
+        framesB4Detect->setObjectName(QStringLiteral("framesB4Detect"));
+        framesB4Detect->setGeometry(QRect(40, 140, 71, 27));
+        framesB4Detect->setFocusPolicy(Qt::ClickFocus);
+#ifndef QT_NO_TOOLTIP
+        framesB4Detect->setToolTip(QStringLiteral("<html><head/><body><p>WARNING: The lower the number, the heavier the LAAAG</p></body></html>"));
+#endif // QT_NO_TOOLTIP
+        framesB4Detect->setLayoutDirection(Qt::RightToLeft);
+        framesB4Detect->setKeyboardTracking(false);
+        framesB4Detect->setDecimals(0);
+        framesB4Detect->setMaximum(200);
+        framesB4Detect->setValue(40);
+        label_2 = new QLabel(groupBox);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(20, 70, 91, 17));
+        label_3 = new QLabel(groupBox);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(20, 120, 161, 17));
+        tasksCheckboxes = new QWidget(groupBox);
+        tasksCheckboxes->setObjectName(QStringLiteral("tasksCheckboxes"));
+        tasksCheckboxes->setGeometry(QRect(30, 180, 120, 80));
+        face = new QCheckBox(tasksCheckboxes);
+        face->setObjectName(QStringLiteral("face"));
+        face->setGeometry(QRect(10, 10, 97, 22));
+        face->setFocusPolicy(Qt::NoFocus);
+        banana = new QCheckBox(tasksCheckboxes);
+        banana->setObjectName(QStringLiteral("banana"));
+        banana->setGeometry(QRect(10, 50, 97, 22));
+        banana->setFocusPolicy(Qt::NoFocus);
+        pyramid = new QCheckBox(tasksCheckboxes);
+        pyramid->setObjectName(QStringLiteral("pyramid"));
+        pyramid->setGeometry(QRect(10, 30, 97, 22));
+        pyramid->setFocusPolicy(Qt::NoFocus);
+        groupBox_2 = new QGroupBox(tab);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        groupBox_2->setGeometry(QRect(220, 0, 181, 261));
+        label_6 = new QLabel(groupBox_2);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(20, 50, 131, 17));
+        laserOn = new QCheckBox(groupBox_2);
+        laserOn->setObjectName(QStringLiteral("laserOn"));
+        laserOn->setGeometry(QRect(20, 20, 97, 22));
+        laserOn->setFocusPolicy(Qt::NoFocus);
+        distanceDisplay = new QLCDNumber(groupBox_2);
+        distanceDisplay->setObjectName(QStringLiteral("distanceDisplay"));
+        distanceDisplay->setGeometry(QRect(20, 70, 101, 31));
+        distanceDisplay->setFrameShape(QFrame::StyledPanel);
+        distanceDisplay->setSegmentStyle(QLCDNumber::Flat);
+        getDistance = new QPushButton(groupBox_2);
+        getDistance->setObjectName(QStringLiteral("getDistance"));
+        getDistance->setGeometry(QRect(130, 70, 41, 31));
+        getDistance->setFocusPolicy(Qt::NoFocus);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/HostApplication/ressources/system-software-update.png"), QSize(), QIcon::Normal, QIcon::Off);
+        getDistance->setIcon(icon1);
+        getDistance->setIconSize(QSize(24, 24));
+        line_3 = new QFrame(tab);
+        line_3->setObjectName(QStringLiteral("line_3"));
+        line_3->setGeometry(QRect(190, 10, 20, 241));
+        line_3->setFrameShape(QFrame::VLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+        line_4 = new QFrame(tab);
+        line_4->setObjectName(QStringLiteral("line_4"));
+        line_4->setGeometry(QRect(420, 10, 20, 241));
+        line_4->setFrameShape(QFrame::VLine);
+        line_4->setFrameShadow(QFrame::Sunken);
+        mainTabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QStringLiteral("tab_2"));
+        mainTabWidget->addTab(tab_2, QString());
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -595,6 +596,9 @@ public:
 
         retranslateUi(MainWindow);
 
+        mainTabWidget->setCurrentIndex(0);
+
+
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
@@ -604,36 +608,6 @@ public:
 #ifndef QT_NO_TOOLTIP
         MainWindow->setToolTip(QString());
 #endif // QT_NO_TOOLTIP
-        groupBox->setTitle(QApplication::translate("MainWindow", "Video settings", 0));
-        label->setText(QApplication::translate("MainWindow", "Source:", 0));
-        srcSelect->clear();
-        srcSelect->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "None", 0)
-         << QApplication::translate("MainWindow", "Local", 0)
-         << QApplication::translate("MainWindow", "TCP", 0)
-        );
-        label_4->setText(QApplication::translate("MainWindow", "Detect:", 0));
-        algSelect->clear();
-        algSelect->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "<none>", 0)
-         << QApplication::translate("MainWindow", "Haar", 0)
-         << QApplication::translate("MainWindow", "...", 0)
-        );
-#ifndef QT_NO_WHATSTHIS
-        framesB4Detect->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p>rqsdfsfd</p></body></html>", 0));
-#endif // QT_NO_WHATSTHIS
-        label_2->setText(QApplication::translate("MainWindow", "Algorithm:", 0));
-        label_3->setText(QApplication::translate("MainWindow", "Frames before recog:", 0));
-        face->setText(QApplication::translate("MainWindow", "face", 0));
-        banana->setText(QApplication::translate("MainWindow", "banana", 0));
-        pyramid->setText(QApplication::translate("MainWindow", "pyramid", 0));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "Commands", 0));
-        label_6->setText(QApplication::translate("MainWindow", "Measure distance:", 0));
-        laserOn->setText(QApplication::translate("MainWindow", "Laser aim", 0));
-#ifndef QT_NO_TOOLTIP
-        distanceDisplay->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>(centimeters)</p></body></html>", 0));
-#endif // QT_NO_TOOLTIP
-        getDistance->setText(QString());
         cuteConsole->setPlainText(QApplication::translate("MainWindow", "Welcome to GreyWind's host application!", 0));
         groupBox_3->setTitle(QApplication::translate("MainWindow", "Drone Communication", 0));
         connectButton->setText(QApplication::translate("MainWindow", "Connect", 0));
@@ -674,6 +648,38 @@ public:
         pyLabel->setText(QApplication::translate("MainWindow", "-", 0));
         label_24->setText(QApplication::translate("MainWindow", "psi :", 0));
         ppsiLabel->setText(QApplication::translate("MainWindow", "-", 0));
+        groupBox->setTitle(QApplication::translate("MainWindow", "Video settings", 0));
+        label->setText(QApplication::translate("MainWindow", "Source:", 0));
+        srcSelect->clear();
+        srcSelect->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "None", 0)
+         << QApplication::translate("MainWindow", "Local", 0)
+         << QApplication::translate("MainWindow", "TCP", 0)
+        );
+        label_4->setText(QApplication::translate("MainWindow", "Detect:", 0));
+        algSelect->clear();
+        algSelect->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "<none>", 0)
+         << QApplication::translate("MainWindow", "Haar", 0)
+         << QApplication::translate("MainWindow", "...", 0)
+        );
+#ifndef QT_NO_WHATSTHIS
+        framesB4Detect->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p>rqsdfsfd</p></body></html>", 0));
+#endif // QT_NO_WHATSTHIS
+        label_2->setText(QApplication::translate("MainWindow", "Algorithm:", 0));
+        label_3->setText(QApplication::translate("MainWindow", "Frames before recog:", 0));
+        face->setText(QApplication::translate("MainWindow", "face", 0));
+        banana->setText(QApplication::translate("MainWindow", "banana", 0));
+        pyramid->setText(QApplication::translate("MainWindow", "pyramid", 0));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "Commands", 0));
+        label_6->setText(QApplication::translate("MainWindow", "Measure distance:", 0));
+        laserOn->setText(QApplication::translate("MainWindow", "Laser aim", 0));
+#ifndef QT_NO_TOOLTIP
+        distanceDisplay->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>(centimeters)</p></body></html>", 0));
+#endif // QT_NO_TOOLTIP
+        getDistance->setText(QString());
+        mainTabWidget->setTabText(mainTabWidget->indexOf(tab), QApplication::translate("MainWindow", "Main", 0));
+        mainTabWidget->setTabText(mainTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tests", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));
     } // retranslateUi
 

@@ -14,7 +14,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     Detection/laserdetect.cpp \
-    includes.cpp \
     Drone_Interface/droneinterface.cpp \
     Drone_Interface/Daemon_Interface/controlthread.cpp \
     Drone_Interface/Daemon_Interface/daemoninterface.cpp \
