@@ -1119,9 +1119,9 @@
    <widget class="QTabWidget" name="mainTabWidget">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>460</x>
       <y>380</y>
-      <width>641</width>
+      <width>451</width>
       <height>291</height>
      </rect>
     </property>
@@ -1345,110 +1345,10 @@
        </widget>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="geometry">
-       <rect>
-        <x>220</x>
-        <y>0</y>
-        <width>181</width>
-        <height>261</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Commands</string>
-      </property>
-      <widget class="QLabel" name="label_6">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>50</y>
-         <width>131</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Measure distance:</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="laserOn">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>20</y>
-         <width>97</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
-       <property name="text">
-        <string>Laser aim</string>
-       </property>
-      </widget>
-      <widget class="QLCDNumber" name="distanceDisplay">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>70</y>
-         <width>101</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(centimeters)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="segmentStyle">
-        <enum>QLCDNumber::Flat</enum>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="getDistance">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>70</y>
-         <width>41</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../HostApplication.qrc">
-         <normaloff>:/HostApplication/ressources/system-software-update.png</normaloff>:/HostApplication/ressources/system-software-update.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </widget>
      <widget class="Line" name="line_3">
       <property name="geometry">
        <rect>
-        <x>190</x>
-        <y>10</y>
-        <width>20</width>
-        <height>241</height>
-       </rect>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-     <widget class="Line" name="line_4">
-      <property name="geometry">
-       <rect>
-        <x>420</x>
+        <x>220</x>
         <y>10</y>
         <width>20</width>
         <height>241</height>
@@ -1463,6 +1363,93 @@
      <attribute name="title">
       <string>Tests</string>
      </attribute>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>380</y>
+      <width>181</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Commands</string>
+    </property>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>131</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Measure distance:</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="laserOn">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>97</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string>Laser aim</string>
+     </property>
+    </widget>
+    <widget class="QLCDNumber" name="distanceDisplay">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(centimeters)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="segmentStyle">
+      <enum>QLCDNumber::Flat</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="getDistance">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>70</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../HostApplication.qrc">
+       <normaloff>:/HostApplication/ressources/system-software-update.png</normaloff>:/HostApplication/ressources/system-software-update.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
     </widget>
    </widget>
   </widget>

@@ -100,14 +100,13 @@ public:
     QCheckBox *face;
     QCheckBox *banana;
     QCheckBox *pyramid;
+    QFrame *line_3;
+    QWidget *tab_2;
     QGroupBox *groupBox_2;
     QLabel *label_6;
     QCheckBox *laserOn;
     QLCDNumber *distanceDisplay;
     QPushButton *getDistance;
-    QFrame *line_3;
-    QFrame *line_4;
-    QWidget *tab_2;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
     QToolBar *toolBar;
@@ -492,7 +491,7 @@ public:
         theFrame->setMaximumSize(QSize(1280, 720));
         mainTabWidget = new QTabWidget(centralWidget);
         mainTabWidget->setObjectName(QStringLiteral("mainTabWidget"));
-        mainTabWidget->setGeometry(QRect(270, 380, 641, 291));
+        mainTabWidget->setGeometry(QRect(460, 380, 451, 291));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         groupBox = new QGroupBox(tab);
@@ -545,9 +544,18 @@ public:
         pyramid->setObjectName(QStringLiteral("pyramid"));
         pyramid->setGeometry(QRect(10, 30, 97, 22));
         pyramid->setFocusPolicy(Qt::NoFocus);
-        groupBox_2 = new QGroupBox(tab);
+        line_3 = new QFrame(tab);
+        line_3->setObjectName(QStringLiteral("line_3"));
+        line_3->setGeometry(QRect(220, 10, 20, 241));
+        line_3->setFrameShape(QFrame::VLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+        mainTabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QStringLiteral("tab_2"));
+        mainTabWidget->addTab(tab_2, QString());
+        groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setGeometry(QRect(220, 0, 181, 261));
+        groupBox_2->setGeometry(QRect(270, 380, 181, 261));
         label_6 = new QLabel(groupBox_2);
         label_6->setObjectName(QStringLiteral("label_6"));
         label_6->setGeometry(QRect(20, 50, 131, 17));
@@ -568,20 +576,6 @@ public:
         icon1.addFile(QStringLiteral(":/HostApplication/ressources/system-software-update.png"), QSize(), QIcon::Normal, QIcon::Off);
         getDistance->setIcon(icon1);
         getDistance->setIconSize(QSize(24, 24));
-        line_3 = new QFrame(tab);
-        line_3->setObjectName(QStringLiteral("line_3"));
-        line_3->setGeometry(QRect(190, 10, 20, 241));
-        line_3->setFrameShape(QFrame::VLine);
-        line_3->setFrameShadow(QFrame::Sunken);
-        line_4 = new QFrame(tab);
-        line_4->setObjectName(QStringLiteral("line_4"));
-        line_4->setGeometry(QRect(420, 10, 20, 241));
-        line_4->setFrameShape(QFrame::VLine);
-        line_4->setFrameShadow(QFrame::Sunken);
-        mainTabWidget->addTab(tab, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QStringLiteral("tab_2"));
-        mainTabWidget->addTab(tab_2, QString());
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -671,6 +665,8 @@ public:
         face->setText(QApplication::translate("MainWindow", "face", 0));
         banana->setText(QApplication::translate("MainWindow", "banana", 0));
         pyramid->setText(QApplication::translate("MainWindow", "pyramid", 0));
+        mainTabWidget->setTabText(mainTabWidget->indexOf(tab), QApplication::translate("MainWindow", "Main", 0));
+        mainTabWidget->setTabText(mainTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tests", 0));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "Commands", 0));
         label_6->setText(QApplication::translate("MainWindow", "Measure distance:", 0));
         laserOn->setText(QApplication::translate("MainWindow", "Laser aim", 0));
@@ -678,8 +674,6 @@ public:
         distanceDisplay->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>(centimeters)</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
         getDistance->setText(QString());
-        mainTabWidget->setTabText(mainTabWidget->indexOf(tab), QApplication::translate("MainWindow", "Main", 0));
-        mainTabWidget->setTabText(mainTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tests", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));
     } // retranslateUi
 

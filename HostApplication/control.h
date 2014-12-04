@@ -10,6 +10,7 @@
 #include "GUI/help.h"
 #include "Drone_Interface/droneinterface.h"
 #include "Video/videothread.hpp"
+#include "Detection/detectthread.h"
 #include "Detection/detectionalgo.h"
 #include "Detection/haarfacedetectionalgo.h"
 
@@ -30,7 +31,7 @@ private:
     std::string m_currentVidSource;
 
     VideoThread* m_vidThread;
-    DetectionAlgo* m_detectionAlgo;
+    DetectThread* m_detectThread;
 
 signals:
     void sendFrameToDetect(Mat frame);

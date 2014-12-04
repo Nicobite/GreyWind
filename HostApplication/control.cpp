@@ -43,14 +43,15 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
 
 
     /*TODO : lol change that shit       */
-    m_detectionAlgo = new HaarFaceDetectionAlgo("haarcascade_frontalface_alt.xml");
-    QObject::connect(this,              SIGNAL(sendFrameToDetect(Mat)),
-                     m_detectionAlgo,   SLOT(handleFrame(Mat)));
-
-    QObject::connect(m_detectionAlgo,   SIGNAL(detectedObject(Point,Size)),
+    //m_detectionAlgo = new HaarFaceDetectionAlgo("haarcascade_frontalface_alt.xml");
+    /*QObject::connect(this,              SIGNAL(sendFrameToDetect(Mat)),
+                     m_detectionAlgo,   SLOT(handleFrame(Mat)));//*/
+    m_detectThread = new DetectThread;
+    QObject::connect(m_detectThread,    SIGNAL(sigDetectedToControl(Point,Size)),
                      this,              SLOT(handleDetectedObject(Point,Size)));
     /* END TODO                         */
 
+    m_detectThread->start();
     m_mainWindow.show();
 
 }
@@ -80,7 +81,9 @@ void Control::changeVideoSource(std::string src, int err){
 
 void Control::handleFrame(Mat frame){
     //TODO : add intelligence
-    emit sendFrameToDetect(frame);
+    //emit sendFrameToDetect(frame);
+    DEBUG("Control: pushing to detectThread FIFO");
+    m_detectThread->pushMatToFIFO(frame);
 }
 
 // when detectionAlgo
