@@ -61,7 +61,7 @@ void VideoView::updateDraw(){
 }
 
 void VideoView::slotDrawToView(QPixmap pixmap){
-    ui->videoLabel->setPixmap(QPixmap());
+    ui->drawLabel->setPixmap(QPixmap());
     ui->drawLabel->setPixmap(pixmap);
     ui->drawLabel->show();
 }
