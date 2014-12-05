@@ -25,6 +25,7 @@ public:
     void pushEllipse(Point point, Size size);
     void updateVideo(QImage);
     void updateDraw();
+    void resetDrawLabel();
 
 private:
     Ui::VideoView * ui;

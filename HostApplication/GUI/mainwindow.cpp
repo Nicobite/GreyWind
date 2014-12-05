@@ -169,6 +169,9 @@ void MainWindow::emitVidSource(const QString& text){
     dispToCuteConsole(
         "[MainWindow] Video feed source changed to "+text+"!"
     );
+    if(text == "None"){
+        ui->theFrame->resetDrawLabel();
+    }
     emit vidSourceChanged(text.toStdString());
 
 }

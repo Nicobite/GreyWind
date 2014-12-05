@@ -54,7 +54,12 @@ void VideoView::updateDraw(){
     pen.setWidth(3);
     painter.setPen(pen);
     painter.drawEllipse(m_ellipsePoint, m_ellipseWidth, m_ellipseHeight);
-
+    painter.setFont( QFont("Arial") );
+    QString string = "Face (x"+QString::number(m_ellipsePoint.x())+";y"+QString::number(m_ellipsePoint.y())+")";
+    //DEBUG("updateDraw coordinates " << string);
+    pen.setColor(Qt::white);
+    painter.setPen(pen);
+    painter.drawText( m_ellipsePoint, string );
     // Displaying ellipses to drawLabel
     ui->drawLabel->setPixmap(QPixmap::fromImage(image2));
     ui->drawLabel->show();
@@ -76,4 +81,12 @@ void VideoView::pushEllipse(Point point, Size size){
     m_drawSizeFIFO.push(size);
 #endif
     //DEBUG("Pushing ellipse - DONE");
+}
+
+void VideoView::resetDrawLabel(){ // TODO RESET DRAW LABEL WHEN NO VIDEO HOLYSHIT, THIS DOESN'T WORK FUCK
+    QPixmap pixmap;
+    pixmap.fill(QColor(0,0,0,0));
+    ui->drawLabel->setPixmap(pixmap);
+    ui->drawLabel->show();
+    DEBUG("--> resetDrawLabel");
 }
