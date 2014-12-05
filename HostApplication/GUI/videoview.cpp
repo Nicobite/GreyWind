@@ -41,6 +41,38 @@ void VideoView::updateVideo(QImage image){
 
 void VideoView::updateDraw(){
     // Preparing and drawing ellipses
+    QImage image2;
+    QPen pen;
+    QString string;
+    while(!m_drawPointFIFO.empty()){
+        DEBUG("while: debut" << CURRENT_TIME);
+        m_ellipsePoint = QPoint(m_drawPointFIFO.front().x, m_drawPointFIFO.front().y);
+        m_ellipseWidth = m_drawSizeFIFO.front().width;
+        m_ellipseHeight = m_drawSizeFIFO.front().height;
+        m_drawPointFIFO.pop();
+        m_drawSizeFIFO.pop();
+        image2 = QImage(640,360,QImage::Format_ARGB32);
+        QPainter painter(&image2);
+        pen.setColor(Qt::green);
+        pen.setWidth(3);
+        painter.setPen(pen);
+        painter.drawEllipse(m_ellipsePoint, m_ellipseWidth, m_ellipseHeight);
+        painter.setFont( QFont("Arial") );
+
+       string = "Face (x"+QString::number(m_ellipsePoint.x())+";y"+QString::number(m_ellipsePoint.y())+")";
+        //DEBUG("updateDraw coordinates " << string);
+        pen.setColor(Qt::white);
+        painter.setPen(pen);
+        painter.drawText( m_ellipsePoint, string );
+        // Displaying ellipses to drawLabel
+        ui->drawLabel->setPixmap(QPixmap::fromImage(image2));
+        ui->drawLabel->show();
+        if(m_drawPointFIFO.empty()){
+            DEBUG("while: empty==true" << CURRENT_TIME);
+        }
+    }
+
+    /*
     if(!m_drawPointFIFO.empty()){
         m_ellipsePoint = QPoint(m_drawPointFIFO.front().x, m_drawPointFIFO.front().y);
         m_ellipseWidth = m_drawSizeFIFO.front().width;
@@ -62,7 +94,7 @@ void VideoView::updateDraw(){
     painter.drawText( m_ellipsePoint, string );
     // Displaying ellipses to drawLabel
     ui->drawLabel->setPixmap(QPixmap::fromImage(image2));
-    ui->drawLabel->show();
+    ui->drawLabel->show();//*/
 }
 
 void VideoView::slotDrawToView(QPixmap pixmap){

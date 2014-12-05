@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <queue>
+#include <unistd.h>
 #include "opencv2/opencv.hpp"
 #include "includes.h"
 #include "painterthread.h"

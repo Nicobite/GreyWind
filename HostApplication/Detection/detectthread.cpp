@@ -12,20 +12,20 @@ DetectThread::DetectThread(QObject *parent) :
 }
 
 void DetectThread::run(){
-    DEBUG("> DetectThread::run()");
+    //DEBUG("> DetectThread::run()");
     while(1){
         if(!m_FIFO.empty()){
             // Popping element
             emit sigFrameToObject(m_FIFO.front());
             m_FIFO.pop();
-            DEBUG("DetectThread: send+pop DONE");
+            //DEBUG("DetectThread: send+pop DONE");
         }
     }
 }
 
 void DetectThread::pushMatToFIFO(Mat mat){
     m_FIFO.push(mat);
-    DEBUG("DectecThread: pushed");
+    //DEBUG("DectecThread: pushed");
 }
 
 void DetectThread::handleDetectedObject(Point center,Size size){

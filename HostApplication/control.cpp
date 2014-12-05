@@ -82,7 +82,7 @@ void Control::changeVideoSource(std::string src, int err){
 void Control::handleFrame(Mat frame){
     //TODO : add intelligence
     //emit sendFrameToDetect(frame);
-    DEBUG("Control: pushing to detectThread FIFO");
+    //DEBUG("Control: pushing to detectThread FIFO");
     m_detectThread->pushMatToFIFO(frame);
 }
 
@@ -90,7 +90,7 @@ void Control::handleFrame(Mat frame){
 // sends signal to mainWindow
 void Control::handleDetectedObject(Point point, Size size){
     //TODO : add some fucking intelligence
-    DEBUG("handleDetectedObject " << CURRENT_TIME);
+    //DEBUG("handleDetectedObject " << CURRENT_TIME);
     emit sendDetectedObject(point, size);
 }
 
