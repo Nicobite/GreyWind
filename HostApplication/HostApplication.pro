@@ -22,6 +22,7 @@ SOURCES += main.cpp\
     control.cpp \
     Detection/detectionalgo.cpp \
     Detection/haarfacedetectionalgo.cpp \
+    Detection/surfdetectionalgo.cpp \
     GUI/help.cpp \
     GUI/mainwindow.cpp \
     GUI/videoview.cpp \
@@ -44,6 +45,7 @@ HEADERS  += Detection/laserdetect.hpp \
     control.h \
     Detection/detectionalgo.h \
     Detection/haarfacedetectionalgo.h \
+    Detection/surfdetectionalgo.h \
     GUI/help.h \
     GUI/mainwindow.h \
     GUI/videoview.h \
