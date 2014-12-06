@@ -27,6 +27,7 @@ public:
     //void keyPressEvent(QKeyEvent* e);
     //void keyReleaseEvent(QKeyEvent* e);
     void dispToCuteConsole(QString message);
+    void updateLocationView(float x, float y, float z, float psi);
 
     void keyPressEvent(QKeyEvent* e);
     void keyReleaseEvent(QKeyEvent* e);

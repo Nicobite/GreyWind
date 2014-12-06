@@ -51,7 +51,7 @@ signals:
     void sendCurrentND(navdata_t nd);
 
 public:
-    NavdataThread(int t_samp_us = 20000);
+    NavdataThread(int t_samp_us = 5000);
     ~NavdataThread();
 
     void set_samplig_period(int samp_us);

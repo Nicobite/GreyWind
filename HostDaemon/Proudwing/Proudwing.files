@@ -1,0 +1,9 @@
+Sources/Navdata/navdata.c
+Sources/Navdata/navdata.h
+Sources/UI/control_cmd.c
+Sources/UI/control_cmd.h
+Sources/proudwing_daemon.c
+Sources/proudwing_daemon.h
+Build/Makefile
+Sources/Video/video.h
+Sources/Video/video.c

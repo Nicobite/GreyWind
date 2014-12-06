@@ -136,6 +136,14 @@ void MainWindow::updateNavdataView(navdata_t nd){
     ui->vzLabel->setText(QString::number(nd.vz));
 }
 
+void MainWindow::updateLocationView(float x, float y, float z, float psi){
+    ui->pxLabel->setText(QString::number(x));
+    ui->pyLabel->setText(QString::number(y));
+    ui->pzLabel->setText(QString::number(z));
+    ui->ppsiLabel->setText(QString::number(psi));
+}
+
+
 void MainWindow::drawDetectedEllipse(Point center, Size size){
     ui->theFrame->pushEllipse(center, size);
 }

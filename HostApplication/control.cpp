@@ -92,7 +92,8 @@ void Control::handleFrame(Mat frame){
 }
 
 void Control::handleNavdata(navdata_t nd){
-
+    m_locfunc.updatePosition(nd.vx, nd.vy);
+    m_mainWindow.updateLocationView(m_locfunc.get_x(), m_locfunc.get_y(), nd.altitude, nd.yaw);
 }
 
 
@@ -119,6 +120,8 @@ void Control::connectDrone(){
         //Set navdata
         QObject::connect(this->m_interface->get_daemon()->get_navdata_thread(), SIGNAL(sendCurrentND(navdata_t)),
                          &m_mainWindow                                        , SLOT(updateNavdataView(navdata_t)));
+        QObject::connect(this->m_interface->get_daemon()->get_navdata_thread(), SIGNAL(sendCurrentND(navdata_t)),
+                         this                                                 , SLOT(handleNavdata(navdata_t)));
 
         //Sensor connections
         // * Laser state: mainWindow -> droneInterface
