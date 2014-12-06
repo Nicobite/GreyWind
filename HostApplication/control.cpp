@@ -24,6 +24,11 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     // * Updating FramesB4Detect
     QObject::connect(&m_mainWindow,     SIGNAL(detectFrameRateChanged(int)),
                      m_vidThread,       SLOT(setDetectionPeriod(int)));
+
+
+
+
+
     // * Updating source
     QObject::connect(&m_mainWindow,     SIGNAL(vidSourceChanged(std::string)),
                      this,              SLOT(changeVideoSource(std::string)));

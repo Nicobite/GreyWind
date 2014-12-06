@@ -28,7 +28,11 @@ void VideoView::updateView(QImage image){
     //DEBUG("VideoView: updateView ");
     updateVideo(image);
 #if !THREADED_DRAWING
-    updateDraw();
+    if(m_currentFrame == m_framesB4Detect){
+        updateDraw();
+        m_currentFrame = 0;
+    }
+    m_currentFrame++;
 #endif
 }
 
@@ -121,4 +125,8 @@ void VideoView::resetDrawLabel(){ // TODO RESET DRAW LABEL WHEN NO VIDEO HOLYSHI
     ui->drawLabel->setPixmap(pixmap);
     ui->drawLabel->show();
     DEBUG("--> resetDrawLabel");
+}
+
+void VideoView::setFrameB4Detect(int framesB4Detect){
+    m_framesB4Detect = framesB4Detect;
 }

@@ -181,6 +181,7 @@ void MainWindow::emitFramesB4Detect(double fbd){
         "[Detect] Frames before detection changed to "+QString::number(fbd)
     );
     //emit sigDispToCuteConsole(QString::fromStdString("[Detect] Frames before detection changed to ")+QString::number(fbd));
+    ui->theFrame->setFrameB4Detect(int(fbd));
     emit detectFrameRateChanged(int(fbd));
 }
 

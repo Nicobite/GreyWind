@@ -27,8 +27,11 @@ public:
     void updateVideo(QImage);
     void updateDraw();
     void resetDrawLabel();
+    void setFrameB4Detect(int framesB4Detect);
 
 private:
+    int m_framesB4Detect = 40;
+    int m_currentFrame = 1;
     Ui::VideoView * ui;
     PainterThread m_painterThread;
 
@@ -40,7 +43,6 @@ private:
 
 public slots:
     void slotDrawToView(QPixmap pixmap);
-
 };
 
 #endif // VIDEOVIEW_H
