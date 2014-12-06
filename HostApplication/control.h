@@ -23,15 +23,12 @@ public:
     ~Control();
 
 private:
-    MainWindow m_mainWindow;
-
-    bool m_connected;
+    MainWindow      m_mainWindow;
+    bool            m_connected;
     DroneInterface* m_interface;
-
-    std::string m_currentVidSource;
-
-    VideoThread* m_vidThread;
-    DetectThread* m_detectThread;
+    std::string     m_currentVidSource;
+    VideoThread*    m_vidThread;
+    DetectThread*   m_detectThread;
 
 signals:
     void sendFrameToDetect(Mat frame);

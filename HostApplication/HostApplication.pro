@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     Video/videothread.cpp \
     Drone_Interface/Sensor_Interface/sensorthread.cpp \
     GUI/painterthread.cpp \
-    Detection/detectthread.cpp
+    Detection/detectthread.cpp \
+    localizationfunctions.cpp
 
 LIBS += `pkg-config opencv --libs`
 
@@ -52,7 +53,8 @@ HEADERS  += Detection/laserdetect.hpp \
     Video/videothread.hpp \
     Drone_Interface/Sensor_Interface/sensorthread.h \
     GUI/painterthread.h \
-    Detection/detectthread.h
+    Detection/detectthread.h \
+    localizationfunctions.h
 
 FORMS    += GUI/help.ui \
     GUI/mainwindow.ui \

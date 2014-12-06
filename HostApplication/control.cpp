@@ -116,10 +116,13 @@ void Control::connectDrone(){
                          &m_mainWindow                                        , SLOT(updateNavdataView(navdata_t)));
 
         //Sensor connections
+        // * Laser state: mainWindow -> droneInterface
         QObject::connect(&m_mainWindow,                             SIGNAL(laserState(bool)),
                          this->m_interface->get_sensor_thread(),    SLOT(setLaserState(bool)));
+        // * Distance measurement request: mainWindow -> droneInterface
         QObject::connect(&m_mainWindow,                             SIGNAL(sonarRequest()),
                          this->m_interface->get_sensor_thread(),    SLOT(requestSonarData()));
+        // * Distance measurement response: droneInterface -> mainWindow
         QObject::connect(this->m_interface->get_sensor_thread(),    SIGNAL(newSonarData(int)),
                          &m_mainWindow,                             SLOT(updateSonarView(int)));
 
