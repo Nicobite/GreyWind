@@ -2,6 +2,8 @@
 
 LocalizationFunctions::LocalizationFunctions()
 {
+    m_drone_x = 0.0;
+    m_drone_y = 0.0;
 }
 
 // Coords are centered around starting point of drone
@@ -25,4 +27,18 @@ int LocalizationFunctions::diffCommand(QPoint pixel){
     } else {
         return 0;
     }
+}
+
+void LocalizationFunctions::updatePosition(float vx, float vy){
+    m_drone_x += vx*0.02;
+    m_drone_y += vy*0.02;
+}
+
+
+float LocalizationFunctions::get_x(){
+    return m_drone_x;
+}
+
+float LocalizationFunctions::get_y(){
+    return m_drone_y;
 }

@@ -13,6 +13,7 @@
 #include "Detection/detectthread.h"
 #include "Detection/detectionalgo.h"
 #include "Detection/haarfacedetectionalgo.h"
+#include "localizationfunctions.h"
 
 class Control: public QObject
 {
@@ -29,6 +30,7 @@ private:
     std::string     m_currentVidSource;
     VideoThread*    m_vidThread;
     DetectThread*   m_detectThread;
+    LocalizationFunctions m_locfunc;
 
 signals:
     void sendFrameToDetect(Mat frame);
@@ -39,6 +41,7 @@ public slots:
     void changeVideoSource(std::string src, int err=0);
     void handleFrame(Mat frame);
     void handleDetectedObject(Point point, Size size);
+    void handleNavdata(navdata_t nd);
     void connectDrone();
 };
 

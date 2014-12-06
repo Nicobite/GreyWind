@@ -12,8 +12,6 @@ void controlCHandler (int signal)
 
 int main(int argc, char *argv[])
 {
-
-
     signal (SIGABRT, &controlCHandler);
     signal (SIGTERM, &controlCHandler);
     signal (SIGINT, &controlCHandler);

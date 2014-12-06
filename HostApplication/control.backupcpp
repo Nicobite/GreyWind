@@ -1,5 +1,4 @@
 #include "control.h"
-#include <QTime>
 
 Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *parent) :
     QObject(parent)
@@ -8,7 +7,7 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     qRegisterMetaType<std::string> ("std::string");
     qRegisterMetaType<Mat> ("Mat");
 
-    // Drone interface
+    //Drone interface
     m_connected = false;
     m_interface = new DroneInterface(childPID, childSemFD, childPipeWrFD);
     QObject::connect(this,              SIGNAL(sendConnectionStatus(bool)),
@@ -16,47 +15,38 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     QObject::connect(&m_mainWindow,     SIGNAL(connectButtonClicked()),
                      this,              SLOT(connectDrone()));
 
-    // Video management with source selection and detection rate settings
+    //Video management with source selection and detection rate settings
     m_vidThread = new VideoThread();
-    // * Displaying the video frame
     QObject::connect(m_vidThread,       SIGNAL(sendVideoFrame(QImage)),
                      &m_mainWindow,     SLOT(setFrame(QImage)));
-    // * Updating FramesB4Detect
     QObject::connect(&m_mainWindow,     SIGNAL(detectFrameRateChanged(int)),
                      m_vidThread,       SLOT(setDetectionPeriod(int)));
-
-
-
-
-
-    // * Updating source
     QObject::connect(&m_mainWindow,     SIGNAL(vidSourceChanged(std::string)),
                      this,              SLOT(changeVideoSource(std::string)));
-    // * Couldn't change source
     QObject::connect(m_vidThread,       SIGNAL(cannotChangeSource(std::string,int)),
                      this,              SLOT(changeVideoSource(std::string,int)));
-
-    // Starting videoThread
     m_currentVidSource  = "None";
     m_vidThread->start();
 
-    // Detection related handlers:
+    //Detection related handlers:
     QObject::connect(m_vidThread,       SIGNAL(sendDetectionFrame(Mat)),
                      this,              SLOT(handleFrame(Mat)));
-    QObject::connect(this,              SIGNAL(sendDetectedObject(Point,Size)),
+    QObject::connect(this,   SIGNAL(sendDetectedObject(Point,Size)),
                      &m_mainWindow,     SLOT(drawDetectedEllipse(Point,Size)));
 
 
     /*TODO : lol change that shit       */
-    //m_detectionAlgo = new HaarFaceDetectionAlgo("haarcascade_frontalface_alt.xml");
-    /*QObject::connect(this,              SIGNAL(sendFrameToDetect(Mat)),
-                     m_detectionAlgo,   SLOT(handleFrame(Mat)));//*/
-    m_detectThread = new DetectThread;
-    QObject::connect(m_detectThread,    SIGNAL(sigDetectedToControl(Point,Size)),
-                     this,              SLOT(handleDetectedObject(Point,Size)));
+    m_detectionAlgo = new HaarFaceDetectionAlgo("haarcascade_frontalface_alt.xml");
+    //m_detectionAlgo = new HaarFaceDetectionAlgo("banana_cascade_remi.xml");
+
+    QObject::connect(this,              SIGNAL(sendFrameToDetect(Mat)),
+                     m_detectionAlgo,   SLOT(handleFrame(Mat)));
+
+    QObject::connect(m_detectionAlgo,   SIGNAL(detectedObject(Point,Size)),
+                     this,     SLOT(handleDetectedObject(Point,Size)));
     /* END TODO                         */
 
-    m_detectThread->start();
+    // Starting up the threads
     m_mainWindow.show();
 
 }
@@ -86,21 +76,12 @@ void Control::changeVideoSource(std::string src, int err){
 
 void Control::handleFrame(Mat frame){
     //TODO : add intelligence
-    //emit sendFrameToDetect(frame);
-    //DEBUG("Control: pushing to detectThread FIFO");
-    m_detectThread->pushMatToFIFO(frame);
-}
-
-void Control::handleNavdata(navdata_t nd){
-
+    emit sendFrameToDetect(frame);
 }
 
 
-// when detectionAlgo
-// sends signal to mainWindow
 void Control::handleDetectedObject(Point point, Size size){
     //TODO : add some fucking intelligence
-    //DEBUG("handleDetectedObject " << CURRENT_TIME);
     emit sendDetectedObject(point, size);
 }
 
@@ -121,17 +102,15 @@ void Control::connectDrone(){
                          &m_mainWindow                                        , SLOT(updateNavdataView(navdata_t)));
 
         //Sensor connections
-        // * Laser state: mainWindow -> droneInterface
         QObject::connect(&m_mainWindow,                             SIGNAL(laserState(bool)),
                          this->m_interface->get_sensor_thread(),    SLOT(setLaserState(bool)));
-        // * Distance measurement request: mainWindow -> droneInterface
         QObject::connect(&m_mainWindow,                             SIGNAL(sonarRequest()),
                          this->m_interface->get_sensor_thread(),    SLOT(requestSonarData()));
-        // * Distance measurement response: droneInterface -> mainWindow
         QObject::connect(this->m_interface->get_sensor_thread(),    SIGNAL(newSonarData(int)),
                          &m_mainWindow,                             SLOT(updateSonarView(int)));
 
-        if(m_interface->get_daemon()->is_control_running()){
+        if(m_interface->get_daemon()->is_control_running())
+        {
             QObject::connect(&m_mainWindow,                                         SIGNAL(pressCmd(int)),
                              this->m_interface->get_daemon()->get_control_thread(), SLOT(key_press_cmd(int)));
             QObject::connect(&m_mainWindow,                                         SIGNAL(releaseCmd()),
