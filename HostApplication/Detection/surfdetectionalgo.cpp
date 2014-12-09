@@ -8,13 +8,15 @@
 #include <opencv2/calib3d.hpp>
 #include <opencv2/imgproc.hpp>
 
+using namespace cv::xfeatures2d;
+
 SurfDetectionAlgo::SurfDetectionAlgo(String img_source_name): DetectionAlgo()
 {
     m_img_source_name = img_source_name;
     //m_face_cascade_name     =   "haarcascade_frontalface_alt.xml";
     //m_face_cascade_name     =   "cascade_pyramide.xml";
     //m_face_cascade_name     =   "banana_classifier.xml";
-    if( !m_img_source_name.load( m_img_source_name ) ){
+    if( !m_img_source_name.empty() ){
         ERROR("[SurfDetectionAlgo]: loading image source");
     };
 }
@@ -39,7 +41,7 @@ void SurfDetectionAlgo::detect(Mat &frame)
     std::vector<KeyPoint> keypoints_1, keypoints_2;
 
     detector->detect( img_1, keypoints_1 );
-    detector->detect( frame_vid, keypoints_2 );
+    detector->detect( frame, keypoints_2 );
 
 
     //-- Draw keypoints
@@ -83,7 +85,7 @@ void SurfDetectionAlgo::detect(Mat &frame)
 
     //-- Draw only "good" matches
     Mat img_matches;
-    drawMatches( img_1, keypoints_1, frame_vid, keypoints_2,
+    drawMatches( img_1, keypoints_1, frame, keypoints_2,
                  good_matches, img_matches, Scalar::all(-1), Scalar::all(-1),
                  std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
 
@@ -141,7 +143,7 @@ void SurfDetectionAlgo::detect(Mat &frame)
     //-- Show detected matches
     /*imshow ("Object detection", frame_vid);
     imshow( "Good Matches & Object detection", img_matches);*/
-    imshow("Video frame", frame_vid);
+    imshow("Video frame", frame);
 }
 
 
