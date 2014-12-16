@@ -8,6 +8,7 @@
         - Transfer the photo to a binary photo (the part containes the red dot laser as '1' and the rest as '0')
         - Find the red dot's contour from the binary photo
         - Calculate the center of the contour and return the point's coordinates
+    Le range pour le laser rouge : High(255,255,255) - Inf(0,0,255)
 */
 
 using namespace cv;
