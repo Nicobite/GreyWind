@@ -2,8 +2,14 @@
 
 LocalizationFunctions::LocalizationFunctions()
 {
-    m_drone_x = 0.0;
-    m_drone_y = 0.0;
+    m_vx = 0.0;
+    m_vy = 0.0;
+    m_px = 0.0;
+    m_py = 0.0;
+    m_px_prv = 0.0;
+    m_py_prv = 0.0;
+    m_vx_prv = 0.0;
+    m_vy_prv = 0.0;
 }
 
 // Coords are centered around starting point of drone
@@ -30,15 +36,44 @@ int LocalizationFunctions::diffCommand(QPoint pixel){
 }
 
 void LocalizationFunctions::updatePosition(float vx, float vy){
-    m_drone_x += vx*0.02;
-    m_drone_y += vy*0.02;
+    m_vx = round(vx/10);
+    m_vy = round(vy/10);
+
+    m_px = m_px_prv + 0.5*(m_vx+m_vx_prv)*0.005;
+    m_py = m_py_prv + 0.5*(m_vy+m_vy_prv)*0.005;
+
+    m_px_prv = m_px;
+    m_py_prv = m_py;
+    m_vx_prv = m_vx;
+    m_vy_prv = m_vy;
+    /*
+     For estimating bias...
+     *
+    m_vx += 10*round(vx/10);
+    m_vy += 10*round(vy/10);
+    m_vx_prv ++;
+    m_vy_prv ++;
+    m_px = m_vx/m_vx_prv;
+    m_py = m_vy/m_vy_prv;*/
+}
+
+
+void LocalizationFunctions::resetPosition(){
+    m_vx = 0.0;
+    m_vy = 0.0;
+    m_px = 0.0;
+    m_py = 0.0;
+    m_px_prv = 0.0;
+    m_py_prv = 0.0;
+    m_vx_prv = 1.0;
+    m_vy_prv = 1.0;
 }
 
 
 float LocalizationFunctions::get_x(){
-    return m_drone_x;
+    return m_px;
 }
 
 float LocalizationFunctions::get_y(){
-    return m_drone_y;
+    return m_py;
 }

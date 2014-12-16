@@ -37,7 +37,9 @@ void HaarFaceDetectionAlgo::detect(Mat &frame)
         equalizeHist(frame_gray, frame_gray );
         try{
             //DEBUG("B4 detectMS\t\t" << CURRENT_TIME);
+            //m_face_cascade.detectMultiScale( frame_gray, m_faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );  //face
             m_face_cascade.detectMultiScale( frame_gray, m_faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+
             //DEBUG("Af detectMS\t\t" << CURRENT_TIME);
 
             for (size_t i = 0;i < m_faces.size();i++){

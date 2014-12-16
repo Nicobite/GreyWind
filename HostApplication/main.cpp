@@ -63,8 +63,8 @@ int main(int argc, char *argv[])
             }
         }
 
-        perror("daemon");
-        exit(1);
+        //perror("daemon");
+        //exit(1);
         break;
     default:        //parent
         close(pipefd[0]); //close the read-end of the pipe

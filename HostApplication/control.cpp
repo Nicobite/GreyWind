@@ -11,10 +11,13 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     // Drone interface
     m_connected = false;
     m_interface = new DroneInterface(childPID, childSemFD, childPipeWrFD);
+
     QObject::connect(this,              SIGNAL(sendConnectionStatus(bool)),
                      &m_mainWindow,     SLOT(updateConnectionStatus(bool)));
     QObject::connect(&m_mainWindow,     SIGNAL(connectButtonClicked()),
                      this,              SLOT(connectDrone()));
+    QObject::connect(&m_mainWindow,     SIGNAL(rstPosButtonClicked()),
+                     this,              SLOT(resetPosition()));
 
     // Video management with source selection and detection rate settings
     m_vidThread = new VideoThread();
@@ -96,6 +99,9 @@ void Control::handleNavdata(navdata_t nd){
     m_mainWindow.updateLocationView(m_locfunc.get_x(), m_locfunc.get_y(), nd.altitude, nd.yaw);
 }
 
+void Control::resetPosition(){
+    m_locfunc.resetPosition();
+}
 
 // when detectionAlgo
 // sends signal to mainWindow

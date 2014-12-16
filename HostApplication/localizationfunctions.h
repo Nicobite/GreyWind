@@ -14,7 +14,8 @@
 class LocalizationFunctions
 {
 private:
-    float m_drone_x,m_drone_y;
+    float m_px,m_py, m_vx, m_vy;
+    float m_px_prv, m_py_prv, m_vx_prv, m_vy_prv;
 public:
     LocalizationFunctions();
     //Get coordinates of object depending on yaw and distance
@@ -24,6 +25,7 @@ public:
     int diffCommand(QPoint pixel);
 
     void updatePosition(float vx, float vy);
+    void resetPosition();
 
     float get_x();
     float get_y();

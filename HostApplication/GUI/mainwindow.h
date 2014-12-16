@@ -49,6 +49,7 @@ public slots:
 private slots:
     void emitVidSource(const QString& text);
     void emitFramesB4Detect(double fbd);
+    void emitRstPosButton();
     void emitConnectButton();
     void emitLaserState(int state);
     void emitSonarRequest();
@@ -57,6 +58,7 @@ private slots:
 signals:
     void vidSourceChanged(std::string src);
     void detectFrameRateChanged(int fbd);
+    void rstPosButtonClicked();
     void connectButtonClicked();
     void laserState(bool state);
     void sonarRequest();

@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Connecting GUI widgets with QMainWindow instance */
     QObject::connect(ui->connectButton, SIGNAL(clicked()),
                      this,              SLOT(emitConnectButton()));
+    QObject::connect(ui->resetPosition, SIGNAL(clicked()),
+                     this,              SLOT(emitRstPosButton()));
 
     // Connect help button
     QObject::connect(ui->helpButton,    SIGNAL(clicked()),
@@ -133,7 +135,7 @@ void MainWindow::updateNavdataView(navdata_t nd){
     ui->yawLabel->setText(QString::number(nd.yaw));
     ui->vxLabel->setText(QString::number(nd.vx));
     ui->vyLabel->setText(QString::number(nd.vy));
-    ui->vzLabel->setText(QString::number(nd.vz));
+    //ui->vzLabel->setText(QString::number(nd.vz));
 }
 
 void MainWindow::updateLocationView(float x, float y, float z, float psi){
@@ -196,6 +198,11 @@ void MainWindow::emitFramesB4Detect(double fbd){
 void MainWindow::emitConnectButton(){
     emit connectButtonClicked();
 }
+
+void MainWindow::emitRstPosButton(){
+    emit rstPosButtonClicked();
+}
+
 
 void MainWindow::displayHelp(){
     m_helpWindow.show();

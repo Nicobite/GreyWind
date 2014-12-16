@@ -42,6 +42,7 @@ public slots:
     void handleFrame(Mat frame);
     void handleDetectedObject(Point point, Size size);
     void handleNavdata(navdata_t nd);
+    void resetPosition();
     void connectDrone();
 };
 
