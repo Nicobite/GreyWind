@@ -47,24 +47,22 @@ public:
     QLabel *label_7;
     QWidget *gridLayoutWidget;
     QGridLayout *navdataLayout;
+    QLabel *rollLabel;
+    QLabel *label_16;
     QLabel *label_19;
     QLabel *altitudeLabel;
     QLabel *batteryLabel;
     QLabel *label_9;
     QLabel *label_13;
     QLabel *pitchLabel;
-    QLabel *label_16;
     QLabel *label_14;
     QLabel *vyLabel;
-    QLabel *rollLabel;
     QLabel *controlStateLabel;
     QLabel *label_8;
     QLabel *yawLabel;
     QLabel *label_21;
     QLabel *label_23;
     QLabel *vxLabel;
-    QLabel *label_25;
-    QLabel *vzLabel;
     QLabel *connectLabel;
     QFrame *line_6;
     QPushButton *helpButton;
@@ -85,6 +83,9 @@ public:
     QLabel *pyLabel;
     QLabel *label_24;
     QLabel *ppsiLabel;
+    QPushButton *resetPosition;
+    QLabel *label_18;
+    QPushButton *threeDButton;
     VideoView *theFrame;
     QTabWidget *mainTabWidget;
     QWidget *tab;
@@ -162,13 +163,23 @@ public:
         label_7->setFont(font1);
         gridLayoutWidget = new QWidget(groupBox_3);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(10, 120, 231, 203));
+        gridLayoutWidget->setGeometry(QRect(10, 120, 231, 181));
         navdataLayout = new QGridLayout(gridLayoutWidget);
         navdataLayout->setSpacing(6);
         navdataLayout->setContentsMargins(11, 11, 11, 11);
         navdataLayout->setObjectName(QStringLiteral("navdataLayout"));
         navdataLayout->setHorizontalSpacing(6);
         navdataLayout->setContentsMargins(0, 0, 0, 0);
+        rollLabel = new QLabel(gridLayoutWidget);
+        rollLabel->setObjectName(QStringLiteral("rollLabel"));
+
+        navdataLayout->addWidget(rollLabel, 4, 1, 1, 1);
+
+        label_16 = new QLabel(gridLayoutWidget);
+        label_16->setObjectName(QStringLiteral("label_16"));
+
+        navdataLayout->addWidget(label_16, 4, 0, 1, 1);
+
         label_19 = new QLabel(gridLayoutWidget);
         label_19->setObjectName(QStringLiteral("label_19"));
 
@@ -199,11 +210,6 @@ public:
 
         navdataLayout->addWidget(pitchLabel, 3, 1, 1, 1);
 
-        label_16 = new QLabel(gridLayoutWidget);
-        label_16->setObjectName(QStringLiteral("label_16"));
-
-        navdataLayout->addWidget(label_16, 4, 0, 1, 1);
-
         label_14 = new QLabel(gridLayoutWidget);
         label_14->setObjectName(QStringLiteral("label_14"));
 
@@ -213,11 +219,6 @@ public:
         vyLabel->setObjectName(QStringLiteral("vyLabel"));
 
         navdataLayout->addWidget(vyLabel, 7, 1, 1, 1);
-
-        rollLabel = new QLabel(gridLayoutWidget);
-        rollLabel->setObjectName(QStringLiteral("rollLabel"));
-
-        navdataLayout->addWidget(rollLabel, 4, 1, 1, 1);
 
         controlStateLabel = new QLabel(gridLayoutWidget);
         controlStateLabel->setObjectName(QStringLiteral("controlStateLabel"));
@@ -248,16 +249,6 @@ public:
         vxLabel->setObjectName(QStringLiteral("vxLabel"));
 
         navdataLayout->addWidget(vxLabel, 6, 1, 1, 1);
-
-        label_25 = new QLabel(gridLayoutWidget);
-        label_25->setObjectName(QStringLiteral("label_25"));
-
-        navdataLayout->addWidget(label_25, 8, 0, 1, 1);
-
-        vzLabel = new QLabel(gridLayoutWidget);
-        vzLabel->setObjectName(QStringLiteral("vzLabel"));
-
-        navdataLayout->addWidget(vzLabel, 8, 1, 1, 1);
 
         connectLabel = new QLabel(groupBox_3);
         connectLabel->setObjectName(QStringLiteral("connectLabel"));
@@ -328,12 +319,12 @@ public:
         connectLabel->setAutoFillBackground(true);
         line_6 = new QFrame(groupBox_3);
         line_6->setObjectName(QStringLiteral("line_6"));
-        line_6->setGeometry(QRect(0, 330, 250, 20));
+        line_6->setGeometry(QRect(0, 300, 250, 20));
         line_6->setFrameShape(QFrame::HLine);
         line_6->setFrameShadow(QFrame::Sunken);
         helpButton = new QPushButton(groupBox_3);
         helpButton->setObjectName(QStringLiteral("helpButton"));
-        helpButton->setGeometry(QRect(150, 50, 45, 30));
+        helpButton->setGeometry(QRect(180, 50, 45, 30));
         helpButton->setFocusPolicy(Qt::NoFocus);
         QIcon icon;
         icon.addFile(QStringLiteral(":/HostApplication/ressources/Help-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -341,7 +332,7 @@ public:
         helpButton->setIconSize(QSize(24, 24));
         verticalLayoutWidget = new QWidget(groupBox_3);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(10, 370, 231, 227));
+        verticalLayoutWidget->setGeometry(QRect(10, 340, 231, 227));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -374,20 +365,20 @@ public:
 
         label_12 = new QLabel(groupBox_3);
         label_12->setObjectName(QStringLiteral("label_12"));
-        label_12->setGeometry(QRect(0, 340, 120, 25));
+        label_12->setGeometry(QRect(0, 310, 120, 25));
         label_12->setFont(font1);
         line_7 = new QFrame(groupBox_3);
         line_7->setObjectName(QStringLiteral("line_7"));
-        line_7->setGeometry(QRect(0, 600, 250, 20));
+        line_7->setGeometry(QRect(0, 570, 250, 20));
         line_7->setFrameShape(QFrame::HLine);
         line_7->setFrameShadow(QFrame::Sunken);
         label_15 = new QLabel(groupBox_3);
         label_15->setObjectName(QStringLiteral("label_15"));
-        label_15->setGeometry(QRect(0, 610, 150, 25));
+        label_15->setGeometry(QRect(0, 580, 150, 25));
         label_15->setFont(font1);
         gridLayoutWidget_2 = new QWidget(groupBox_3);
         gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(9, 630, 231, 96));
+        gridLayoutWidget_2->setGeometry(QRect(9, 600, 231, 88));
         gridLayout = new QGridLayout(gridLayoutWidget_2);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -484,6 +475,21 @@ public:
 
         gridLayout->addWidget(ppsiLabel, 3, 1, 1, 1);
 
+        resetPosition = new QPushButton(groupBox_3);
+        resetPosition->setObjectName(QStringLiteral("resetPosition"));
+        resetPosition->setGeometry(QRect(130, 695, 40, 25));
+        resetPosition->setFocusPolicy(Qt::NoFocus);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/HostApplication/ressources/system-software-update.png"), QSize(), QIcon::Normal, QIcon::Off);
+        resetPosition->setIcon(icon1);
+        resetPosition->setIconSize(QSize(24, 24));
+        label_18 = new QLabel(groupBox_3);
+        label_18->setObjectName(QStringLiteral("label_18"));
+        label_18->setGeometry(QRect(10, 700, 131, 17));
+        threeDButton = new QPushButton(groupBox_3);
+        threeDButton->setObjectName(QStringLiteral("threeDButton"));
+        threeDButton->setGeometry(QRect(120, 50, 51, 30));
+        threeDButton->setFocusPolicy(Qt::NoFocus);
         theFrame = new VideoView(centralWidget);
         theFrame->setObjectName(QStringLiteral("theFrame"));
         theFrame->setGeometry(QRect(270, 10, 640, 360));
@@ -572,8 +578,6 @@ public:
         getDistance->setObjectName(QStringLiteral("getDistance"));
         getDistance->setGeometry(QRect(130, 70, 41, 31));
         getDistance->setFocusPolicy(Qt::NoFocus);
-        QIcon icon1;
-        icon1.addFile(QStringLiteral(":/HostApplication/ressources/system-software-update.png"), QSize(), QIcon::Normal, QIcon::Off);
         getDistance->setIcon(icon1);
         getDistance->setIconSize(QSize(24, 24));
         MainWindow->setCentralWidget(centralWidget);
@@ -598,7 +602,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "GreyWind Host Application", 0));
 #ifndef QT_NO_TOOLTIP
         MainWindow->setToolTip(QString());
 #endif // QT_NO_TOOLTIP
@@ -607,24 +611,22 @@ public:
         connectButton->setText(QApplication::translate("MainWindow", "Connect", 0));
         label_5->setText(QApplication::translate("MainWindow", "Connection Status :", 0));
         label_7->setText(QApplication::translate("MainWindow", "Navigation Data", 0));
+        rollLabel->setText(QApplication::translate("MainWindow", "-", 0));
+        label_16->setText(QApplication::translate("MainWindow", "Roll :", 0));
         label_19->setText(QApplication::translate("MainWindow", "Yaw :", 0));
         altitudeLabel->setText(QApplication::translate("MainWindow", "-", 0));
         batteryLabel->setText(QApplication::translate("MainWindow", "-", 0));
         label_9->setText(QApplication::translate("MainWindow", "Battery :", 0));
         label_13->setText(QApplication::translate("MainWindow", "Altitude :", 0));
         pitchLabel->setText(QApplication::translate("MainWindow", "-", 0));
-        label_16->setText(QApplication::translate("MainWindow", "Roll :", 0));
         label_14->setText(QApplication::translate("MainWindow", "Pitch :", 0));
         vyLabel->setText(QApplication::translate("MainWindow", "-", 0));
-        rollLabel->setText(QApplication::translate("MainWindow", "-", 0));
         controlStateLabel->setText(QApplication::translate("MainWindow", "-", 0));
         label_8->setText(QApplication::translate("MainWindow", "Control State:", 0));
         yawLabel->setText(QApplication::translate("MainWindow", "-", 0));
         label_21->setText(QApplication::translate("MainWindow", "Vx :", 0));
         label_23->setText(QApplication::translate("MainWindow", "Vy :", 0));
         vxLabel->setText(QApplication::translate("MainWindow", "-", 0));
-        label_25->setText(QApplication::translate("MainWindow", "Vz :", 0));
-        vzLabel->setText(QApplication::translate("MainWindow", "-", 0));
         connectLabel->setText(QApplication::translate("MainWindow", "NOT OK", 0));
 #ifndef QT_NO_TOOLTIP
         helpButton->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Click for help</p></body></html>", 0));
@@ -642,6 +644,9 @@ public:
         pyLabel->setText(QApplication::translate("MainWindow", "-", 0));
         label_24->setText(QApplication::translate("MainWindow", "psi :", 0));
         ppsiLabel->setText(QApplication::translate("MainWindow", "-", 0));
+        resetPosition->setText(QString());
+        label_18->setText(QApplication::translate("MainWindow", "Reset position:", 0));
+        threeDButton->setText(QApplication::translate("MainWindow", "3D", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Video settings", 0));
         label->setText(QApplication::translate("MainWindow", "Source:", 0));
         srcSelect->clear();

@@ -19,6 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->helpButton,    SIGNAL(clicked()),
                      this,              SLOT(displayHelp()));
 
+    // Connect 3D button
+    QObject::connect(ui->threeDButton,  SIGNAL(clicked()),
+                     this,              SLOT(display3D()));
+
 
     // Connect the qcombobox with the main window
     QObject::connect(ui->srcSelect, SIGNAL(currentIndexChanged(QString)),
@@ -32,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,                SLOT(emitLaserState(int)));
     QObject::connect(ui->getDistance,         SIGNAL(clicked()),
                      this,                SLOT(emitSonarRequest()));
+
+    m_3DWindow.drawPyramid();
 }
 
 MainWindow::~MainWindow(){
@@ -206,6 +212,10 @@ void MainWindow::emitRstPosButton(){
 
 void MainWindow::displayHelp(){
     m_helpWindow.show();
+}
+
+void MainWindow::display3D(){
+    m_3DWindow.show();
 }
 
 void MainWindow::emitLaserState(int state){

@@ -29,7 +29,7 @@
    <enum>Qt::ClickFocus</enum>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>GreyWind Host Application</string>
   </property>
   <property name="toolTip">
    <string/>
@@ -724,7 +724,7 @@
     <widget class="QPushButton" name="helpButton">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>180</x>
        <y>50</y>
        <width>45</width>
        <height>30</height>
@@ -1116,6 +1116,22 @@
      </property>
      <property name="text">
       <string>Reset position:</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="threeDButton">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>50</y>
+       <width>51</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string>3D</string>
      </property>
     </widget>
    </widget>
