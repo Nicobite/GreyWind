@@ -2,14 +2,15 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "GUI/help.h"
 #include <QGridLayout>
-
 #include <QWidget>
 #include <QKeyEvent>
+
 #include "includes.h"
 #include "GUI/videoview.h"
 #include "Drone_Interface/droneinterface.h"
+#include "GUI/help.h"
+#include "GUI/threedview.h"
 
 namespace Ui {
 class MainWindow;
@@ -38,6 +39,7 @@ public:
 private:
     bool m_connected;
     Help m_helpWindow;
+    ThreeDView m_3DWindow;
 
 public slots:
     void setFrame(QImage image);
@@ -54,6 +56,7 @@ private slots:
     void emitLaserState(int state);
     void emitSonarRequest();
     void displayHelp();
+    void display3D();
 
 signals:
     void vidSourceChanged(std::string src);

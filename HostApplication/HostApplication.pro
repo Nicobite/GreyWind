@@ -1,10 +1,10 @@
-#-------------------------------------------------
+    #-------------------------------------------------
 #
 # Project created by QtCreator 2014-11-14T13:19:13
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     Drone_Interface/Sensor_Interface/sensorthread.cpp \
     GUI/painterthread.cpp \
     Detection/detectthread.cpp \
-    localizationfunctions.cpp
+    localizationfunctions.cpp \
+    GUI/threedview.cpp
 
 LIBS += `pkg-config opencv --libs`
 
@@ -54,11 +55,13 @@ HEADERS  += Detection/laserdetect.hpp \
     Drone_Interface/Sensor_Interface/sensorthread.h \
     GUI/painterthread.h \
     Detection/detectthread.h \
-    localizationfunctions.h
+    localizationfunctions.h \
+    GUI/threedview.h
 
 FORMS    += GUI/help.ui \
     GUI/mainwindow.ui \
-    GUI/videoview.ui
+    GUI/videoview.ui \
+    GUI/threedview.ui
 
 RESOURCES += \
     HostApplication.qrc
