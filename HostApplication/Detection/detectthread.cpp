@@ -12,6 +12,12 @@ DetectThread::DetectThread(QObject *parent) :
                      this,              SLOT(handleDetectedObject(Point,Size)));
 }
 
+
+DetectThread::~DetectThread(){
+    delete m_algo;
+}
+
+
 void DetectThread::run(){
     //DEBUG("> DetectThread::run()");
     while(1){

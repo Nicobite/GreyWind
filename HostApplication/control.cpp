@@ -95,7 +95,7 @@ void Control::handleFrame(Mat frame){
 }
 
 void Control::handleNavdata(navdata_t nd){
-    m_locfunc.updatePosition(nd.vx, nd.vy);
+    m_locfunc.updatePosition(nd.vx, nd.vy, nd.yaw);
     m_mainWindow.updateLocationView(m_locfunc.get_x(), m_locfunc.get_y(), nd.altitude, nd.yaw);
 }
 

@@ -14,6 +14,7 @@ class DetectThread : public QThread
     Q_OBJECT
 public:
     explicit DetectThread(QObject *parent = 0);
+    ~DetectThread();
 
     void pushMatToFIFO(Mat mat);
 

@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     GUI/painterthread.cpp \
     Detection/detectthread.cpp \
     localizationfunctions.cpp \
-    GUI/threedview.cpp
+    GUI/threedview.cpp \
+    trackingalgo.cpp
 
 LIBS += `pkg-config opencv --libs`
 
@@ -56,7 +57,8 @@ HEADERS  += Detection/laserdetect.hpp \
     GUI/painterthread.h \
     Detection/detectthread.h \
     localizationfunctions.h \
-    GUI/threedview.h
+    GUI/threedview.h \
+    trackingalgo.h
 
 FORMS    += GUI/help.ui \
     GUI/mainwindow.ui \
