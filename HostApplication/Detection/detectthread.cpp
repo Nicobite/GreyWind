@@ -3,8 +3,9 @@
 DetectThread::DetectThread(QObject *parent) :
     QThread(parent)
 {
-    //m_algo = new HaarFaceDetectionAlgo("haarcascade_frontalface_alt.xml");
-    m_algo = new HaarFaceDetectionAlgo("pyr_cascade_v2.xml");
+    m_algo = new HaarFaceDetectionAlgo("haarcascade_frontalface_alt.xml");
+    //m_algo = new HaarFaceDetectionAlgo("pyr_cascade_v2.xml"); // BUGGY
+
     // Connecting this and the detection objects
     QObject::connect(this,              SIGNAL(sigFrameToObject(Mat)),
                      m_algo,            SLOT(handleFrame(Mat)));
