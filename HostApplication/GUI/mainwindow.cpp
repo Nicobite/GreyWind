@@ -37,6 +37,19 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->getDistance,         SIGNAL(clicked()),
                      this,                SLOT(emitSonarRequest()));
 
+    // Connect detection button
+    QObject::connect(ui->detectButton,    SIGNAL(clicked()),
+                     this,              SLOT(displayDetection()));
+
+    // Connect valid button and it action
+    QObject::connect(&m_detectionWindow,    SIGNAL(sendValidDetection()),
+                     this,              SLOT(validDetection()));
+    // Connect blackList button and it action
+    QObject::connect(&m_detectionWindow,    SIGNAL(sendAddToBlackListDetection()),
+                     this,              SLOT(addToBlackListDetection()));
+
+
+
     m_3DWindow.drawPyramid();
 }
 
@@ -153,6 +166,11 @@ void MainWindow::updateLocationView(float x, float y, float z, float psi){
 
 
 void MainWindow::drawDetectedEllipse(Point center, Size size){
+    // Save the values of the center et the size of the ellipse
+    m_center=center;
+    m_size=size;
+
+    // Draw the ellipse
     ui->theFrame->pushEllipse(center, size);
 }
 
@@ -218,6 +236,27 @@ void MainWindow::display3D(){
     m_3DWindow.show();
 }
 
+void MainWindow::displayDetection(){
+
+    //Detection window with Valid and BlackList appears
+    m_detectionWindow.show();
+    m_detectionWindow.move(530,430);
+
+    // Stop the different detections
+    emit sendStopDrawingEllipse();
+
+    // Change the color of the pen
+    ui->theFrame->penChange(Qt::red,5);
+
+    // Save the values of the center and the size that we detect
+    m_center_detected=m_center;
+    m_size_detected=m_size;
+
+    // Draw the ellipse of detection validation with the last values of center and size
+    ui->theFrame->pushEllipse(m_center_detected, m_size_detected);
+
+}
+
 void MainWindow::emitLaserState(int state){
     if(state==Qt::Unchecked){
         emit laserState(false);
@@ -229,3 +268,51 @@ void MainWindow::emitLaserState(int state){
 void MainWindow::emitSonarRequest(){
     emit sonarRequest();
 }
+
+void MainWindow::validDetection(){
+
+    // Change the color of the pen
+    ui->theFrame->penChange(Qt::green,5);
+    ui->theFrame->pushEllipse(m_center_detected, m_size_detected);
+
+    // detection window disappears
+    m_detectionWindow.hide();
+
+    // Change the icon in the mainWindow
+    QPixmap pm (":/HostApplication/ressources/tick_octagon.png");
+    ui->objectDetectedIconlabel->setPixmap(pm);
+
+    // Add information about the location of the detected object
+    // Now static but later with the tracking will be dynamic
+    ui->objectDetectedLocationgroupBox->setEnabled(true);
+    ui->xCenterlabel->setNum(m_center_detected.x);
+    ui->yCenterlabel->setNum(m_center_detected.y);
+    ui->radiuslabel->setNum(m_size_detected.width);
+
+}
+
+void MainWindow::addToBlackListDetection(){
+
+    // Change the color of the pen
+    ui->theFrame->penChange(Qt::black,5);
+    ui->theFrame->pushEllipse(m_center_detected, m_size_detected);
+
+    // detection window disappears
+    m_detectionWindow.hide();
+
+    // Change the icon in the mainWindow
+    QPixmap pm (":/HostApplication/ressources/Icon-16x16-not_ok.png");
+    ui->objectDetectedIconlabel->setPixmap(pm);
+
+    //Disable the groupbox
+    ui->objectDetectedLocationgroupBox->setEnabled(false);
+
+    //Add the bad detected point to the blackList
+    m_blackListCenterFIFO.push(m_center_detected);
+    m_blackListSizeFIFO.push(m_size_detected);
+
+    // Update the size of the BlackList
+    cout<<"[MAINWINDOW] Add an element into the blacklist "<<m_blackListCenterFIFO.size()<<endl;
+    ui->sizeBlackListlabel->setNum(int(m_blackListCenterFIFO.size()));
+}
+

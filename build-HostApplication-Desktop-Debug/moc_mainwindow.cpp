@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[38];
-    char stringdata[442];
+    QByteArrayData data[42];
+    char stringdata[521];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,45 +41,51 @@ QT_MOC_LITERAL(8, 92, 20),
 QT_MOC_LITERAL(9, 113, 10),
 QT_MOC_LITERAL(10, 124, 5),
 QT_MOC_LITERAL(11, 130, 12),
-QT_MOC_LITERAL(12, 143, 8),
-QT_MOC_LITERAL(13, 152, 6),
-QT_MOC_LITERAL(14, 159, 10),
-QT_MOC_LITERAL(15, 170, 8),
-QT_MOC_LITERAL(16, 179, 5),
-QT_MOC_LITERAL(17, 185, 17),
-QT_MOC_LITERAL(18, 203, 9),
-QT_MOC_LITERAL(19, 213, 2),
-QT_MOC_LITERAL(20, 216, 19),
-QT_MOC_LITERAL(21, 236, 5),
-QT_MOC_LITERAL(22, 242, 6),
-QT_MOC_LITERAL(23, 249, 4),
-QT_MOC_LITERAL(24, 254, 4),
-QT_MOC_LITERAL(25, 259, 22),
-QT_MOC_LITERAL(26, 282, 6),
-QT_MOC_LITERAL(27, 289, 15),
-QT_MOC_LITERAL(28, 305, 8),
-QT_MOC_LITERAL(29, 314, 13),
-QT_MOC_LITERAL(30, 328, 4),
-QT_MOC_LITERAL(31, 333, 18),
-QT_MOC_LITERAL(32, 352, 16),
-QT_MOC_LITERAL(33, 369, 17),
-QT_MOC_LITERAL(34, 387, 14),
-QT_MOC_LITERAL(35, 402, 16),
-QT_MOC_LITERAL(36, 419, 11),
-QT_MOC_LITERAL(37, 431, 9)
+QT_MOC_LITERAL(12, 143, 22),
+QT_MOC_LITERAL(13, 166, 8),
+QT_MOC_LITERAL(14, 175, 6),
+QT_MOC_LITERAL(15, 182, 10),
+QT_MOC_LITERAL(16, 193, 8),
+QT_MOC_LITERAL(17, 202, 5),
+QT_MOC_LITERAL(18, 208, 17),
+QT_MOC_LITERAL(19, 226, 9),
+QT_MOC_LITERAL(20, 236, 2),
+QT_MOC_LITERAL(21, 239, 19),
+QT_MOC_LITERAL(22, 259, 5),
+QT_MOC_LITERAL(23, 265, 6),
+QT_MOC_LITERAL(24, 272, 4),
+QT_MOC_LITERAL(25, 277, 4),
+QT_MOC_LITERAL(26, 282, 22),
+QT_MOC_LITERAL(27, 305, 6),
+QT_MOC_LITERAL(28, 312, 15),
+QT_MOC_LITERAL(29, 328, 8),
+QT_MOC_LITERAL(30, 337, 13),
+QT_MOC_LITERAL(31, 351, 4),
+QT_MOC_LITERAL(32, 356, 18),
+QT_MOC_LITERAL(33, 375, 16),
+QT_MOC_LITERAL(34, 392, 17),
+QT_MOC_LITERAL(35, 410, 14),
+QT_MOC_LITERAL(36, 425, 16),
+QT_MOC_LITERAL(37, 442, 11),
+QT_MOC_LITERAL(38, 454, 9),
+QT_MOC_LITERAL(39, 464, 16),
+QT_MOC_LITERAL(40, 481, 14),
+QT_MOC_LITERAL(41, 496, 23)
     },
     "MainWindow\0vidSourceChanged\0\0std::string\0"
     "src\0detectFrameRateChanged\0fbd\0"
     "rstPosButtonClicked\0connectButtonClicked\0"
-    "laserState\0state\0sonarRequest\0pressCmd\0"
-    "keyval\0releaseCmd\0setFrame\0image\0"
-    "updateNavdataView\0navdata_t\0nd\0"
-    "drawDetectedEllipse\0Point\0center\0Size\0"
-    "size\0updateConnectionStatus\0status\0"
-    "updateSonarView\0distance\0emitVidSource\0"
-    "text\0emitFramesB4Detect\0emitRstPosButton\0"
-    "emitConnectButton\0emitLaserState\0"
-    "emitSonarRequest\0displayHelp\0display3D\0"
+    "laserState\0state\0sonarRequest\0"
+    "sendStopDrawingEllipse\0pressCmd\0keyval\0"
+    "releaseCmd\0setFrame\0image\0updateNavdataView\0"
+    "navdata_t\0nd\0drawDetectedEllipse\0Point\0"
+    "center\0Size\0size\0updateConnectionStatus\0"
+    "status\0updateSonarView\0distance\0"
+    "emitVidSource\0text\0emitFramesB4Detect\0"
+    "emitRstPosButton\0emitConnectButton\0"
+    "emitLaserState\0emitSonarRequest\0"
+    "displayHelp\0display3D\0displayDetection\0"
+    "validDetection\0addToBlackListDetection\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -89,37 +95,41 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      25,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       8,       // signalCount
+       9,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  119,    2, 0x06,
-       5,    1,  122,    2, 0x06,
-       7,    0,  125,    2, 0x06,
-       8,    0,  126,    2, 0x06,
-       9,    1,  127,    2, 0x06,
-      11,    0,  130,    2, 0x06,
-      12,    1,  131,    2, 0x06,
-      14,    0,  134,    2, 0x06,
+       1,    1,  139,    2, 0x06,
+       5,    1,  142,    2, 0x06,
+       7,    0,  145,    2, 0x06,
+       8,    0,  146,    2, 0x06,
+       9,    1,  147,    2, 0x06,
+      11,    0,  150,    2, 0x06,
+      12,    0,  151,    2, 0x06,
+      13,    1,  152,    2, 0x06,
+      15,    0,  155,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-      15,    1,  135,    2, 0x0a,
-      17,    1,  138,    2, 0x0a,
-      20,    2,  141,    2, 0x0a,
-      25,    1,  146,    2, 0x0a,
-      27,    1,  149,    2, 0x0a,
-      29,    1,  152,    2, 0x08,
-      31,    1,  155,    2, 0x08,
-      32,    0,  158,    2, 0x08,
-      33,    0,  159,    2, 0x08,
-      34,    1,  160,    2, 0x08,
-      35,    0,  163,    2, 0x08,
-      36,    0,  164,    2, 0x08,
-      37,    0,  165,    2, 0x08,
+      16,    1,  156,    2, 0x0a,
+      18,    1,  159,    2, 0x0a,
+      21,    2,  162,    2, 0x0a,
+      26,    1,  167,    2, 0x0a,
+      28,    1,  170,    2, 0x0a,
+      30,    1,  173,    2, 0x08,
+      32,    1,  176,    2, 0x08,
+      33,    0,  179,    2, 0x08,
+      34,    0,  180,    2, 0x08,
+      35,    1,  181,    2, 0x08,
+      36,    0,  184,    2, 0x08,
+      37,    0,  185,    2, 0x08,
+      38,    0,  186,    2, 0x08,
+      39,    0,  187,    2, 0x08,
+      40,    0,  188,    2, 0x08,
+      41,    0,  189,    2, 0x08,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -128,20 +138,24 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   10,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   13,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   14,
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QImage,   16,
-    QMetaType::Void, 0x80000000 | 18,   19,
-    QMetaType::Void, 0x80000000 | 21, 0x80000000 | 23,   22,   24,
-    QMetaType::Void, QMetaType::Bool,   26,
-    QMetaType::Void, QMetaType::Int,   28,
-    QMetaType::Void, QMetaType::QString,   30,
+    QMetaType::Void, QMetaType::QImage,   17,
+    QMetaType::Void, 0x80000000 | 19,   20,
+    QMetaType::Void, 0x80000000 | 22, 0x80000000 | 24,   23,   25,
+    QMetaType::Void, QMetaType::Bool,   27,
+    QMetaType::Void, QMetaType::Int,   29,
+    QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::Double,    6,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   10,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -160,21 +174,25 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 3: _t->connectButtonClicked(); break;
         case 4: _t->laserState((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 5: _t->sonarRequest(); break;
-        case 6: _t->pressCmd((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: _t->releaseCmd(); break;
-        case 8: _t->setFrame((*reinterpret_cast< QImage(*)>(_a[1]))); break;
-        case 9: _t->updateNavdataView((*reinterpret_cast< navdata_t(*)>(_a[1]))); break;
-        case 10: _t->drawDetectedEllipse((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
-        case 11: _t->updateConnectionStatus((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 12: _t->updateSonarView((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 13: _t->emitVidSource((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 14: _t->emitFramesB4Detect((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 15: _t->emitRstPosButton(); break;
-        case 16: _t->emitConnectButton(); break;
-        case 17: _t->emitLaserState((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 18: _t->emitSonarRequest(); break;
-        case 19: _t->displayHelp(); break;
-        case 20: _t->display3D(); break;
+        case 6: _t->sendStopDrawingEllipse(); break;
+        case 7: _t->pressCmd((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 8: _t->releaseCmd(); break;
+        case 9: _t->setFrame((*reinterpret_cast< QImage(*)>(_a[1]))); break;
+        case 10: _t->updateNavdataView((*reinterpret_cast< navdata_t(*)>(_a[1]))); break;
+        case 11: _t->drawDetectedEllipse((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
+        case 12: _t->updateConnectionStatus((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 13: _t->updateSonarView((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 14: _t->emitVidSource((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 15: _t->emitFramesB4Detect((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 16: _t->emitRstPosButton(); break;
+        case 17: _t->emitConnectButton(); break;
+        case 18: _t->emitLaserState((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 19: _t->emitSonarRequest(); break;
+        case 20: _t->displayHelp(); break;
+        case 21: _t->display3D(); break;
+        case 22: _t->displayDetection(); break;
+        case 23: _t->validDetection(); break;
+        case 24: _t->addToBlackListDetection(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -217,15 +235,21 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             }
         }
         {
+            typedef void (MainWindow::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::sendStopDrawingEllipse)) {
+                *result = 6;
+            }
+        }
+        {
             typedef void (MainWindow::*_t)(int );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::pressCmd)) {
-                *result = 6;
+                *result = 7;
             }
         }
         {
             typedef void (MainWindow::*_t)();
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::releaseCmd)) {
-                *result = 7;
+                *result = 8;
             }
         }
     }
@@ -256,13 +280,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 25)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 25;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 25)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 21;
+        _id -= 25;
     }
     return _id;
 }
@@ -307,15 +331,21 @@ void MainWindow::sonarRequest()
 }
 
 // SIGNAL 6
-void MainWindow::pressCmd(int _t1)
+void MainWindow::sendStopDrawingEllipse()
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 6, _a);
+    QMetaObject::activate(this, &staticMetaObject, 6, 0);
 }
 
 // SIGNAL 7
+void MainWindow::pressCmd(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 7, _a);
+}
+
+// SIGNAL 8
 void MainWindow::releaseCmd()
 {
-    QMetaObject::activate(this, &staticMetaObject, 7, 0);
+    QMetaObject::activate(this, &staticMetaObject, 8, 0);
 }
 QT_END_MOC_NAMESPACE

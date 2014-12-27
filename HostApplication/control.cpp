@@ -49,6 +49,9 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     QObject::connect(this,              SIGNAL(sendDetectedObject(Point,Size)),
                      &m_mainWindow,     SLOT(drawDetectedEllipse(Point,Size)));
 
+    QObject::connect(&m_mainWindow,              SIGNAL(sendStopDrawingEllipse()),
+                     this,     SLOT(StopDrawingEllipse()));
+
 
     /*TODO : lol change that shit       */
     //m_detectionAlgo = new HaarFaceDetectionAlgo("haarcascade_frontalface_alt.xml");
@@ -109,6 +112,11 @@ void Control::handleDetectedObject(Point point, Size size){
     //TODO : add some fucking intelligence
     //DEBUG("handleDetectedObject " << CURRENT_TIME);
     emit sendDetectedObject(point, size);
+}
+
+void Control::StopDrawingEllipse(){
+    QObject::disconnect(this,              SIGNAL(sendDetectedObject(Point,Size)),
+                     &m_mainWindow,     SLOT(drawDetectedEllipse(Point,Size)));
 }
 
 void Control::connectDrone(){

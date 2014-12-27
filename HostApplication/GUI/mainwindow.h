@@ -11,6 +11,7 @@
 #include "Drone_Interface/droneinterface.h"
 #include "GUI/help.h"
 #include "GUI/threedview.h"
+#include "GUI/detection.h"
 
 namespace Ui {
 class MainWindow;
@@ -35,11 +36,19 @@ public:
     void focusInEvent(QFocusEvent* event);
     void focusOutEvent(QFocusEvent* event);
 
+    std::queue<Point> m_blackListCenterFIFO;
+    std::queue<Size> m_blackListSizeFIFO;
+
 
 private:
     bool m_connected;
     Help m_helpWindow;
     ThreeDView m_3DWindow;
+    Detection m_detectionWindow;
+    Size m_size; // Get from Control class
+    Point m_center; // Get from Control class
+    Size m_size_detected; // Get from pressure on detectButton
+    Point m_center_detected; // Get from pressure on detectButton
 
 public slots:
     void setFrame(QImage image);
@@ -57,6 +66,9 @@ private slots:
     void emitSonarRequest();
     void displayHelp();
     void display3D();
+    void displayDetection();
+    void validDetection();
+    void addToBlackListDetection();
 
 signals:
     void vidSourceChanged(std::string src);
@@ -65,6 +77,8 @@ signals:
     void connectButtonClicked();
     void laserState(bool state);
     void sonarRequest();
+    void sendStopDrawingEllipse(void);
+
 
     void pressCmd(int keyval);
     void releaseCmd();

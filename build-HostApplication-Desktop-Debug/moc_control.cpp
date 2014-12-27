@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Control_t {
-    QByteArrayData data[23];
-    char stringdata[232];
+    QByteArrayData data[24];
+    char stringdata[251];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -51,7 +51,8 @@ QT_MOC_LITERAL(18, 177, 13),
 QT_MOC_LITERAL(19, 191, 9),
 QT_MOC_LITERAL(20, 201, 2),
 QT_MOC_LITERAL(21, 204, 13),
-QT_MOC_LITERAL(22, 218, 12)
+QT_MOC_LITERAL(22, 218, 18),
+QT_MOC_LITERAL(23, 237, 12)
     },
     "Control\0sendFrameToDetect\0\0Mat\0frame\0"
     "sendDetectedObject\0Point\0point\0Size\0"
@@ -59,7 +60,7 @@ QT_MOC_LITERAL(22, 218, 12)
     "changeVideoSource\0std::string\0src\0err\0"
     "handleFrame\0handleDetectedObject\0"
     "handleNavdata\0navdata_t\0nd\0resetPosition\0"
-    "connectDrone\0"
+    "StopDrawingEllipse\0connectDrone\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -69,7 +70,7 @@ static const uint qt_meta_data_Control[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -77,18 +78,19 @@ static const uint qt_meta_data_Control[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   64,    2, 0x06,
-       5,    2,   67,    2, 0x06,
-      10,    1,   72,    2, 0x06,
+       1,    1,   69,    2, 0x06,
+       5,    2,   72,    2, 0x06,
+      10,    1,   77,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-      12,    2,   75,    2, 0x0a,
-      12,    1,   80,    2, 0x2a,
-      16,    1,   83,    2, 0x0a,
-      17,    2,   86,    2, 0x0a,
-      18,    1,   91,    2, 0x0a,
-      21,    0,   94,    2, 0x0a,
-      22,    0,   95,    2, 0x0a,
+      12,    2,   80,    2, 0x0a,
+      12,    1,   85,    2, 0x2a,
+      16,    1,   88,    2, 0x0a,
+      17,    2,   91,    2, 0x0a,
+      18,    1,   96,    2, 0x0a,
+      21,    0,   99,    2, 0x0a,
+      22,    0,  100,    2, 0x0a,
+      23,    0,  101,    2, 0x0a,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -101,6 +103,7 @@ static const uint qt_meta_data_Control[] = {
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, 0x80000000 | 6, 0x80000000 | 8,    7,    9,
     QMetaType::Void, 0x80000000 | 19,   20,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -121,7 +124,8 @@ void Control::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 6: _t->handleDetectedObject((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
         case 7: _t->handleNavdata((*reinterpret_cast< navdata_t(*)>(_a[1]))); break;
         case 8: _t->resetPosition(); break;
-        case 9: _t->connectDrone(); break;
+        case 9: _t->StopDrawingEllipse(); break;
+        case 10: _t->connectDrone(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -173,13 +177,13 @@ int Control::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 10;
+        _id -= 11;
     }
     return _id;
 }

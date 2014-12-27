@@ -37,13 +37,16 @@ signals:
     void sendDetectedObject(Point point, Size size);
     void sendConnectionStatus(bool status);
 
+
 public slots:
     void changeVideoSource(std::string src, int err=0);
     void handleFrame(Mat frame);
     void handleDetectedObject(Point point, Size size);
     void handleNavdata(navdata_t nd);
     void resetPosition();
+    void StopDrawingEllipse();
     void connectDrone();
 };
 
 #endif // CONTROL_H
+

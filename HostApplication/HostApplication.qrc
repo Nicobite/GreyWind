@@ -11,5 +11,7 @@
         <file>ressources/Help-icon.png</file>
         <file>ressources/joystick.png</file>
         <file>ressources/joystick_inactive.png</file>
+        <file>ressources/tick_octagon.png</file>
+        <file>ressources/Icon-16x16-not_ok.png</file>
     </qresource>
 </RCC>

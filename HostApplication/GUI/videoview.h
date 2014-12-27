@@ -28,6 +28,8 @@ public:
     void updateDraw();
     void resetDrawLabel();
     void setFrameB4Detect(int framesB4Detect);
+    void penInit();
+    void penChange(QColor color, int size);
 
 private:
     int m_framesB4Detect = 40;
@@ -40,6 +42,7 @@ private:
     QPoint m_ellipsePoint;
     int m_ellipseWidth;
     int m_ellipseHeight;//*/
+    QPen m_pen;
 
 public slots:
     void slotDrawToView(QPixmap pixmap);

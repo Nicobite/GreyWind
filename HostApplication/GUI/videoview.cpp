@@ -16,6 +16,9 @@ VideoView::VideoView(QWidget *parent) :
     m_painterThread.start();
 #endif
     DEBUG("VideowView constructor 2");
+
+    // Initialize the color et the size of the pen
+    penInit();
 }
 
 VideoView::~VideoView()
@@ -46,7 +49,7 @@ void VideoView::updateVideo(QImage image){
 void VideoView::updateDraw(){
     // Preparing and drawing ellipses
     QImage image2;
-    QPen pen;
+    //QPen pen;
     QString string;
     while(!m_drawPointFIFO.empty()){
         DEBUG("while: debut" << CURRENT_TIME);
@@ -57,16 +60,16 @@ void VideoView::updateDraw(){
         m_drawSizeFIFO.pop();
         image2 = QImage(640,360,QImage::Format_ARGB32);
         QPainter painter(&image2);
-        pen.setColor(Qt::green);
-        pen.setWidth(3);
-        painter.setPen(pen);
+        //pen.setColor(Qt::cyan);
+        //pen.setWidth(3);
+        painter.setPen(m_pen);
         painter.drawEllipse(m_ellipsePoint, m_ellipseWidth, m_ellipseHeight);
         painter.setFont( QFont("Arial") );
 
        string = "Face (x"+QString::number(m_ellipsePoint.x())+";y"+QString::number(m_ellipsePoint.y())+")";
         //DEBUG("updateDraw coordinates " << string);
-        pen.setColor(Qt::white);
-        painter.setPen(pen);
+        //pen.setColor(Qt::cyan);
+        painter.setPen(m_pen);
         painter.drawText( m_ellipsePoint, string );
         // Displaying ellipses to drawLabel
         ui->drawLabel->setPixmap(QPixmap::fromImage(image2));
@@ -86,7 +89,7 @@ void VideoView::updateDraw(){
     }
     QImage image2 = QImage(640,360,QImage::Format_ARGB32);
     QPainter painter(&image2);
-    QPen pen(Qt::green);
+    QPen pen(Qt::);
     pen.setWidth(3);
     painter.setPen(pen);
     painter.drawEllipse(m_ellipsePoint, m_ellipseWidth, m_ellipseHeight);
@@ -129,4 +132,14 @@ void VideoView::resetDrawLabel(){ // TODO RESET DRAW LABEL WHEN NO VIDEO HOLYSHI
 
 void VideoView::setFrameB4Detect(int framesB4Detect){
     m_framesB4Detect = framesB4Detect;
+}
+
+void VideoView::penInit(void){
+    m_pen.setColor(Qt::cyan);
+    m_pen.setWidth(3);
+}
+
+void VideoView::penChange(QColor color, int size){
+    m_pen.setColor(color);
+    m_pen.setWidth(size);
 }
