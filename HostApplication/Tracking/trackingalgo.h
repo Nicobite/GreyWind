@@ -9,13 +9,14 @@ class TrackingAlgo : public QObject
 {
     Q_OBJECT
 
-private:
+protected:
     cv::Point m_coordinate;
     cv::Size m_size;
     bool m_status;
 
 public:
     explicit TrackingAlgo(QObject *parent = 0);
+    ~TrackingAlgo();
 
     virtual void initialise(cv::Mat img, cv::Point point, cv::Size size) = 0;
     virtual void track(cv::Mat img) = 0;

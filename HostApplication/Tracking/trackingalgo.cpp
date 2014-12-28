@@ -5,6 +5,10 @@ TrackingAlgo::TrackingAlgo(QObject *parent) :
 {
 }
 
+TrackingAlgo::~TrackingAlgo(){
+
+}
+
 cv::Point TrackingAlgo::getCoordinate(){
     return m_coordinate;
 }
