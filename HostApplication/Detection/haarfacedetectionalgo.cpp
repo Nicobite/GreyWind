@@ -43,8 +43,9 @@ void HaarFaceDetectionAlgo::detect(Mat &frame)
             //DEBUG("Af detectMS\t\t" << CURRENT_TIME);
 
             for (size_t i = 0;i < m_faces.size();i++){
-                center = Point( m_faces[i].x + m_faces[i].width/2, m_faces[i].y + m_faces[i].height/2 );
-                size = Size( m_faces[i].width/2, m_faces[i].height/2 );
+                center = Point( m_faces[i].x + m_faces[i].width/2, m_faces[i].y + m_faces[i].height/4 );
+                //size = Size( m_faces[i].width/2, m_faces[i].height/2 );
+                size = Size( m_faces[i].width/2, m_faces[i].height/2);
                 //ellipse( frame, center, Size( m_faces[i].width/2, m_faces[i].height/2 ), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
                 emit detectedObject(center, size);
             }
