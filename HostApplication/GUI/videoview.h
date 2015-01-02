@@ -30,12 +30,16 @@ public:
     void setFrameB4Detect(int framesB4Detect);
     void penInit();
     void penChange(QColor color, int size);
+    void setObjname(std::string objname);
+    void setHaltDraw(bool hold);
 
 private:
-    int m_framesB4Detect = 40;
-    int m_currentFrame = 1;
+    int m_framesB4Detect;
+    int m_currentFrame;
+    std::string m_objName;
     Ui::VideoView * ui;
     PainterThread m_painterThread;
+    bool m_haltDraw;
 
     std::queue<Point> m_drawPointFIFO;
     std::queue<Size> m_drawSizeFIFO;
@@ -44,8 +48,6 @@ private:
     int m_ellipseHeight;//*/
     QPen m_pen;
 
-public slots:
-    void slotDrawToView(QPixmap pixmap);
 };
 
 #endif // VIDEOVIEW_H

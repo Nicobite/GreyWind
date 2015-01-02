@@ -4,10 +4,14 @@
 
 PCMDetectionAlgo::PCMDetectionAlgo(String pcm_filename): DetectionAlgo()
 {
-    m_pcm_filename=pcm_filename;
-    m_template_filename = m_pcm_filename+".templates";
-    this->loadContour(m_contour_template, m_pcm_filename);
-    this->loadTemplates(m_templates, m_template_filename);
+    m_base_path = "./pcm/"+pcm_filename+"/";
+    m_pcm_filename=m_base_path+pcm_filename+".pcm";
+    m_template_filename = m_base_path+pcm_filename+".templates";
+    this->loadContour();
+    this->loadTemplates();
+
+    m_cntr_height=boundingRect(m_contour_template).height;
+    m_cntr_width=boundingRect(m_contour_template).width;
 }
 
 PCMDetectionAlgo::~PCMDetectionAlgo(){
@@ -37,10 +41,13 @@ void PCMDetectionAlgo::detect(Mat &frame){
 
         if(norm(Mat(match_pos), Mat(position_contour))<=30){
             found = true;
-            rectangle( frame, match_pos, Point( match_pos.x + size.width , match_pos.y + size.height), Scalar(0,255,0), 2, 8, 0 );
-            imshow( "Pattern Matching", frame );
+            //rectangle( frame, match_pos, Point( match_pos.x + size.width , match_pos.y + size.height), Scalar(0,255,0), 2, 8, 0 );
+
+            emit detectedObject(Point(match_pos.x+0.5*size.width, match_pos.y+0.5*size.height), Size(size.width/2 , size.height/2));
+
+            //imshow( "Pattern Matching", frame );
         } else{
-            imshow( "Pattern Matching", frame );
+            //imshow( "Pattern Matching", frame );
             if(iter < m_templates.size()-1){
                 iter++;
             } else{
@@ -51,9 +58,9 @@ void PCMDetectionAlgo::detect(Mat &frame){
 }
 
 
-void PCMDetectionAlgo::loadContour(vector<Point>& contour_template, String filename){
+void PCMDetectionAlgo::loadContour(){
     ifstream inputFile;
-    inputFile.open(filename.c_str());
+    inputFile.open(m_pcm_filename.c_str());
     if(inputFile.is_open()){
         int size;
         inputFile >> size;
@@ -61,7 +68,7 @@ void PCMDetectionAlgo::loadContour(vector<Point>& contour_template, String filen
             int x,y;
             inputFile >> x >> y;
             Point pt(x,y);
-            contour_template.push_back(pt);
+            m_contour_template.push_back(pt);
         }
 
         inputFile.close();
@@ -71,16 +78,16 @@ void PCMDetectionAlgo::loadContour(vector<Point>& contour_template, String filen
     }
 }
 
-void PCMDetectionAlgo::loadTemplates(vector<Mat>& templates, String filename){
+void PCMDetectionAlgo::loadTemplates(){
     ifstream inputFile;
-    inputFile.open(filename.c_str());
+    inputFile.open(m_template_filename.c_str());
     if(inputFile.is_open()){
         int size;
         inputFile >> size;
         for(int i=0; i<size ;i++){
             std::string templ_fd;
             inputFile >> templ_fd;
-            templates.push_back(imread(templ_fd,1));
+            m_templates.push_back(imread(m_base_path+templ_fd,1));
         }
 
         inputFile.close();
@@ -91,7 +98,6 @@ void PCMDetectionAlgo::loadTemplates(vector<Mat>& templates, String filename){
 }
 
 Rect PCMDetectionAlgo::getAverageShapeSize(Mat& frame, vector<Point>& contour_template, Point& pos){
-    static float height=boundingRect(contour_template).height, width=boundingRect(contour_template).width;
 
     vector<vector<Point> > contoursTempl;
     vector<Vec4i> hierarchyTempl;
@@ -135,18 +141,18 @@ Rect PCMDetectionAlgo::getAverageShapeSize(Mat& frame, vector<Point>& contour_te
         imshow(title, drawedge);
 #endif
 
-        height=0.95*height + 0.05*boundingRect(contoursTempl[bestIndex]).height;
-        width=0.95*width + 0.05*boundingRect(contoursTempl[bestIndex]).width;
+        m_cntr_height=0.9*m_cntr_height + 0.1*boundingRect(contoursTempl[bestIndex]).height;
+        m_cntr_width=0.9*m_cntr_width + 0.1*boundingRect(contoursTempl[bestIndex]).width;
 
         pos.x = boundingRect(contoursTempl[bestIndex]).x;
         pos.y = boundingRect(contoursTempl[bestIndex]).y;
 
-        printf("Match result: %f,\th = %f,\tw=%f\n", indexScore, height, width);
+        printf("Match result: %f,\th = %f,\tw=%f\n", indexScore, m_cntr_height, m_cntr_width);
     }
 
     Rect size;
-    size.height=height;
-    size.width=width;
+    size.height=m_cntr_height;
+    size.width=m_cntr_width;
     return size;
 }
 

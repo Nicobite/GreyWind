@@ -12,10 +12,12 @@ using namespace cv;
 class PCMDetectionAlgo : public DetectionAlgo
 {
 private:
+    String m_base_path;
     String m_pcm_filename;
     String m_template_filename;
     vector<Point> m_contour_template;
     vector<Mat> m_templates;
+    float m_cntr_height, m_cntr_width;
 public:
     PCMDetectionAlgo(String pcm_filename);
     ~PCMDetectionAlgo();
@@ -24,8 +26,8 @@ protected:
 
     void detect(Mat &frame);
 
-    void loadContour(vector<Point>& contour_template, String filename);
-    void loadTemplates(vector<Mat>& templates, String filename);
+    void loadContour();
+    void loadTemplates();
 
     Rect getAverageShapeSize(Mat& frame, vector<Point>& contour_template, Point& pos);
 

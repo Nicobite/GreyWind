@@ -7,6 +7,7 @@
 class HaarFaceDetectionAlgo : public DetectionAlgo
 {
 private:
+    String m_base_path;
     String              m_face_cascade_name;
     CascadeClassifier   m_face_cascade;
     std::vector<Rect>   m_faces;

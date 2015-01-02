@@ -45,11 +45,14 @@ DaemonInterface::DaemonInterface(int childPID, char* childSemFD, int childPipeWr
 
 DaemonInterface::~DaemonInterface()
 {
-    this->m_nd_state = false;
-    delete this->m_nd_thread;
-
-    this->m_ctrl_state = false;
-    delete this->m_ctrl_thread;
+    if(m_nd_state){
+        this->m_nd_state = false;
+        delete this->m_nd_thread;
+    }
+    if(m_ctrl_state){
+        this->m_ctrl_state = false;
+        delete this->m_ctrl_thread;
+    }
 }
 
 void DaemonInterface::launch_navdata_handler()

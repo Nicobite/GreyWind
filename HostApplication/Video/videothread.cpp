@@ -53,10 +53,11 @@ void VideoThread::run() //TODO + TODO2 make better folders
             {
                 try{
                     capture->read(frame);
+                    Size dsize(640, 360);
+                    resize(frame, frame, dsize, 0, 0);
 
                     // Just a check
                     if(!frame.empty()){
-
                         if(frameCounter >= m_nbFramesBeforeDetect){
                             emit sendDetectionFrame(frame);
                             frameCounter = 0;
@@ -88,14 +89,14 @@ void VideoThread::run() //TODO + TODO2 make better folders
                 m_source = "None";
             }
         } else{
-            QImage image = QImage(640, 360, QImage::Format_RGB888);
-            image.fill(Qt::black);
-            QPainter p(&image);
+            QImage img = QImage(640, 360, QImage::Format_RGB888);
+            img.fill(Qt::black);
+            QPainter p(&img);
 
             p.setPen(QPen(Qt::white));
             p.setFont(QFont("Times", 16, QFont::Bold));
-            p.drawText(image.rect(), Qt::AlignCenter, "No display source is selected.");
-            emit sendVideoFrame(image.rgbSwapped());
+            p.drawText(img.rect(), Qt::AlignCenter, "No display source is selected.");
+            emit sendVideoFrame(img.rgbSwapped());
             usleep(33333);
         }
         usleep(1000);

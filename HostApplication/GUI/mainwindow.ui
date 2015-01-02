@@ -1160,10 +1160,10 @@
    <widget class="QTabWidget" name="mainTabWidget">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>400</y>
-      <width>451</width>
-      <height>281</height>
+      <x>270</x>
+      <y>380</y>
+      <width>641</width>
+      <height>291</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -1171,7 +1171,7 @@
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Main</string>
+      <string>Tests</string>
      </attribute>
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
@@ -1226,52 +1226,11 @@
         </property>
        </item>
       </widget>
-      <widget class="QLabel" name="label_4">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>170</y>
-         <width>51</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Detect:</string>
-       </property>
-      </widget>
-      <widget class="QComboBox" name="algSelect">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>90</y>
-         <width>91</width>
-         <height>27</height>
-        </rect>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
-       <item>
-        <property name="text">
-         <string>&lt;none&gt;</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Haar</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>...</string>
-        </property>
-       </item>
-      </widget>
       <widget class="QDoubleSpinBox" name="framesB4Detect">
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>140</y>
+         <y>90</y>
          <width>71</width>
          <height>27</height>
         </rect>
@@ -1301,24 +1260,11 @@
         <double>40.000000000000000</double>
        </property>
       </widget>
-      <widget class="QLabel" name="label_2">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>70</y>
-         <width>91</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Algorithm:</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_3">
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>120</y>
+         <y>70</y>
          <width>161</width>
          <height>17</height>
         </rect>
@@ -1327,69 +1273,11 @@
         <string>Frames before recog:</string>
        </property>
       </widget>
-      <widget class="QWidget" name="tasksCheckboxes" native="true">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>180</y>
-         <width>120</width>
-         <height>80</height>
-        </rect>
-       </property>
-       <widget class="QCheckBox" name="face">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>97</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="text">
-         <string>face</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="banana">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>50</y>
-          <width>97</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="text">
-         <string>banana</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="pyramid">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>97</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="text">
-         <string>pyramid</string>
-        </property>
-       </widget>
-      </widget>
      </widget>
      <widget class="Line" name="line_3">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>410</x>
         <y>10</y>
         <width>20</width>
         <height>241</height>
@@ -1399,314 +1287,464 @@
        <enum>Qt::Vertical</enum>
       </property>
      </widget>
-     <widget class="QPushButton" name="detectButton">
+     <widget class="Line" name="line_4">
       <property name="geometry">
        <rect>
-        <x>280</x>
+        <x>200</x>
         <y>10</y>
-        <width>99</width>
-        <height>27</height>
+        <width>20</width>
+        <height>241</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Detection</string>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
       </property>
      </widget>
-     <widget class="QLabel" name="label_11">
+     <widget class="QGroupBox" name="groupBox_2">
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>50</y>
-        <width>141</width>
-        <height>17</height>
+        <x>220</x>
+        <y>0</y>
+        <width>181</width>
+        <height>141</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Size of the BlackList:</string>
+      <property name="title">
+       <string>Sensor Commands</string>
       </property>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>50</y>
+         <width>131</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Measure distance:</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="laserOn">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>97</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="text">
+        <string>Laser aim</string>
+       </property>
+      </widget>
+      <widget class="QLCDNumber" name="distanceDisplay">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>70</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(centimeters)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="segmentStyle">
+        <enum>QLCDNumber::Flat</enum>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="getDistance">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>70</y>
+         <width>41</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../HostApplication.qrc">
+         <normaloff>:/HostApplication/ressources/system-software-update.png</normaloff>:/HostApplication/ressources/system-software-update.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
      </widget>
-     <widget class="QLabel" name="label_22">
+     <widget class="QGroupBox" name="groupBox_4">
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>80</y>
-        <width>121</width>
-        <height>17</height>
+        <x>430</x>
+        <y>0</y>
+        <width>201</width>
+        <height>251</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Object detected</string>
+      <property name="title">
+       <string>Detection &amp;&amp; Confirmation</string>
       </property>
+      <widget class="QGroupBox" name="objectDetectedLocationgroupBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>171</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Location:</string>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+       <widget class="QLabel" name="label_27">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>67</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Center:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_28">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>80</y>
+          <width>67</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Radius:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_29">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>40</y>
+          <width>67</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>x:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_30">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>60</y>
+          <width>67</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>y:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_31">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>100</y>
+          <width>67</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>r:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="xCenterlabel">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>40</y>
+          <width>67</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="yCenterlabel">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>60</y>
+          <width>67</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="radiuslabel">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>100</y>
+          <width>67</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QLabel" name="label_22">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>121</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Object detected</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="objectDetectedIconlabel">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>100</y>
+         <width>21</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::AutoText</enum>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="../HostApplication.qrc">:/HostApplication/ressources/Icon-16x16-not_ok.png</pixmap>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_11">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>141</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Size of the BlackList:</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="detectButton">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>30</y>
+         <width>99</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Detection</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="sizeBlackListlabel">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>70</y>
+         <width>41</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
      </widget>
-     <widget class="QLabel" name="objectDetectedIconlabel">
+     <widget class="QGroupBox" name="groupBox_5">
       <property name="geometry">
        <rect>
-        <x>360</x>
-        <y>80</y>
-        <width>21</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="textFormat">
-       <enum>Qt::AutoText</enum>
-      </property>
-      <property name="pixmap">
-       <pixmap resource="../HostApplication.qrc">:/HostApplication/ressources/Icon-16x16-not_ok.png</pixmap>
-      </property>
-     </widget>
-     <widget class="QLabel" name="sizeBlackListlabel">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>50</y>
-        <width>41</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>0</string>
-      </property>
-     </widget>
-     <widget class="QGroupBox" name="objectDetectedLocationgroupBox">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>240</x>
-        <y>100</y>
-        <width>171</width>
+        <x>220</x>
+        <y>120</y>
+        <width>201</width>
         <height>121</height>
        </rect>
       </property>
       <property name="title">
-       <string>Location:</string>
+       <string>Detection Settings</string>
       </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-      <widget class="QLabel" name="label_27">
+      <widget class="QComboBox" name="algSelect">
        <property name="geometry">
         <rect>
-         <x>0</x>
+         <x>30</x>
+         <y>40</y>
+         <width>91</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>&lt;none&gt;</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Haar</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>PCM</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>SURF</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
          <y>20</y>
-         <width>67</width>
+         <width>91</width>
          <height>17</height>
         </rect>
        </property>
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-         <underline>true</underline>
-        </font>
-       </property>
        <property name="text">
-        <string>Center:</string>
+        <string>Algorithm:</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_28">
+      <widget class="QLineEdit" name="objSource">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>80</y>
-         <width>67</width>
+         <x>30</x>
+         <y>90</y>
+         <width>113</width>
+         <height>30</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>51</width>
          <height>17</height>
         </rect>
        </property>
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-         <underline>true</underline>
-        </font>
-       </property>
        <property name="text">
-        <string>Radius:</string>
+        <string>Object:</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_29">
+      <widget class="QPushButton" name="helpButton_2">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>150</x>
          <y>40</y>
-         <width>67</width>
-         <height>17</height>
+         <width>45</width>
+         <height>30</height>
         </rect>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click for help&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
-        <string>x:</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../HostApplication.qrc">
+         <normaloff>:/HostApplication/ressources/Help-icon.png</normaloff>:/HostApplication/ressources/Help-icon.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
        </property>
       </widget>
-      <widget class="QLabel" name="label_30">
+      <widget class="QPushButton" name="objOkButton">
        <property name="geometry">
         <rect>
-         <x>40</x>
-         <y>60</y>
-         <width>67</width>
-         <height>17</height>
+         <x>150</x>
+         <y>90</y>
+         <width>40</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
-        <string>y:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_31">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>100</y>
-         <width>67</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>r:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="xCenterlabel">
-       <property name="geometry">
-        <rect>
-         <x>60</x>
-         <y>40</y>
-         <width>67</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>...</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="yCenterlabel">
-       <property name="geometry">
-        <rect>
-         <x>60</x>
-         <y>60</y>
-         <width>67</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>...</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="radiuslabel">
-       <property name="geometry">
-        <rect>
-         <x>60</x>
-         <y>100</y>
-         <width>67</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>...</string>
+        <string>Ok</string>
        </property>
       </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Tests</string>
+      <string>Mission</string>
      </attribute>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_2">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>380</y>
-      <width>181</width>
-      <height>261</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Commands</string>
-    </property>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>50</y>
-       <width>131</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Measure distance:</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="laserOn">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>97</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
-     </property>
-     <property name="text">
-      <string>Laser aim</string>
-     </property>
-    </widget>
-    <widget class="QLCDNumber" name="distanceDisplay">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>101</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(centimeters)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="segmentStyle">
-      <enum>QLCDNumber::Flat</enum>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="getDistance">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>70</y>
-       <width>41</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="../HostApplication.qrc">
-       <normaloff>:/HostApplication/ressources/system-software-update.png</normaloff>:/HostApplication/ressources/system-software-update.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>24</width>
-       <height>24</height>
-      </size>
-     </property>
     </widget>
    </widget>
   </widget>

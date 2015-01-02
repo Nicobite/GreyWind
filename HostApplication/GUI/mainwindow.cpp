@@ -19,14 +19,26 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->helpButton,    SIGNAL(clicked()),
                      this,              SLOT(displayHelp()));
 
+    // Connect help detect button
+    QObject::connect(ui->helpButton_2,    SIGNAL(clicked()),
+                     this,              SLOT(displayHelpDetect()));
+
     // Connect 3D button
     QObject::connect(ui->threeDButton,  SIGNAL(clicked()),
                      this,              SLOT(display3D()));
+
+    //Conect object selection button
+    QObject::connect(ui->objOkButton,  SIGNAL(clicked()),
+                     this,             SLOT(emitObjectChoice()));
 
 
     // Connect the qcombobox with the main window
     QObject::connect(ui->srcSelect, SIGNAL(currentIndexChanged(QString)),
                      this,          SLOT(emitVidSource(QString)));
+
+
+    QObject::connect(ui->algSelect, SIGNAL(currentIndexChanged(QString)),
+                     this,          SLOT(emitAlgoChoice(QString)));
 
     // Connect qdoublespinbox
     QObject::connect(ui->framesB4Detect,  SIGNAL(valueChanged(double)),
@@ -48,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(&m_detectionWindow,    SIGNAL(sendAddToBlackListDetection()),
                      this,              SLOT(addToBlackListDetection()));
 
-
+    m_haltDetection = false;
 
     m_3DWindow.drawPyramid();
 }
@@ -171,7 +183,9 @@ void MainWindow::drawDetectedEllipse(Point center, Size size){
     m_size=size;
 
     // Draw the ellipse
-    ui->theFrame->pushEllipse(center, size);
+    if(!m_haltDetection){
+        ui->theFrame->pushEllipse(center, size);
+    }
 }
 
 
@@ -201,13 +215,41 @@ void MainWindow::updateSonarView(int distance){
  */
 void MainWindow::emitVidSource(const QString& text){
     dispToCuteConsole(
-        "[MainWindow] Video feed source changed to "+text+"!"
+        "[MainWindow] Video feed source is changed to "+text+"!"
     );
     if(text == "None"){
         ui->theFrame->resetDrawLabel();
     }
     emit vidSourceChanged(text.toStdString());
 
+}
+
+void MainWindow::emitAlgoChoice(const QString& text){
+    dispToCuteConsole(
+        "[MainWindow] Detection algorithm is changed to "+text+"!"
+    );
+    ui->theFrame->resetDrawLabel();
+    if(text == "<none>"){
+        dispToCuteConsole(
+            "[MainWindow] No detection algorithm is selected!"
+        );
+    }
+    emit detectAlgoChanged(text.toStdString());
+}
+
+
+void MainWindow::emitObjectChoice(){
+    this->ui->theFrame->setObjname(this->ui->objSource->text().toStdString());
+    dispToCuteConsole(
+        "[MainWindow] Attempting to change the object to detect to "+this->ui->objSource->text()+"!"
+    );
+    ui->theFrame->resetDrawLabel();
+    if(this->ui->objSource->text() == ""){
+        dispToCuteConsole(
+            "[MainWindow] No object is to be detected!"
+        );
+    }
+    detectObjectChanged(this->ui->objSource->text().toStdString());
 }
 
 void MainWindow::emitFramesB4Detect(double fbd){
@@ -232,6 +274,12 @@ void MainWindow::displayHelp(){
     m_helpWindow.show();
 }
 
+
+void MainWindow::displayHelpDetect(){
+    m_helpDetectWindow.show();
+}
+
+
 void MainWindow::display3D(){
     m_3DWindow.show();
 }
@@ -243,7 +291,7 @@ void MainWindow::displayDetection(){
     m_detectionWindow.move(530,430);
 
     // Stop the different detections
-    emit sendStopDrawingEllipse();
+    //emit sendStopDrawingEllipse();
 
     // Change the color of the pen
     ui->theFrame->penChange(Qt::red,5);
@@ -255,9 +303,13 @@ void MainWindow::displayDetection(){
     // Draw the ellipse of detection validation with the last values of center and size
     ui->theFrame->pushEllipse(m_center_detected, m_size_detected);
 
+    m_haltDetection = true;
+    this->ui->theFrame->setHaltDraw(true);
+
 }
 
 void MainWindow::emitLaserState(int state){
+
     if(state==Qt::Unchecked){
         emit laserState(false);
     } else if(state == Qt::Checked){
@@ -266,6 +318,7 @@ void MainWindow::emitLaserState(int state){
 }
 
 void MainWindow::emitSonarRequest(){
+
     emit sonarRequest();
 }
 
@@ -276,7 +329,9 @@ void MainWindow::validDetection(){
     ui->theFrame->pushEllipse(m_center_detected, m_size_detected);
 
     // detection window disappears
-    m_detectionWindow.hide();
+    m_detectionWindow.close();
+    m_haltDetection = false;
+    this->ui->theFrame->setHaltDraw(false);
 
     // Change the icon in the mainWindow
     QPixmap pm (":/HostApplication/ressources/tick_octagon.png");
@@ -288,7 +343,6 @@ void MainWindow::validDetection(){
     ui->xCenterlabel->setNum(m_center_detected.x);
     ui->yCenterlabel->setNum(m_center_detected.y);
     ui->radiuslabel->setNum(m_size_detected.width);
-
 }
 
 void MainWindow::addToBlackListDetection(){
@@ -298,7 +352,9 @@ void MainWindow::addToBlackListDetection(){
     ui->theFrame->pushEllipse(m_center_detected, m_size_detected);
 
     // detection window disappears
-    m_detectionWindow.hide();
+    m_detectionWindow.close();
+    m_haltDetection = false;
+    this->ui->theFrame->setHaltDraw(false);
 
     // Change the icon in the mainWindow
     QPixmap pm (":/HostApplication/ressources/Icon-16x16-not_ok.png");

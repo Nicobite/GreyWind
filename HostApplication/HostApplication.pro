@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     Tracking/trackingalgo.cpp \
     Tracking/pmtrackingalgo.cpp \
     GUI/detection.cpp \
-    Detection/pcmdetectionalgo.cpp
+    Detection/pcmdetectionalgo.cpp \
+    GUI/helpdetect.cpp
 
 LIBS += `pkg-config opencv --libs`
 
@@ -64,13 +65,15 @@ HEADERS  += Detection/laserdetect.hpp \
     Tracking/trackingalgo.h \
     Tracking/pmtrackingalgo.h \
     GUI/detection.h \
-    Detection/pcmdetectionalgo.h
+    Detection/pcmdetectionalgo.h \
+    GUI/helpdetect.h
 
 FORMS    += GUI/help.ui \
     GUI/mainwindow.ui \
     GUI/videoview.ui \
     GUI/threedview.ui \
-    GUI/detection.ui
+    GUI/detection.ui \
+    GUI/helpdetect.ui
 
 RESOURCES += \
     HostApplication.qrc

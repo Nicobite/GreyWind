@@ -3,7 +3,8 @@
 
 HaarFaceDetectionAlgo::HaarFaceDetectionAlgo(String face_cascade_name): DetectionAlgo()
 {
-    m_face_cascade_name = face_cascade_name;
+    m_base_path = "./haar/"+face_cascade_name+"/";
+    m_face_cascade_name = m_base_path+face_cascade_name+".xml";
     //m_face_cascade_name     =   "haarcascade_frontalface_alt.xml";
     //m_face_cascade_name     =   "cascade_pyramide.xml";
     //m_face_cascade_name     =   "banana_classifier.xml";
@@ -43,7 +44,7 @@ void HaarFaceDetectionAlgo::detect(Mat &frame)
             //DEBUG("Af detectMS\t\t" << CURRENT_TIME);
 
             for (size_t i = 0;i < m_faces.size();i++){
-                center = Point( m_faces[i].x + m_faces[i].width/2, m_faces[i].y + m_faces[i].height/4 );
+                center = Point( m_faces[i].x + m_faces[i].width/2, m_faces[i].y + m_faces[i].height/2 );
                 //size = Size( m_faces[i].width/2, m_faces[i].height/2 );
                 size = Size( m_faces[i].width/2, m_faces[i].height/2);
                 //ellipse( frame, center, Size( m_faces[i].width/2, m_faces[i].height/2 ), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );

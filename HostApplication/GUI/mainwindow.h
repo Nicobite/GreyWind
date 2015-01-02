@@ -10,6 +10,7 @@
 #include "GUI/videoview.h"
 #include "Drone_Interface/droneinterface.h"
 #include "GUI/help.h"
+#include "GUI/helpdetect.h"
 #include "GUI/threedview.h"
 #include "GUI/detection.h"
 
@@ -26,8 +27,6 @@ public:
     ~MainWindow();
     Ui::MainWindow *ui;
 
-    //void keyPressEvent(QKeyEvent* e);
-    //void keyReleaseEvent(QKeyEvent* e);
     void dispToCuteConsole(QString message);
     void updateLocationView(float x, float y, float z, float psi);
 
@@ -43,12 +42,14 @@ public:
 private:
     bool m_connected;
     Help m_helpWindow;
+    HelpDetect m_helpDetectWindow;
     ThreeDView m_3DWindow;
     Detection m_detectionWindow;
     Size m_size; // Get from Control class
     Point m_center; // Get from Control class
     Size m_size_detected; // Get from pressure on detectButton
     Point m_center_detected; // Get from pressure on detectButton
+    bool m_haltDetection;
 
 public slots:
     void setFrame(QImage image);
@@ -69,6 +70,10 @@ private slots:
     void displayDetection();
     void validDetection();
     void addToBlackListDetection();
+    void displayHelpDetect();
+    void emitAlgoChoice(const QString& text);
+    void emitObjectChoice();
+
 
 signals:
     void vidSourceChanged(std::string src);
@@ -79,6 +84,8 @@ signals:
     void sonarRequest();
     void sendStopDrawingEllipse(void);
 
+    void detectAlgoChanged(std::string src);
+    void detectObjectChanged(std::string src);
 
     void pressCmd(int keyval);
     void releaseCmd();

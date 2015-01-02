@@ -46,6 +46,7 @@ public slots:
     void resetPosition();
     void StopDrawingEllipse();
     void connectDrone();
+    void handleDetectThreadMessages(std::string mess);
 };
 
 #endif // CONTROL_H

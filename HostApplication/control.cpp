@@ -28,10 +28,6 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     QObject::connect(&m_mainWindow,     SIGNAL(detectFrameRateChanged(int)),
                      m_vidThread,       SLOT(setDetectionPeriod(int)));
 
-
-
-
-
     // * Updating source
     QObject::connect(&m_mainWindow,     SIGNAL(vidSourceChanged(std::string)),
                      this,              SLOT(changeVideoSource(std::string)));
@@ -49,8 +45,8 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     QObject::connect(this,              SIGNAL(sendDetectedObject(Point,Size)),
                      &m_mainWindow,     SLOT(drawDetectedEllipse(Point,Size)));
 
-    QObject::connect(&m_mainWindow,              SIGNAL(sendStopDrawingEllipse()),
-                     this,     SLOT(StopDrawingEllipse()));
+    QObject::connect(&m_mainWindow,     SIGNAL(sendStopDrawingEllipse()),
+                     this,              SLOT(StopDrawingEllipse()));
 
 
     /*TODO : lol change that shit       */
@@ -63,6 +59,21 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     /* END TODO                         */
 
     m_detectThread->start();
+
+
+
+    QObject::connect(&m_mainWindow,     SIGNAL(detectAlgoChanged(std::string)),
+                     m_detectThread,    SLOT(changeDetectionAlgo(std::string)));
+    QObject::connect(&m_mainWindow,     SIGNAL(detectObjectChanged(std::string)),
+                     m_detectThread,    SLOT(changeObject2Detect(std::string)));
+
+    QObject::connect(m_detectThread,   SIGNAL(sigMessageToConsole(std::string)),
+                     this,             SLOT(handleDetectThreadMessages(std::string)));
+
+
+
+
+
     m_mainWindow.show();
 
 }
@@ -70,6 +81,8 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
 Control::~Control(){
     m_interface->get_daemon()->kill_daemon();
     delete m_interface;
+    delete m_vidThread;
+    delete m_detectThread;
 }
 
 void Control::changeVideoSource(std::string src, int err){
@@ -115,8 +128,8 @@ void Control::handleDetectedObject(Point point, Size size){
 }
 
 void Control::StopDrawingEllipse(){
-    QObject::disconnect(this,              SIGNAL(sendDetectedObject(Point,Size)),
-                     &m_mainWindow,     SLOT(drawDetectedEllipse(Point,Size)));
+    //QObject::disconnect(this,              SIGNAL(sendDetectedObject(Point,Size)),
+    //                 &m_mainWindow,     SLOT(drawDetectedEllipse(Point,Size)));
 }
 
 void Control::connectDrone(){
@@ -155,4 +168,8 @@ void Control::connectDrone(){
                              this->m_interface->get_daemon()->get_control_thread(), SLOT(key_release_cmd()));
         }
     }
+}
+
+void Control::handleDetectThreadMessages(std::string mess){
+    this->m_mainWindow.dispToCuteConsole("[DetectThread] "+QString::fromStdString(mess));
 }
