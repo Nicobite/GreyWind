@@ -35,7 +35,7 @@ void SurfDetectionAlgo::detect(Mat &frame)
 
     //-- Step 1: Detect the keypoints using SURF Detector
     int minHessian = 400;
-
+    Size size;
     Ptr<SURF> detector = SURF::create( minHessian );
 
     std::vector<KeyPoint> keypoints_1, keypoints_2;
@@ -104,6 +104,7 @@ void SurfDetectionAlgo::detect(Mat &frame)
 
     printf("Cols centre : %d Rows center : %d \n", cols, rows);
     Point centre(cols,rows);
+    size = Size(50,50);
     /*///-- Localize the object
     std::vector<Point2f> obj;
     std::vector<Point2f> scene;
@@ -140,10 +141,10 @@ void SurfDetectionAlgo::detect(Mat &frame)
     circle(img_matches,center2, 100, Scalar(255,0,0));
     circle(img_matches,center3, 100, Scalar(255,0,0));*/
     circle(frame, centre, 100, Scalar(0,255,0));
+    emit detectedObject(centre, size);
     //-- Show detected matches
     /*imshow ("Object detection", frame_vid);
     imshow( "Good Matches & Object detection", img_matches);*/
     imshow("Video frame", frame);
 }
-
 
