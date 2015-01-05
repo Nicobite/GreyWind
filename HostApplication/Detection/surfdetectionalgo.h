@@ -5,8 +5,8 @@
 //-- make -j5
 //-- sudo make install
 
-#ifndef HAARFACEDETECTIONALGO_H
-#define HAARFACEDETECTIONALGO_H
+#ifndef SURFDETECTIONALGO_H
+#define SURFDETECTIONALGO_H
 
 #include "opencv2/opencv.hpp"
 #include "Detection/detectionalgo.h"
@@ -14,14 +14,16 @@
 class SurfDetectionAlgo : public DetectionAlgo
 {
 private:
-    String              m_img_source_name;
+    String m_base_path;
+    String m_img_source_name;
 
 public:
-    SurfDetectionAlgo(String face_cascade_name);
+    SurfDetectionAlgo(String img_source);
     ~SurfDetectionAlgo();
 
 protected:
     void detect(Mat &frame);
 };
 
-#endif // HAARFACEDETECTIONALGO_H
+#endif // SURFDETECTIONALGO_H
+
