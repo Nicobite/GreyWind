@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>640</width>
-    <height>480</height>
+    <height>361</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
      <x>20</x>
      <y>10</y>
      <width>601</width>
-     <height>441</height>
+     <height>341</height>
     </rect>
    </property>
    <property name="palette">
@@ -104,7 +104,7 @@
       <x>0</x>
       <y>0</y>
       <width>601</width>
-      <height>379</height>
+      <height>279</height>
      </rect>
     </property>
     <attribute name="label">
@@ -150,7 +150,7 @@ The &quot;Object&quot; field should contain the name '%objname%' such that the s
       <x>0</x>
       <y>0</y>
       <width>601</width>
-      <height>379</height>
+      <height>279</height>
      </rect>
     </property>
     <attribute name="label">
