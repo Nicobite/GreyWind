@@ -148,9 +148,42 @@ void DetectThread::changeDetectionAlgo(std::string algoname){
         } else if(m_algoname == "SURF"){
             emit sigMessageToConsole("Changing current detection algorithm to SURF...");
 
+            //Removing the previous algorithm
+            emit sigMessageToConsole("Removing current detection algorithm...");
+            if(m_algo != NULL){
+                // Disconnecting this and the detection objects
+                QObject::disconnect(this,              SIGNAL(sigFrameToObject(Mat)),
+                                    m_algo,            SLOT(handleFrame(Mat)));
+                QObject::disconnect(m_algo,            SIGNAL(detectedObject(Point,Size)),
+                                    this,              SLOT(handleDetectedObject(Point,Size)));
+                delete m_algo;
+                m_algo = NULL;
+            }
+
+
+
+            //Settting new object path
+            QString algpath = "./surf/"+QString::fromStdString(m_object2detect);
+
+            if(m_object2detect==""){
+                emit sigMessageToConsole("No object is specified. Nothing to do.");
+            }else if(QDir(algpath).exists()){
+                emit sigMessageToConsole("Selected object '"+m_object2detect+"' is found.");
+                //New algorithm
+                m_algo = new SurfDetectionAlgo(m_object2detect);
+                // Connecting this and the detection objects
+                QObject::connect(this,              SIGNAL(sigFrameToObject(Mat)),
+                                 m_algo,            SLOT(handleFrame(Mat)));
+                QObject::connect(m_algo,            SIGNAL(detectedObject(Point,Size)),
+                                 this,              SLOT(handleDetectedObject(Point,Size)));
+                emit sigMessageToConsole("Algorithm is changed.");
+            } else{
+                emit sigMessageToConsole("Error changing detection algorithm! Selected object '"+m_object2detect+"' doesn't exist! Nothing to do.");
+            }
             /**
              * SURF NOT YET INTEGRATED
             **/
+            /*
             emit sigMessageToConsole("SURF is not integrated in this release. Removing algorithm.");
             if(m_algo != NULL){
                 // Disconnecting this and the detection objects
@@ -164,7 +197,7 @@ void DetectThread::changeDetectionAlgo(std::string algoname){
 
 
             emit sigMessageToConsole("Detection algorithm is removed.");
-
+            */
         }
     }
 }
@@ -254,12 +287,10 @@ void DetectThread::changeObject2Detect(std::string objectname){
 
 
         } else if(m_algoname == "SURF"){
-            emit sigMessageToConsole("Changing current detection algorithm to SURF...");
+            emit sigMessageToConsole("Changing the image source for current detection algorithm to SURF...");
 
-            /**
-             * SURF NOT YET INTEGRATED
-            **/
-            emit sigMessageToConsole("SURF is not integrated in this release. Removing algorithm.");
+            //Removing the previous algorithm
+            emit sigMessageToConsole("Removing current detection algorithm...");
             if(m_algo != NULL){
                 // Disconnecting this and the detection objects
                 QObject::disconnect(this,              SIGNAL(sigFrameToObject(Mat)),
@@ -270,7 +301,26 @@ void DetectThread::changeObject2Detect(std::string objectname){
                 m_algo = NULL;
             }
 
-            emit sigMessageToConsole("Detection algorithm is removed.");
+
+
+            //Settting new object path
+            QString algpath = "./surf/"+QString::fromStdString(m_object2detect);
+
+            if(m_object2detect==""){
+                emit sigMessageToConsole("No object is specified. Nothing to do.");
+            }else if(QDir(algpath).exists()){
+                emit sigMessageToConsole("Selected object '"+m_object2detect+"' is found.");
+                //New algorithm
+                m_algo = new PCMDetectionAlgo(m_object2detect);
+                // Connecting this and the detection objects
+                QObject::connect(this,              SIGNAL(sigFrameToObject(Mat)),
+                                 m_algo,            SLOT(handleFrame(Mat)));
+                QObject::connect(m_algo,            SIGNAL(detectedObject(Point,Size)),
+                                 this,              SLOT(handleDetectedObject(Point,Size)));
+                emit sigMessageToConsole("Algorithm is changed.");
+            } else{
+                emit sigMessageToConsole("Error changing detection algorithm! Selected object '"+m_object2detect+"' doesn't exist! Nothing to do.");
+            }
 
         }
     }
