@@ -12,11 +12,12 @@ using namespace cv::xfeatures2d;
 
 SurfDetectionAlgo::SurfDetectionAlgo(String img_source_name): DetectionAlgo()
 {
-    m_img_source_name = img_source_name;
+    m_base_path = "surf/"+img_source_name+"/";
+    m_img_source_name = img_source_name+".png";
     //m_face_cascade_name     =   "haarcascade_frontalface_alt.xml";
     //m_face_cascade_name     =   "cascade_pyramide.xml";
     //m_face_cascade_name     =   "banana_classifier.xml";
-    if( !m_img_source_name.empty() ){
+    if( m_img_source_name.empty() ){
         ERROR("[SurfDetectionAlgo]: loading image source");
     };
 }
@@ -28,10 +29,15 @@ SurfDetectionAlgo::~SurfDetectionAlgo()
 
 void SurfDetectionAlgo::detect(Mat &frame)
 {
-    Mat img_1 = imread(m_img_source_name, IMREAD_COLOR );
+    Mat img_1 = imread( m_base_path + m_img_source_name, IMREAD_COLOR );
+    imwrite("studentcard.png",img_1);
+    printf("%s",m_img_source_name.c_str());
 
-    if( !img_1.data || !frame.data )
-    { std::cout<< " --(!) Error reading images " << std::endl; }
+    if( !img_1.data )
+    std::cout<< " --(!) Error reading images " << std::endl;
+
+    if ( !frame.data )
+        std::cout << "--(!) Error reading frames " << std::endl;
 
     //-- Step 1: Detect the keypoints using SURF Detector
     int minHessian = 400;

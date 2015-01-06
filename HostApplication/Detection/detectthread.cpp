@@ -310,7 +310,7 @@ void DetectThread::changeObject2Detect(std::string objectname){
             }else if(QDir(algpath).exists()){
                 emit sigMessageToConsole("Selected object '"+m_object2detect+"' is found.");
                 //New algorithm
-                //m_algo = new SurfDetectionAlgo(m_object2detect);
+                m_algo = new SurfDetectionAlgo(m_object2detect);
                 // Connecting this and the detection objects
                 QObject::connect(this,              SIGNAL(sigFrameToObject(Mat)),
                                  m_algo,            SLOT(handleFrame(Mat)));
