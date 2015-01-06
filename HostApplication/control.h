@@ -50,10 +50,14 @@ private:
     Size m_sizeDetected;
     Point m_centerDetected;
 
+    std::queue<Point> m_blackListCenterFIFO;
+    std::queue<Size> m_blackListSizeFIFO;
+
 signals:
     void sendFrameToDetect(Mat frame);
     void sendDetectedObject(Point point, Size size);
     void sendConnectionStatus(bool status);
+    void sendSizeBlackList(int size);
 
 public slots:
 
@@ -66,6 +70,9 @@ public slots:
 
     void handleDetectedObject(Point point, Size size);
     void handleDetectThreadMessages(std::string mess);
+
+    void addObjectToBlacklist(Point point, Size size);
+    void clearAllBlackList();
 
     void handleTrackerInitialisation();
     void handleCollimatorThreadMessages(std::string mess);

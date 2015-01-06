@@ -52,6 +52,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // Connect detection button
     QObject::connect(ui->detectButton,    SIGNAL(clicked()),
                      this,              SLOT(displayDetection()));
+    // Connect clear button
+    QObject::connect(ui->clearButton,    SIGNAL(clicked()),
+                     this,              SLOT(clearBlackList()));
 
     // Connect valid button and it action
     QObject::connect(&m_detectionWindow,    SIGNAL(sendValidDetection()),
@@ -385,8 +388,12 @@ void MainWindow::addToBlackListDetection(){
     // Change the color of the pen
     ui->theFrame->pushShape(m_center_detected, m_size_detected, BlackEllipse, m_objectName);
 
-    // detection window disappears
+    // detection window do not disappear
     m_detectionWindow.close();
+
+    // next ellipse will appear in cyan as normal
+    ui->theFrame->penChange(Qt::cyan,3);
+
     m_haltDetection = false;
     this->ui->theFrame->setHaltDraw(false);
 
@@ -397,12 +404,21 @@ void MainWindow::addToBlackListDetection(){
     //Disable the groupbox
     ui->objectDetectedLocationgroupBox->setEnabled(false);
 
-    //Add the bad detected point to the blackList
-    m_blackListCenterFIFO.push(m_center_detected);
-    m_blackListSizeFIFO.push(m_size_detected);
+    //Add the bad detected point to the blackList in the control class
+    emit sendObjectToBlackList(m_center_detected,m_size_detected);
 
+
+
+}
+
+void MainWindow::clearBlackList()
+{
+    emit sendClearBlackList();
+}
+
+void MainWindow::updateSizeBlackList(int size)
+{
     // Update the size of the BlackList
-    cout<<"[MAINWINDOW] Add an element into the blacklist "<<m_blackListCenterFIFO.size()<<endl;
-    ui->sizeBlackListlabel->setNum(int(m_blackListCenterFIFO.size()));
+    ui->sizeBlackListlabel->setNum(size);
 }
 

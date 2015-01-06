@@ -1621,7 +1621,7 @@
         <string>0</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="clearDetectButton">
+      <widget class="QPushButton" name="clearButton">
        <property name="geometry">
         <rect>
          <x>120</x>
