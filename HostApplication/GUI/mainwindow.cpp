@@ -60,6 +60,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(&m_detectionWindow,    SIGNAL(sendAddToBlackListDetection()),
                      this,              SLOT(addToBlackListDetection()));
 
+    //Tracker
+    QObject::connect(ui->trackAlgSelect, SIGNAL(currentIndexChanged(QString)),
+                     this,               SLOT(emitTrackerChoice(QString)));
+    QObject::connect(ui->trackButton, SIGNAL(clicked()),
+                     this,            SLOT(emitTrackerInit()));
+
     m_haltDetection = false;
 
     m_3DWindow.drawPyramid();
@@ -184,10 +190,19 @@ void MainWindow::drawDetectedEllipse(Point center, Size size){
 
     // Draw the ellipse
     if(!m_haltDetection){
-        ui->theFrame->pushEllipse(center, size);
+        ui->theFrame->pushShape(center, size, CyanEllipse, m_objectName);
     }
 }
 
+void MainWindow::drawTrackedRect(Point center, Size size){
+    // Draw the ellipse
+    ui->theFrame->pushShape(center, size, CyanSquare, m_objectName);
+}
+
+void MainWindow::drawLaserDot(Point center, Size size){
+    // Draw the ellipse
+    ui->theFrame->pushShape(center, size, RedSquare, m_objectName);
+}
 
 
 void MainWindow::updateConnectionStatus(bool status){
@@ -240,6 +255,7 @@ void MainWindow::emitAlgoChoice(const QString& text){
 
 void MainWindow::emitObjectChoice(){
     this->ui->theFrame->setObjname(this->ui->objSource->text().toStdString());
+    m_objectName = this->ui->objSource->text().toStdString();
     dispToCuteConsole(
         "[MainWindow] Attempting to change the object to detect to "+this->ui->objSource->text()+"!"
     );
@@ -320,7 +336,7 @@ void MainWindow::displayDetection(){
     m_size_detected=m_size;
 
     // Draw the ellipse of detection validation with the last values of center and size
-    ui->theFrame->pushEllipse(m_center_detected, m_size_detected);
+    ui->theFrame->pushShape(m_center_detected, m_size_detected, RedEllipse, m_objectName);
 
     m_haltDetection = true;
     this->ui->theFrame->setHaltDraw(true);
@@ -344,8 +360,7 @@ void MainWindow::emitSonarRequest(){
 void MainWindow::validDetection(){
 
     // Change the color of the pen
-    ui->theFrame->penChange(Qt::green,5);
-    ui->theFrame->pushEllipse(m_center_detected, m_size_detected);
+    ui->theFrame->pushShape(m_center_detected, m_size_detected, GreenEllipse, m_objectName);
 
     // detection window disappears
     m_detectionWindow.close();
@@ -368,8 +383,7 @@ void MainWindow::validDetection(){
 void MainWindow::addToBlackListDetection(){
 
     // Change the color of the pen
-    ui->theFrame->penChange(Qt::black,5);
-    ui->theFrame->pushEllipse(m_center_detected, m_size_detected);
+    ui->theFrame->pushShape(m_center_detected, m_size_detected, BlackEllipse, m_objectName);
 
     // detection window disappears
     m_detectionWindow.close();

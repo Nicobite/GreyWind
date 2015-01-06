@@ -49,12 +49,15 @@ private:
     Point m_center; // Get from Control class
     Size m_size_detected; // Get from pressure on detectButton
     Point m_center_detected; // Get from pressure on detectButton
+    std::string m_objectName;
     bool m_haltDetection;
 
 public slots:
     void setFrame(QImage image);
     void updateNavdataView(navdata_t nd);
     void drawDetectedEllipse(Point center, Size size);
+    void drawTrackedRect(Point center, Size size);
+    void drawLaserDot(Point center, Size size);
     void updateConnectionStatus(bool status);
     void updateSonarView(int distance);
 
@@ -88,7 +91,6 @@ signals:
     void laserState(bool state);
     void sonarRequest();
 
-    void sendStopDrawingEllipse(void);
     void sigDetectedObject(Point point, Size size);
 
     void detectAlgoChanged(std::string src);

@@ -1158,11 +1158,14 @@
     </property>
    </widget>
    <widget class="QTabWidget" name="mainTabWidget">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>280</x>
       <y>380</y>
-      <width>641</width>
+      <width>631</width>
       <height>291</height>
      </rect>
     </property>
@@ -1618,7 +1621,7 @@
         <string>0</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="detectButton_3">
+      <widget class="QPushButton" name="clearDetectButton">
        <property name="geometry">
         <rect>
          <x>120</x>
@@ -1757,6 +1760,9 @@
       </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_6">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>430</x>
@@ -1862,7 +1868,7 @@
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>361</width>
+        <width>301</width>
         <height>81</height>
        </rect>
       </property>
@@ -1944,8 +1950,8 @@
       <widget class="QPushButton" name="objOkButton_2">
        <property name="geometry">
         <rect>
-         <x>260</x>
-         <y>40</y>
+         <x>250</x>
+         <y>20</y>
          <width>40</width>
          <height>30</height>
         </rect>
@@ -1957,8 +1963,8 @@
       <widget class="QPushButton" name="objOkButton_3">
        <property name="geometry">
         <rect>
-         <x>310</x>
-         <y>40</y>
+         <x>250</x>
+         <y>50</y>
          <width>40</width>
          <height>30</height>
         </rect>
@@ -1971,9 +1977,9 @@
      <widget class="QListView" name="listView">
       <property name="geometry">
        <rect>
-        <x>380</x>
+        <x>310</x>
         <y>20</y>
-        <width>241</width>
+        <width>311</width>
         <height>171</height>
        </rect>
       </property>
@@ -1983,7 +1989,7 @@
        <rect>
         <x>10</x>
         <y>100</y>
-        <width>361</width>
+        <width>291</width>
         <height>81</height>
        </rect>
       </property>
@@ -2024,11 +2030,24 @@
         <rect>
          <x>10</x>
          <y>40</y>
-         <width>113</width>
+         <width>161</width>
          <height>30</height>
         </rect>
        </property>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>200</y>
+        <width>99</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Start Mission</string>
+      </property>
      </widget>
     </widget>
    </widget>

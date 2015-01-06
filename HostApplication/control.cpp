@@ -8,6 +8,13 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     qRegisterMetaType<std::string> ("std::string");
     qRegisterMetaType<Mat> ("Mat");
 
+
+    m_appState = AppTestMode;
+    m_missionState = MissionIdle;
+
+    //************************************************/
+    //***********SIGNAL/SLOT CONNECTIONS *************/
+    //************************************************/
     // Drone interface
     m_connected = false;
     m_interface = new DroneInterface(childPID, childSemFD, childPipeWrFD);
@@ -19,6 +26,7 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     QObject::connect(&m_mainWindow,     SIGNAL(rstPosButtonClicked()),
                      this,              SLOT(resetPosition()));
 
+    //************************************************/
     // Video management with source selection and detection rate settings
     m_vidThread = new VideoThread();
     // * Displaying the video frame
@@ -27,52 +35,45 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     // * Updating FramesB4Detect
     QObject::connect(&m_mainWindow,     SIGNAL(detectFrameRateChanged(int)),
                      m_vidThread,       SLOT(setDetectionPeriod(int)));
-
     // * Updating source
     QObject::connect(&m_mainWindow,     SIGNAL(vidSourceChanged(std::string)),
                      this,              SLOT(changeVideoSource(std::string)));
     // * Couldn't change source
     QObject::connect(m_vidThread,       SIGNAL(cannotChangeSource(std::string,int)),
                      this,              SLOT(changeVideoSource(std::string,int)));
-
     // Starting videoThread
     m_currentVidSource  = "None";
     m_vidThread->start();
 
+    //************************************************/
+    // Detection signals
+    m_detectThread = new DetectThread;
+    QObject::connect(m_detectThread,    SIGNAL(sigDetectedToControl(Point,Size)),
+                     this,              SLOT(handleDetectedObject(Point,Size)));
+    m_detectThread->start();
+
+    // Detectin config
+    QObject::connect(&m_mainWindow,     SIGNAL(detectAlgoChanged(std::string)),
+                     m_detectThread,    SLOT(changeDetectionAlgo(std::string)));
+    QObject::connect(&m_mainWindow,     SIGNAL(detectObjectChanged(std::string)),
+                     m_detectThread,    SLOT(changeObject2Detect(std::string)));
+    QObject::connect(m_detectThread,   SIGNAL(sigMessageToConsole(std::string)),
+                     this,             SLOT(handleDetectThreadMessages(std::string)));
     // Detection related handlers:
     QObject::connect(m_vidThread,       SIGNAL(sendDetectionFrame(Mat)),
                      this,              SLOT(handleFrame(Mat)));
     QObject::connect(this,              SIGNAL(sendDetectedObject(Point,Size)),
                      &m_mainWindow,     SLOT(drawDetectedEllipse(Point,Size)));
 
-    QObject::connect(&m_mainWindow,     SIGNAL(sendStopDrawingEllipse()),
-                     this,              SLOT(StopDrawingEllipse()));
+    //************************************************/
+    // Collimator  signals
 
-
-    /*TODO : lol change that shit       */
-    //m_detectionAlgo = new HaarFaceDetectionAlgo("haarcascade_frontalface_alt.xml");
-    /*QObject::connect(this,              SIGNAL(sendFrameToDetect(Mat)),
-                     m_detectionAlgo,   SLOT(handleFrame(Mat)));//*/
-    m_detectThread = new DetectThread;
-    QObject::connect(m_detectThread,    SIGNAL(sigDetectedToControl(Point,Size)),
-                     this,              SLOT(handleDetectedObject(Point,Size)));
-    /* END TODO                         */
-
-    m_detectThread->start();
-
-
-
-    QObject::connect(&m_mainWindow,     SIGNAL(detectAlgoChanged(std::string)),
-                     m_detectThread,    SLOT(changeDetectionAlgo(std::string)));
-    QObject::connect(&m_mainWindow,     SIGNAL(detectObjectChanged(std::string)),
-                     m_detectThread,    SLOT(changeObject2Detect(std::string)));
-
-    QObject::connect(m_detectThread,   SIGNAL(sigMessageToConsole(std::string)),
-                     this,             SLOT(handleDetectThreadMessages(std::string)));
-
-
-
-
+    QObject::connect(&m_mainWindow,     SIGNAL(detectTrackerChanged(std::string)),
+                     &m_collimator,     SLOT(changeAlgo(std::string)));
+    QObject::connect(&m_mainWindow,     SIGNAL(initialiseTracker()),
+                     this,              SLOT(handleTrackerInitialisation()));
+    //************************************************/
+    //************************************************/
 
     m_mainWindow.show();
 
@@ -84,6 +85,19 @@ Control::~Control(){
     delete m_vidThread;
     delete m_detectThread;
 }
+
+
+void Control::state_machine(){
+    while(true){
+       switch(m_appState){
+       case AppTestMode:
+           break;
+       case AppMissionMode:
+           break;
+       }
+    }
+}
+
 
 void Control::changeVideoSource(std::string src, int err){
     if(err==0){
@@ -108,7 +122,21 @@ void Control::handleFrame(Mat frame){
     //emit sendFrameToDetect(frame);
     //DEBUG("Control: pushing to detectThread FIFO");
     m_detectThread->pushMatToFIFO(frame);
+
+    /*
+     * if( detection ) {
+     *      m_detectThread->pushMatToFIFO(frame);
+     * } else if( tracking ) {
+     *      m_trackingThread->pushMatToFIFO(frame);
+     * }
+    */
 }
+
+void Control::handleTrackerInitialisation(){
+
+}
+
+
 
 void Control::handleNavdata(navdata_t nd){
     m_locfunc.updatePosition(nd.vx, nd.vy, nd.yaw);
@@ -127,10 +155,6 @@ void Control::handleDetectedObject(Point point, Size size){
     emit sendDetectedObject(point, size);
 }
 
-void Control::StopDrawingEllipse(){
-    //QObject::disconnect(this,              SIGNAL(sendDetectedObject(Point,Size)),
-    //                 &m_mainWindow,     SLOT(drawDetectedEllipse(Point,Size)));
-}
 
 void Control::connectDrone(){
     //Connect to the daemon

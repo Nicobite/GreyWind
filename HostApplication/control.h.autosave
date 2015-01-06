@@ -32,8 +32,6 @@ public:
 
     void state_machine();
 
-
-
 private:
     MainWindow      m_mainWindow;
     bool            m_connected;
@@ -44,12 +42,13 @@ private:
     LocalizationFunctions m_locfunc;
     Collimator      m_collimator;
 
+    AppState m_appState;
+    MissionState m_missionState;
 
-
-    bool m_obj_detected;
-    Mat m_img_detected;
-    Size m_size_detected;
-    Point m_center_detected;
+    bool m_objDetected;
+    Mat m_imgDetected;
+    Size m_sizeDetected;
+    Point m_centerDetected;
 
 signals:
     void sendFrameToDetect(Mat frame);
