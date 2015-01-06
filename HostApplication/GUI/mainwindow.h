@@ -57,6 +57,7 @@ public slots:
     void drawLaserDot(Point center, Size size);
     void updateConnectionStatus(bool status);
     void updateSonarView(int distance);
+    void updateTrackState(std::string state);
 
 private slots:
     void emitVidSource(const QString& text);
@@ -90,8 +91,9 @@ signals:
     void laserState(bool state);
     void sonarRequest();
 
-    void sigDetectedObject(Point point, Size size);
+    void sigValidatedObject(Point point, Size size);
     void sendObjectToBlackList(Point point, Size size);
+    void sendClearBlackList();
 
     void detectAlgoChanged(std::string src);
     void detectObjectChanged(std::string src);
@@ -101,7 +103,6 @@ signals:
 
     void pressCmd(int keyval);
     void releaseCmd();
-    void sendClearBlackList();
 
 };
 

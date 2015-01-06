@@ -21,6 +21,8 @@ public:
     void run();
 
     bool isAligned();
+    void handleFrame(Mat frame);
+
 
 private:
     bool m_running;
@@ -34,11 +36,11 @@ private:
 
 signals:
     void detectedObject(Point center, Size size);
+    void detectedLaser(Point center, Size size);
     void sigMessageToConsole(std::string message);
     void sigDirections(std::string messsage);
 
 public slots:
-    void handleFrame(Mat frame);
     void changeAlgo(std::string algoname);
 
 };

@@ -31,7 +31,7 @@ public:
     void resetDrawLabel();
     void setFrameB4Detect(int framesB4Detect);
     void penInit();
-    void penChange(QColor color, int size);
+    //void penChange(QColor color, int size);
     void setObjname(std::string objname);
     void setHaltDraw(bool hold);
 

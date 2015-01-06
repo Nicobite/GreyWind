@@ -2,15 +2,20 @@
 #include <QTime>
 
 Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *parent) :
-    QObject(parent)
+    QThread(parent)
 {
 
     qRegisterMetaType<std::string> ("std::string");
     qRegisterMetaType<Mat> ("Mat");
+    qRegisterMetaType<Point> ("Point");
+    qRegisterMetaType<Size> ("Size");
 
 
     m_appState = AppTestMode;
     m_missionState = MissionIdle;
+    m_objDetected = false;
+    m_videoDestination = 1;
+    m_frameSaved = false;
 
     //************************************************/
     //***********SIGNAL/SLOT CONNECTIONS *************/
@@ -26,7 +31,9 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     QObject::connect(&m_mainWindow,     SIGNAL(rstPosButtonClicked()),
                      this,              SLOT(resetPosition()));
     QObject::connect(this,              SIGNAL(sendSizeBlackList(int)),
-                     &m_mainWindow,              SLOT(updateSizeBlackList(int)));
+                     &m_mainWindow,     SLOT(updateSizeBlackList(int)));
+    QObject::connect(&m_mainWindow,     SIGNAL(sigValidatedObject(Point,Size)),
+                     this,              SLOT(handleValidatedObject(Point,Size)));
 
     //************************************************/
     // Video management with source selection and detection rate settings
@@ -77,14 +84,30 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      &m_collimator,     SLOT(changeAlgo(std::string)));
     QObject::connect(&m_mainWindow,     SIGNAL(initialiseTracker()),
                      this,              SLOT(handleTrackerInitialisation()));
+    QObject::connect(&m_collimator,     SIGNAL(sigMessageToConsole(std::string)),
+                     this,              SLOT(handleCollimatorThreadMessages(std::string)));
+    QObject::connect(&m_collimator,     SIGNAL(detectedObject(Point,Size)),
+                     &m_mainWindow,     SLOT(drawTrackedRect(Point,Size)));
+    QObject::connect(&m_collimator,     SIGNAL(detectedLaser(Point,Size)),
+                     &m_mainWindow,     SLOT(drawLaserDot(Point,Size)));
+    QObject::connect(&m_collimator,     SIGNAL(sigDirections(std::string)),
+                     &m_mainWindow,     SLOT(updateTrackState(std::string)));
+
     //************************************************/
     //************************************************/
 
     m_mainWindow.show();
 
+    m_running = true;
+    m_collimator.start();
+
 }
 
 Control::~Control(){
+    m_running = false;
+    this->quit();
+    this->wait();
+
     m_interface->get_daemon()->kill_daemon();
     delete m_interface;
     delete m_vidThread;
@@ -92,14 +115,38 @@ Control::~Control(){
 }
 
 
+void Control::run(){
+    state_machine();
+}
+
+
 void Control::state_machine(){
-    while(true){
+    while(m_running){
        switch(m_appState){
        case AppTestMode:
+           if(!m_objDetected){
+               //Detector enbled
+               if(m_frameSaved){
+                   m_videoDestination = 2;
+
+                   m_objDetected = true;
+               }
+           } else{
+               //Tracker enabled
+               if(m_videoDestination == 1 && !m_frameSaved){
+                   m_objDetected = false;
+               }
+           }
+
+
            break;
        case AppMissionMode:
+
+
+
            break;
        }
+       usleep(5000);
     }
 }
 
@@ -123,28 +170,60 @@ void Control::changeVideoSource(std::string src, int err){
 }
 
 void Control::handleFrame(Mat frame){
-    //TODO : add intelligence
-    //emit sendFrameToDetect(frame);
-    //DEBUG("Control: pushing to detectThread FIFO");
-    m_detectThread->pushMatToFIFO(frame);
 
-    /*
-     * if( detection ) {
-     *      m_detectThread->pushMatToFIFO(frame);
-     * } else if( tracking ) {
-     *      m_trackingThread->pushMatToFIFO(frame);
-     * }
-    */
+    if(m_videoDestination==1){
+        m_detectThread->pushMatToFIFO(frame);
+        m_frameSaved = false;
+
+    } else if(m_videoDestination==2){
+        m_collimator.handleFrame(frame);
+        m_frameSaved = false;
+
+    } else if(m_videoDestination==3){
+        m_imgDetected = frame;
+        m_frameSaved = true;
+
+    }else{
+        m_frameSaved = false;
+    }
 }
 
 void Control::handleTrackerInitialisation(){
-
+    while(!m_frameSaved&&!m_objDetected);
+    m_collimator.init(m_imgDetected, m_centerDetected, m_sizeDetected);
 }
 
-void Control::handleCollimatorThreadMessages(std::string mess){
+void Control::handleValidatedObject(Point point, Size size){
+    m_centerDetected = point;
+    m_sizeDetected = size;
 
+    m_videoDestination = 3;
 }
 
+void Control::addObjectToBlacklist(Point point, Size size)
+{
+    m_blackListCenterFIFO.push(point);
+    m_blackListSizeFIFO.push(size);
+    emit sendSizeBlackList((int)m_blackListCenterFIFO.size());
+}
+
+void Control::clearAllBlackList()
+{
+    // we clear the blacklist which contains the centers
+    while(!m_blackListCenterFIFO.empty())
+    {
+        m_blackListCenterFIFO.pop();
+    }
+
+    // we clear the blacklist which contains the sizes
+    while(!m_blackListSizeFIFO.empty())
+    {
+        m_blackListSizeFIFO.pop();
+    }
+    emit sendSizeBlackList((int)m_blackListCenterFIFO.size());
+
+    m_videoDestination = 1;
+}
 
 void Control::handleNavdata(navdata_t nd){
     m_locfunc.updatePosition(nd.vx, nd.vy, nd.yaw);
@@ -239,25 +318,7 @@ void Control::handleDetectThreadMessages(std::string mess){
     this->m_mainWindow.dispToCuteConsole("[DetectThread] "+QString::fromStdString(mess));
 }
 
-void Control::addObjectToBlacklist(Point point, Size size)
-{
-    m_blackListCenterFIFO.push(point);
-    m_blackListSizeFIFO.push(size);
-    emit sendSizeBlackList((int)m_blackListCenterFIFO.size());
+void Control::handleCollimatorThreadMessages(std::string mess){
+    this->m_mainWindow.dispToCuteConsole("[Collimator] "+QString::fromStdString(mess));
 }
 
-void Control::clearAllBlackList()
-{
-    // we clear the blacklist which contains the centers
-    while(!m_blackListCenterFIFO.empty())
-    {
-        m_blackListCenterFIFO.pop();
-    }
-
-    // we clear the blacklist which contains the sizes
-    while(!m_blackListSizeFIFO.empty())
-    {
-        m_blackListSizeFIFO.pop();
-    }
-    emit sendSizeBlackList((int)m_blackListCenterFIFO.size());
-}

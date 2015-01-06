@@ -4,6 +4,8 @@ Collimator::Collimator(QObject *parent):
     QThread(parent)
 {
     m_running = false;
+    m_tracker = NULL;
+
 }
 
 Collimator::~Collimator()
@@ -44,6 +46,7 @@ void Collimator::init(Mat img, Point point, Size size){
 }
 
 void Collimator::run(){
+    while(!m_running);
     while(m_running){
         if(!m_FIFO.empty()){
             // Popping element
@@ -57,7 +60,11 @@ void Collimator::run(){
                 Point laserPoint; Size laserSize;
                 getLaserPosition(m_FIFO.front(), laserVisible, laserPoint, laserSize);
 
+                emit detectedObject(objPoint, objSize);
+
                 if(laserVisible){
+                    emit detectedLaser(laserPoint, laserSize);
+
                     if((laserPoint.x >= objPoint.x - objSize.width/2 + laserSize.width/2) &&
                        (laserPoint.x <= objPoint.x + objSize.width/2 - laserSize.width/2) &&
                        (laserPoint.y >= objPoint.y - objSize.height/2 + laserSize.height/2) &&
@@ -98,7 +105,6 @@ bool Collimator::isAligned(){
 }
 
 
-
 void Collimator::getLaserPosition(Mat frame, bool &visible, Point &point, Size &size){
     Mat binFrame;
     vector<vector<Point> > contours;
@@ -107,7 +113,8 @@ void Collimator::getLaserPosition(Mat frame, bool &visible, Point &point, Size &
     m_laser_detector.contours2Coordinates(contours);
 
 
-    if( (m_laser_detector.getX() >= 50) && (m_laser_detector.getX() <= (640-50)) &&
+    if( (m_laser_detector.getR() >= 5) &&
+        (m_laser_detector.getX() >= 50) && (m_laser_detector.getX() <= (640-50)) &&
         (m_laser_detector.getY() >= 28) && (m_laser_detector.getY() <= (360-28))){
         visible = true;
         point.x = m_laser_detector.getX();

@@ -204,7 +204,7 @@ void MainWindow::drawTrackedRect(Point center, Size size){
 
 void MainWindow::drawLaserDot(Point center, Size size){
     // Draw the ellipse
-    ui->theFrame->pushShape(center, size, RedSquare, m_objectName);
+    ui->theFrame->pushShape(center, size, RedSquare, "laser");
 }
 
 
@@ -226,7 +226,9 @@ void MainWindow::updateSonarView(int distance){
     ui->distanceDisplay->display(distance);
 }
 
-
+void MainWindow::updateTrackState(std::string state){
+    ui->trackState->setText(QString::fromStdString(state));
+}
 
 /*
  * Private slots
@@ -331,15 +333,13 @@ void MainWindow::displayDetection(){
     // Stop the different detections
     //emit sendStopDrawingEllipse();
 
-    // Change the color of the pen
-    ui->theFrame->penChange(Qt::red,5);
-
     // Save the values of the center and the size that we detect
     m_center_detected=m_center;
     m_size_detected=m_size;
 
     // Draw the ellipse of detection validation with the last values of center and size
     ui->theFrame->pushShape(m_center_detected, m_size_detected, RedEllipse, m_objectName);
+    DEBUG("--> pushing red circle");
 
     m_haltDetection = true;
     this->ui->theFrame->setHaltDraw(true);
@@ -364,11 +364,10 @@ void MainWindow::validDetection(){
 
     // Change the color of the pen
     ui->theFrame->pushShape(m_center_detected, m_size_detected, GreenEllipse, m_objectName);
+    DEBUG("--> pushing green circle");
 
     // detection window disappears
     m_detectionWindow.close();
-    m_haltDetection = false;
-    this->ui->theFrame->setHaltDraw(false);
 
     // Change the icon in the mainWindow
     QPixmap pm (":/HostApplication/ressources/tick_octagon.png");
@@ -380,7 +379,10 @@ void MainWindow::validDetection(){
     ui->xCenterlabel->setNum(m_center_detected.x);
     ui->yCenterlabel->setNum(m_center_detected.y);
     ui->radiuslabel->setNum(m_size_detected.width);
-    emit sigDetectedObject(m_center_detected, m_size_detected);
+    emit sigValidatedObject(m_center_detected, m_size_detected);
+
+    ui->detectButton->setEnabled(false);
+    ui->trackButton->setEnabled(true);
 }
 
 void MainWindow::addToBlackListDetection(){
@@ -392,8 +394,6 @@ void MainWindow::addToBlackListDetection(){
     m_detectionWindow.close();
 
     // next ellipse will appear in cyan as normal
-    ui->theFrame->penChange(Qt::cyan,3);
-
     m_haltDetection = false;
     this->ui->theFrame->setHaltDraw(false);
 
@@ -414,6 +414,11 @@ void MainWindow::addToBlackListDetection(){
 void MainWindow::clearBlackList()
 {
     emit sendClearBlackList();
+    m_haltDetection = false;
+    this->ui->theFrame->setHaltDraw(false);
+    ui->objectDetectedLocationgroupBox->setEnabled(false);
+    ui->detectButton->setEnabled(true);
+    ui->trackButton->setEnabled(false);
 }
 
 void MainWindow::updateSizeBlackList(int size)
