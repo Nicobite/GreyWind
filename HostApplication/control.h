@@ -38,10 +38,14 @@ private:
     Size m_size_detected;
     Point m_center_detected;
 
+    std::queue<Point> m_blackListCenterFIFO;
+    std::queue<Size> m_blackListSizeFIFO;
+
 signals:
     void sendFrameToDetect(Mat frame);
     void sendDetectedObject(Point point, Size size);
     void sendConnectionStatus(bool status);
+    void sendSizeBlackList(int size);
 
 
 public slots:
@@ -53,6 +57,8 @@ public slots:
     void StopDrawingEllipse();
     void connectDrone();
     void handleDetectThreadMessages(std::string mess);
+    void addObjectToBlacklist(Point point, Size size);
+    void clearAllBlackList();
 };
 
 #endif // CONTROL_H

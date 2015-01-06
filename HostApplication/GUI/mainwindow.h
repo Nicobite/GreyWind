@@ -35,9 +35,6 @@ public:
     void focusInEvent(QFocusEvent* event);
     void focusOutEvent(QFocusEvent* event);
 
-    std::queue<Point> m_blackListCenterFIFO;
-    std::queue<Size> m_blackListSizeFIFO;
-
 
 private:
     bool m_connected;
@@ -78,6 +75,8 @@ private slots:
 
     void emitTrackerChoice(const QString& text);
     void emitTrackerInit();
+    void clearBlackList();
+    void updateSizeBlackList(int size);
 
 
 signals:
@@ -90,6 +89,7 @@ signals:
 
     void sendStopDrawingEllipse(void);
     void sigDetectedObject(Point point, Size size);
+    void sendObjectToBlackList(Point point, Size size);
 
     void detectAlgoChanged(std::string src);
     void detectObjectChanged(std::string src);
@@ -99,6 +99,7 @@ signals:
 
     void pressCmd(int keyval);
     void releaseCmd();
+    void sendClearBlackList();
 
 };
 

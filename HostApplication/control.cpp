@@ -18,6 +18,8 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      this,              SLOT(connectDrone()));
     QObject::connect(&m_mainWindow,     SIGNAL(rstPosButtonClicked()),
                      this,              SLOT(resetPosition()));
+    QObject::connect(this,              SIGNAL(sendSizeBlackList(int)),
+                     &m_mainWindow,              SLOT(updateSizeBlackList(int)));
 
     // Video management with source selection and detection rate settings
     m_vidThread = new VideoThread();
@@ -69,6 +71,11 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
 
     QObject::connect(m_detectThread,   SIGNAL(sigMessageToConsole(std::string)),
                      this,             SLOT(handleDetectThreadMessages(std::string)));
+
+    QObject::connect(&m_mainWindow,     SIGNAL(sendObjectToBlackList(Point,Size)),
+                     this,              SLOT(addObjectToBlacklist(Point,Size)));
+    QObject::connect(&m_mainWindow,     SIGNAL(sendClearBlackList()),
+                     this,              SLOT(clearAllBlackList()));
 
 
 
@@ -124,7 +131,40 @@ void Control::resetPosition(){
 void Control::handleDetectedObject(Point point, Size size){
     //TODO : add some fucking intelligence
     //DEBUG("handleDetectedObject " << CURRENT_TIME);
+
+    bool objectIsInTheBlackList=false;
+    if (((int)m_blackListCenterFIFO.size()!=0) && ((int)m_blackListSizeFIFO.size()!=0))
+    {
+
+        // Copy of the two blackLists (in order to look over the lists)
+        std::queue<Point> myCenterQueue;
+        myCenterQueue=m_blackListCenterFIFO;
+        std::queue<Size> myRadiusQueue;
+        myRadiusQueue=m_blackListSizeFIFO;
+        float distance=0.0;
+
+        while (!myCenterQueue.empty() && !myRadiusQueue.empty())
+         {
+            // calculation of the distance between the two centers (new detected object and object of the blackList)
+           distance=sqrt(pow(point.x-myCenterQueue.front().x,2)+(point.y-myCenterQueue.front().y,2));
+           if(distance<(myRadiusQueue.front().width/2))
+           {
+               // We do not send Object information if it seems to be in the BlackList
+               objectIsInTheBlackList=true;
+           }
+
+           // We analyse the next element of the two queues
+           myCenterQueue.pop();
+           myRadiusQueue.pop();
+         }
+    }
+
+
+    if(!objectIsInTheBlackList)
+    {
+    // No elements in the blacklist, object can be send normally
     emit sendDetectedObject(point, size);
+    }
 }
 
 void Control::StopDrawingEllipse(){
@@ -172,4 +212,27 @@ void Control::connectDrone(){
 
 void Control::handleDetectThreadMessages(std::string mess){
     this->m_mainWindow.dispToCuteConsole("[DetectThread] "+QString::fromStdString(mess));
+}
+
+void Control::addObjectToBlacklist(Point point, Size size)
+{
+    m_blackListCenterFIFO.push(point);
+    m_blackListSizeFIFO.push(size);
+    emit sendSizeBlackList((int)m_blackListCenterFIFO.size());
+}
+
+void Control::clearAllBlackList()
+{
+    // we clear the blacklist which contains the centers
+    while(!m_blackListCenterFIFO.empty())
+    {
+        m_blackListCenterFIFO.pop();
+    }
+
+    // we clear the blacklist which contains the sizes
+    while(!m_blackListSizeFIFO.empty())
+    {
+        m_blackListSizeFIFO.pop();
+    }
+    emit sendSizeBlackList((int)m_blackListCenterFIFO.size());
 }
