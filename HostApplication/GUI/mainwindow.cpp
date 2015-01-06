@@ -249,8 +249,27 @@ void MainWindow::emitObjectChoice(){
             "[MainWindow] No object is to be detected!"
         );
     }
-    detectObjectChanged(this->ui->objSource->text().toStdString());
+    emit detectObjectChanged(this->ui->objSource->text().toStdString());
 }
+
+
+void MainWindow::emitTrackerChoice(const QString& text){
+    dispToCuteConsole(
+        "[MainWindow] Tracking algorithm is changed to "+text+"!"
+    );
+    ui->theFrame->resetDrawLabel();
+    if(text == "<none>"){
+        dispToCuteConsole(
+            "[MainWindow] No tracking algorithm is selected!"
+        );
+    }
+    emit detectTrackerChanged(text.toStdString());
+}
+
+void MainWindow::emitTrackerInit(){
+    emit initialiseTracker();
+}
+
 
 void MainWindow::emitFramesB4Detect(double fbd){
     dispToCuteConsole(
@@ -343,6 +362,7 @@ void MainWindow::validDetection(){
     ui->xCenterlabel->setNum(m_center_detected.x);
     ui->yCenterlabel->setNum(m_center_detected.y);
     ui->radiuslabel->setNum(m_size_detected.width);
+    emit sigDetectedObject(m_center_detected, m_size_detected);
 }
 
 void MainWindow::addToBlackListDetection(){

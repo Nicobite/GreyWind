@@ -27,7 +27,7 @@ void laserDetect::findTheContours(Mat &binaryPhoto, vector<vector<Point> > &cont
 }
 
 void laserDetect::contours2Coordinates(vector<vector<Point> > contours){
-    float coord_x = 0, coord_y = 0;
+    float coord_x = 0, coord_y = 0, dot_radius=0;
     vector<vector<Point> > contours_poly( contours.size() );
     vector<Point2f> center(contours.size());
     vector<float>radius( contours.size() );
@@ -43,16 +43,23 @@ void laserDetect::contours2Coordinates(vector<vector<Point> > contours){
     for (int i = 0; i < center.size(); i++){
         coord_x += center[i].x/center.size();
         coord_y += center[i].y/center.size();
+        dot_radius += radius[i]/radius.size();
     }
 
     setCoord(coord_x, coord_y);
+    m_r = dot_radius;
 }
 
 float laserDetect::getX(void){
-    return m_x;}
+    return m_x;
+}
 
 float laserDetect::getY(void){
     return m_y;
+}
+
+float laserDetect::getR(void){
+    return m_r;
 }
 
 void laserDetect::setCoord(float c_x, float c_y)

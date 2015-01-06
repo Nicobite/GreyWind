@@ -13,6 +13,7 @@
 #include "Detection/detectthread.h"
 #include "Detection/detectionalgo.h"
 #include "Detection/haarfacedetectionalgo.h"
+#include "Tracking/collimator.h"
 #include "localizationfunctions.h"
 
 class Control: public QObject
@@ -31,6 +32,11 @@ private:
     VideoThread*    m_vidThread;
     DetectThread*   m_detectThread;
     LocalizationFunctions m_locfunc;
+    Collimator      m_collimator;
+
+    Mat m_img_detected;
+    Size m_size_detected;
+    Point m_center_detected;
 
 signals:
     void sendFrameToDetect(Mat frame);

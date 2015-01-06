@@ -6,7 +6,7 @@ PMTrackingAlgo::PMTrackingAlgo() : TrackingAlgo()
 }
 
 PMTrackingAlgo::~PMTrackingAlgo(){
-
+    m_status = false;
 }
 
 void PMTrackingAlgo::initialise(cv::Mat img, cv::Point point, cv::Size size){

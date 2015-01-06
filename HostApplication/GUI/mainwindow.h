@@ -67,12 +67,17 @@ private slots:
     void emitSonarRequest();
     void displayHelp();
     void display3D();
+
     void displayDetection();
     void validDetection();
     void addToBlackListDetection();
     void displayHelpDetect();
+
     void emitAlgoChoice(const QString& text);
     void emitObjectChoice();
+
+    void emitTrackerChoice(const QString& text);
+    void emitTrackerInit();
 
 
 signals:
@@ -82,10 +87,15 @@ signals:
     void connectButtonClicked();
     void laserState(bool state);
     void sonarRequest();
+
     void sendStopDrawingEllipse(void);
+    void sigDetectedObject(Point point, Size size);
 
     void detectAlgoChanged(std::string src);
     void detectObjectChanged(std::string src);
+
+    void detectTrackerChanged(std::string src);
+    void initialiseTracker();
 
     void pressCmd(int keyval);
     void releaseCmd();

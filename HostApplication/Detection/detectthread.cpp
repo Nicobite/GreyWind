@@ -34,6 +34,7 @@ void DetectThread::run(){
             }
             m_FIFO.pop();
             //DEBUG("DetectThread: send+pop DONE");
+            usleep(2000);
         }
     }
 }
@@ -46,8 +47,6 @@ void DetectThread::pushMatToFIFO(Mat mat){
 void DetectThread::handleDetectedObject(Point center,Size size){
     emit sigDetectedToControl(center, size);
 }
-
-
 
 void DetectThread::changeDetectionAlgo(std::string algoname){
 
@@ -170,7 +169,7 @@ void DetectThread::changeDetectionAlgo(std::string algoname){
             }else if(QDir(algpath).exists()){
                 emit sigMessageToConsole("Selected object '"+m_object2detect+"' is found.");
                 //New algorithm
-                m_algo = new SurfDetectionAlgo(m_object2detect);
+                //m_algo = new SurfDetectionAlgo(m_object2detect);
                 // Connecting this and the detection objects
                 QObject::connect(this,              SIGNAL(sigFrameToObject(Mat)),
                                  m_algo,            SLOT(handleFrame(Mat)));
@@ -311,7 +310,7 @@ void DetectThread::changeObject2Detect(std::string objectname){
             }else if(QDir(algpath).exists()){
                 emit sigMessageToConsole("Selected object '"+m_object2detect+"' is found.");
                 //New algorithm
-                m_algo = new PCMDetectionAlgo(m_object2detect);
+                //m_algo = new SurfDetectionAlgo(m_object2detect);
                 // Connecting this and the detection objects
                 QObject::connect(this,              SIGNAL(sigFrameToObject(Mat)),
                                  m_algo,            SLOT(handleFrame(Mat)));
