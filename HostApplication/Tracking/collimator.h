@@ -24,14 +24,11 @@ public:
 
 private:
     bool m_running;
-
+    bool m_aligned;
     std::string m_algoname;
-
     TrackingAlgo *m_tracker;
     laserDetect m_laser_detector;
     queue<Mat> m_FIFO;
-
-    bool m_aligned;
 
     void getLaserPosition(Mat frame, bool &visible, Point &point, Size &size);
 

@@ -33,16 +33,8 @@ VideoView::~VideoView()
 
 void VideoView::updateView(QImage image){
     //DEBUG("VideoView: updateView ");
-
     updateDraw();
     updateVideo(image);
-#if !THREADED_DRAWING
-    //if(m_currentFrame >= m_framesB4Detect){
-        //updateDraw();
-        //m_currentFrame = 0;
-    //}
-    //m_currentFrame++;
-#endif
 }
 
 
@@ -68,17 +60,54 @@ void VideoView::updateDraw(){
         DEBUG("while: debut" << CURRENT_TIME);
 
         while(!m_drawPointFIFO.empty()){
-            m_ellipsePoint = QPoint(m_drawPointFIFO.front().x, m_drawPointFIFO.front().y);
-            m_ellipseWidth = m_drawSizeFIFO.front().width;
-            m_ellipseHeight = m_drawSizeFIFO.front().height;
+            m_currentPoint = QPoint(m_drawPointFIFO.front().x, m_drawPointFIFO.front().y);
+            m_currentWidth = m_drawSizeFIFO.front().width;
+            m_currentHeight = m_drawSizeFIFO.front().height;
+            m_currentShape = m_drawShapeFIFO.front();
+            m_currentTag = m_drawTagFIFO.front();
+
             m_drawPointFIFO.pop();
             m_drawSizeFIFO.pop();
+            m_drawShapeFIFO.pop();
+            m_drawTagFIFO.pop();
 
-            painter.drawEllipse(m_ellipsePoint, m_ellipseWidth, m_ellipseHeight);
+            switch (m_currentShape) {
+            case CyanEllipse:
+                m_pen.setColor(Qt::cyan);
+                painter.drawEllipse(m_currentPoint, m_currentWidth, m_currentHeight);
+                break;
+            case RedEllipse:
+                m_pen.setColor(Qt::red);
+                painter.drawEllipse(m_currentPoint, m_currentWidth, m_currentHeight);
+                break;
+            case GreenEllipse:
+                m_pen.setColor(Qt::green);
+                painter.drawEllipse(m_currentPoint, m_currentWidth, m_currentHeight);
+                break;
+            case BlackEllipse:
+                m_pen.setColor(Qt::black);
+                painter.drawEllipse(m_currentPoint, m_currentWidth, m_currentHeight);
+                break;
+            case CyanSquare:
+                m_pen.setColor(Qt::cyan);
+                painter.drawRect(m_currentPoint.x()-m_currentWidth,
+                                 m_currentPoint.y()-m_currentHeight,
+                                 m_currentWidth,
+                                 m_currentHeight);
+                break;
+            case RedSquare:
+                m_pen.setColor(Qt::red);
+                painter.drawRect(m_currentPoint.x()-m_currentWidth,
+                                 m_currentPoint.y()-m_currentHeight,
+                                 m_currentWidth,
+                                 m_currentHeight);
+                break;
+            }
 
-            string = QString::fromStdString(m_objName)+" (x"+QString::number(m_ellipsePoint.x())+";y"+QString::number(m_ellipsePoint.y())+")";
+
+            string = QString::fromStdString(m_currentTag)+" (x"+QString::number(m_currentPoint.x())+";y"+QString::number(m_currentPoint.y())+")";
             //DEBUG("updateDraw coordinates " << string);
-            painter.drawText( m_ellipsePoint, string );
+            painter.drawText( m_currentPoint, string );
         }
         DEBUG("while: empty==true" << CURRENT_TIME);
 
@@ -101,20 +130,18 @@ void VideoView::updateDraw(){
 }
 
 
-void VideoView::pushEllipse(Point point, Size size){
-#if THREADED_DRAWING
-    m_painterThread.m_drawPointFIFO.push(point);
-    m_painterThread.m_drawSizeFIFO.push(size);
-#else
+void VideoView::pushShape(Point point, Size size, Shape shape, string tag){
     m_drawPointFIFO.push(point);
     m_drawSizeFIFO.push(size);
-#endif
-    //DEBUG("Pushing ellipse - DONE");
+    m_drawShapeFIFO.push(shape);
+    m_drawTagFIFO.push(tag);
 }
 
 void VideoView::resetDrawLabel(){
     while(!m_drawPointFIFO.empty()) {m_drawPointFIFO.pop();}
     while(!m_drawSizeFIFO.empty()) {m_drawSizeFIFO.pop();}
+    while(!m_drawShapeFIFO.empty()) {m_drawShapeFIFO.pop();}
+    while(!m_drawTagFIFO.empty()) {m_drawTagFIFO.pop();}
 
     QPixmap pixmap;
     pixmap.fill(QColor(0,0,0,0));

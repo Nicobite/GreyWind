@@ -15,6 +15,8 @@ class VideoView;
 
 using namespace cv;
 
+enum Shape{ CyanEllipse, RedEllipse, GreenEllipse, BlackEllipse, CyanSquare, RedSquare};
+
 class VideoView : public QWidget
 {
     Q_OBJECT
@@ -23,7 +25,7 @@ public:
     explicit VideoView(QWidget *parent = 0);
     ~VideoView();
     void updateView(QImage image);
-    void pushEllipse(Point point, Size size);
+    void pushShape(Point point, Size size, Shape shape, std::string tag);
     void updateVideo(QImage);
     void updateDraw();
     void resetDrawLabel();
@@ -43,9 +45,13 @@ private:
 
     std::queue<Point> m_drawPointFIFO;
     std::queue<Size> m_drawSizeFIFO;
-    QPoint m_ellipsePoint;
-    int m_ellipseWidth;
-    int m_ellipseHeight;//*/
+    std::queue<Shape> m_drawShapeFIFO;
+    std::queue<std::string> m_drawTagFIFO;
+    QPoint m_currentPoint;
+    int m_currentWidth;
+    int m_currentHeight;//*/
+    Shape m_currentShape;
+    std::string m_currentTag;
     QPen m_pen;
 
 };
