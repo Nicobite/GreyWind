@@ -83,7 +83,9 @@ private slots:
     void clearBlackList();
     void updateSizeBlackList(int size);
 
-
+	void addAlgoChoice();
+	void subAlgoChoice();
+	void emitAlgoChoice2(const QString& text);
 signals:
     void vidSourceChanged(std::string src);
     void detectFrameRateChanged(int fbd);
