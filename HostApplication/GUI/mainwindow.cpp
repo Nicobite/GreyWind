@@ -72,6 +72,16 @@ MainWindow::MainWindow(QWidget *parent) :
     m_haltDetection = false;
 
     m_3DWindow.drawPyramid();
+
+    /*################*/
+    /* Mission Window */
+    /*################*/
+    QObject::connect(ui->addAlgoObject, SIGNAL(clicked()),
+                     this,              SLOT(addAlgoObject()));
+    QObject::connect(ui->subAlgoObject, SIGNAL(clicked()),
+                     this,              SLOT(subAlgoObject()));
+    QObject::connect(ui->algSelect_2, SIGNAL(currentIndexChanged(QString)),
+                     this,          SLOT(emitAlgoChoice2(QString)));
 }
 
 MainWindow::~MainWindow(){
@@ -427,3 +437,43 @@ void MainWindow::updateSizeBlackList(int size)
     ui->sizeBlackListlabel->setNum(size);
 }
 
+
+/*################*/
+/* Mission Window */
+/*################*/
+
+void MainWindow::emitAlgoChoice2(const QString &text){
+    m_algochoosen = text;
+    dispToCuteConsole(
+        "[MainWindow] Detection algorithm is changed to "+text+"!"
+    );
+    if(text == "<none>"){
+        dispToCuteConsole(
+            "[MainWindow] No detection algorithm is selected!"
+        );
+    }
+    emit detectAlgoChanged(text.toStdString());
+}
+
+void MainWindow::addAlgoObject(){
+    if (ui->listWidget->count() == 0){
+        ui->listWidget->addItem(QString("**Algo****||****Objet****"));
+    }
+    if(m_algochoosen == "<none>"){
+        this->dispToCuteConsole("[Mission]No algorithm is actived. Nothing to do");
+    }else if (ui->objSource_2->text().isEmpty()){
+            this->dispToCuteConsole("[Mission]No object is selected. Nothing to do");
+    }
+    else{
+        ui->listWidget->addItem(QString("**")+m_algochoosen+QString("****||****")+ui->objSource_2->text());
+    }
+}
+
+void MainWindow::subAlgoObject(){
+    if (ui->listWidget->count() == 0){
+        this->dispToCuteConsole("[Mission]No mission selected.");
+    }else{
+        ui->listWidget->currentItem()->setBackgroundColor(Qt::blue);
+        ui->listWidget->takeItem(ui->listWidget->currentRow());
+    }
+}
