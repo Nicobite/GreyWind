@@ -18,7 +18,6 @@ void PMTrackingAlgo::initialise(cv::Mat img, cv::Point point, cv::Size size){
     realPoint.y = point.y - size.height;
     cv::Rect myROI(realPoint, realSize);
     img(myROI).copyTo(m_tmpl);
-    imshow("Debug", m_tmpl);
     m_status = true;
     m_coordinate = point;
     m_size = realSize;

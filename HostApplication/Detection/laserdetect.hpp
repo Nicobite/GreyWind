@@ -25,14 +25,18 @@ public:
     float getR(void);
 
     void createBinaryPhoto (Mat &src, Mat &dest, Scalar rangeInf, Scalar rangeHig);
+    void createBinaryPhotoHSV (Mat &src, Mat &dest, Scalar rangeInf, Scalar rangeHig);
     void findTheContours (Mat &binaryPhoto, vector<vector<Point> > &contours);
     void contours2Coordinates(vector<vector<Point>  > contours);
+    void bestcontours2Coordinates(vector<vector<Point>  > contours);
 
 private:
     float m_x;
     float m_y;
     float m_r;
     void setCoord(float c_x, float c_y);
+
+    vector<Point> m_laserContour;
 };
 
 #endif // LASERDETECT_HPP

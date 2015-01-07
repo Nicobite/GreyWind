@@ -22,7 +22,7 @@ enum AppState{ AppTestMode, AppMissionMode};
 
 enum MissionState{ MissionIdle, MissionDetection, MissionTracking, MissionLocalisation};
 
-class Control: public QThread
+class Control: public QObject
 {
     Q_OBJECT
 
@@ -30,10 +30,10 @@ public:
     Control(int childPID=0, char* childSemFD=NULL, int childPipeWrFD=0, QObject *parent = 0);
     ~Control();
 
-    void state_machine();
+    //void state_machine();
 
 protected:
-     void run();
+     //void run();
 
 private:
     bool            m_running;

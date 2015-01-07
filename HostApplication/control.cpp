@@ -2,7 +2,7 @@
 #include <QTime>
 
 Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *parent) :
-    QThread(parent)
+    QObject(parent)
 {
 
     qRegisterMetaType<std::string> ("std::string");
@@ -98,15 +98,15 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
 
     m_mainWindow.show();
 
-    m_running = true;
+    //m_running = true;
     m_collimator.start();
 
 }
 
 Control::~Control(){
-    m_running = false;
-    this->quit();
-    this->wait();
+    //m_running = false;
+    //this->quit();
+    //this->wait();
 
     m_interface->get_daemon()->kill_daemon();
     delete m_interface;
@@ -114,7 +114,7 @@ Control::~Control(){
     delete m_detectThread;
 }
 
-
+/*
 void Control::run(){
     state_machine();
 }
@@ -148,7 +148,7 @@ void Control::state_machine(){
        }
        usleep(5000);
     }
-}
+}*/
 
 
 void Control::changeVideoSource(std::string src, int err){
@@ -182,6 +182,9 @@ void Control::handleFrame(Mat frame){
     } else if(m_videoDestination==3){
         m_imgDetected = frame;
         m_frameSaved = true;
+
+        m_videoDestination = 2;
+        m_objDetected = true;
 
     }else{
         m_frameSaved = false;
@@ -223,6 +226,8 @@ void Control::clearAllBlackList()
     emit sendSizeBlackList((int)m_blackListCenterFIFO.size());
 
     m_videoDestination = 1;
+    m_objDetected = false;
+
 }
 
 void Control::handleNavdata(navdata_t nd){

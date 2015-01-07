@@ -49,6 +49,7 @@ private:
     std::string m_objectName;
     bool m_haltDetection;
     QString m_algochoosen;
+    int m_skipValue;
 	
 public slots:
     void setFrame(QImage image);
@@ -73,6 +74,9 @@ private slots:
     void displayDetection();
     void validDetection();
     void addToBlackListDetection();
+    void skip1Detection();
+    void skip5Detections();
+    void skip10Detections();
     void displayHelpDetect();
 
     void emitAlgoChoice(const QString& text);
@@ -83,9 +87,10 @@ private slots:
     void clearBlackList();
     void updateSizeBlackList(int size);
 
-	void addAlgoChoice();
-	void subAlgoChoice();
+    void addAlgoObject();
+    void subAlgoObject();
 	void emitAlgoChoice2(const QString& text);
+
 signals:
     void vidSourceChanged(std::string src);
     void detectFrameRateChanged(int fbd);

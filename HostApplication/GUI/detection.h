@@ -15,6 +15,8 @@ public:
     explicit Detection(QWidget *parent = 0);
     ~Detection();
 
+    void enable(bool state);
+
 
 private:
     Ui::Detection *ui;
@@ -23,11 +25,16 @@ private:
 private slots:
     void validDetection();
     void addToBlackListDetection();
+    void skip1Detection();
+    void skip5Detection();
+    void skip10Detection();
 
 signals:
     void sendValidDetection();
     void sendAddToBlackListDetection();
-
+    void sendSkip1Detection();
+    void sendSkip5Detection();
+    void sendSkip10Detection();
 };
 
 #endif // DETECTION_H

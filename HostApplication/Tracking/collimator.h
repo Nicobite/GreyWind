@@ -6,6 +6,7 @@
 #include <Detection/laserdetect.hpp>
 #include "opencv2/opencv.hpp"
 #include <queue>
+#include "includes.h"
 
 using namespace cv;
 
@@ -31,6 +32,7 @@ private:
     TrackingAlgo *m_tracker;
     laserDetect m_laser_detector;
     queue<Mat> m_FIFO;
+
 
     void getLaserPosition(Mat frame, bool &visible, Point &point, Size &size);
 

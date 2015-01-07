@@ -62,7 +62,12 @@ MainWindow::MainWindow(QWidget *parent) :
     // Connect blackList button and it action
     QObject::connect(&m_detectionWindow,    SIGNAL(sendAddToBlackListDetection()),
                      this,              SLOT(addToBlackListDetection()));
-
+    QObject::connect(&m_detectionWindow,    SIGNAL(sendSkip1Detection()),
+                     this,                  SLOT(skip1Detection()));
+    QObject::connect(&m_detectionWindow,    SIGNAL(sendSkip5Detection()),
+                     this,                  SLOT(skip5Detections()));
+    QObject::connect(&m_detectionWindow,    SIGNAL(sendSkip10Detection()),
+                     this,                  SLOT(skip10Detections()));
     //Tracker
     QObject::connect(ui->trackAlgSelect, SIGNAL(currentIndexChanged(QString)),
                      this,               SLOT(emitTrackerChoice(QString)));
@@ -70,6 +75,8 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,            SLOT(emitTrackerInit()));
 
     m_haltDetection = false;
+    m_skipValue = 0;
+
 
     m_3DWindow.drawPyramid();
 
@@ -197,13 +204,30 @@ void MainWindow::updateLocationView(float x, float y, float z, float psi){
 
 
 void MainWindow::drawDetectedEllipse(Point center, Size size){
-    // Save the values of the center et the size of the ellipse
-    m_center=center;
-    m_size=size;
 
     // Draw the ellipse
-    if(!m_haltDetection){
+    if(!m_haltDetection || m_skipValue>0){
+        // Save the values of the center et the size of the ellipse
+        m_center=center;
+        m_size=size;
+
         ui->theFrame->pushShape(center, size, CyanEllipse, m_objectName);
+
+        if(m_skipValue > 0){
+            m_skipValue --;
+            if(m_skipValue == 0){
+                // Save the values of the center and the size that we detect
+                m_center_detected=m_center;
+                m_size_detected=m_size;
+
+                // Draw the ellipse of detection validation with the last values of center and size
+                ui->theFrame->pushShape(m_center_detected, m_size_detected, RedEllipse, m_objectName);
+
+                //enable buttons
+                m_detectionWindow.enable(true);
+                this->ui->theFrame->setHaltDraw(true);
+            }
+        }
     }
 }
 
@@ -393,6 +417,24 @@ void MainWindow::validDetection(){
 
     ui->detectButton->setEnabled(false);
     ui->trackButton->setEnabled(true);
+}
+
+void MainWindow::skip1Detection(){
+    m_detectionWindow.enable(false);
+    this->ui->theFrame->setHaltDraw(false);
+    m_skipValue = 1;
+}
+
+void MainWindow::skip5Detections(){
+    m_detectionWindow.enable(false);
+    this->ui->theFrame->setHaltDraw(false);
+    m_skipValue = 5;
+}
+
+void MainWindow::skip10Detections(){
+    m_detectionWindow.enable(false);
+    this->ui->theFrame->setHaltDraw(false);
+    m_skipValue = 10;
 }
 
 void MainWindow::addToBlackListDetection(){

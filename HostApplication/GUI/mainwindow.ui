@@ -1166,11 +1166,11 @@
       <x>280</x>
       <y>380</y>
       <width>631</width>
-      <height>281</height>
+      <height>291</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -1947,7 +1947,7 @@
         <string>Object:</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="addAlgoObjet">
+      <widget class="QPushButton" name="addAlgoObject">
        <property name="geometry">
         <rect>
          <x>250</x>
