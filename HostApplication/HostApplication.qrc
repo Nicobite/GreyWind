@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/HostApplication">
+    <qresource prefix="/">
         <file>ressources/keys/z.png</file>
         <file>ressources/keys/s.png</file>
         <file>ressources/keys/q.png</file>
@@ -13,5 +13,9 @@
         <file>ressources/joystick_inactive.png</file>
         <file>ressources/tick_octagon.png</file>
         <file>ressources/Icon-16x16-not_ok.png</file>
+        <file>Web/test.html</file>
+        <file>Web/js/three.js</file>
+        <file>Web/js/TrackballControls.js</file>
+        <file>Web/js/main.js</file>
     </qresource>
 </RCC>

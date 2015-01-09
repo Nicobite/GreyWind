@@ -12,6 +12,7 @@
 #include "GUI/help.h"
 #include "GUI/helpdetect.h"
 #include "GUI/threedview.h"
+#include "GUI/webview.h"
 #include "GUI/detection.h"
 
 namespace Ui {
@@ -40,7 +41,8 @@ private:
     bool m_connected;
     Help m_helpWindow;
     HelpDetect m_helpDetectWindow;
-    ThreeDView m_3DWindow;
+    //ThreeDView m_3DWindow;
+    WebView m_3DWindow;
     Detection m_detectionWindow;
     Size m_size; // Get from Control class
     Point m_center; // Get from Control class

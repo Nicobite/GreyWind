@@ -23,7 +23,7 @@
 #include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
-#include <QtWidgets/QListView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPlainTextEdit>
@@ -138,13 +138,14 @@ public:
     QLabel *label_26;
     QLineEdit *objSource_2;
     QLabel *label_32;
-    QPushButton *objOkButton_2;
-    QPushButton *objOkButton_3;
-    QListView *listView;
+    QPushButton *addAlgoObject;
+    QPushButton *subAlgoObject;
     QGroupBox *groupBox_8;
     QLabel *label_33;
-    QPushButton *objOkButton_4;
-    QLineEdit *objSource_3;
+    QPushButton *abortMission;
+    QLineEdit *stateMission;
+    QPushButton *startMission;
+    QListWidget *listWidget;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
     QToolBar *toolBar;
@@ -534,7 +535,8 @@ public:
         theFrame->setMaximumSize(QSize(1280, 720));
         mainTabWidget = new QTabWidget(centralWidget);
         mainTabWidget->setObjectName(QStringLiteral("mainTabWidget"));
-        mainTabWidget->setGeometry(QRect(270, 380, 641, 291));
+        mainTabWidget->setEnabled(true);
+        mainTabWidget->setGeometry(QRect(280, 380, 631, 291));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         groupBox = new QGroupBox(tab);
@@ -682,6 +684,7 @@ public:
         objOkButton->setGeometry(QRect(150, 90, 40, 30));
         groupBox_6 = new QGroupBox(tab);
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
+        groupBox_6->setEnabled(true);
         groupBox_6->setGeometry(QRect(430, 110, 181, 141));
         label_25 = new QLabel(groupBox_6);
         label_25->setObjectName(QStringLiteral("label_25"));
@@ -705,7 +708,7 @@ public:
         tab_2->setObjectName(QStringLiteral("tab_2"));
         groupBox_7 = new QGroupBox(tab_2);
         groupBox_7->setObjectName(QStringLiteral("groupBox_7"));
-        groupBox_7->setGeometry(QRect(10, 20, 361, 81));
+        groupBox_7->setGeometry(QRect(10, 20, 301, 81));
         groupBox_7->setFlat(false);
         algSelect_2 = new QComboBox(groupBox_7);
         algSelect_2->setObjectName(QStringLiteral("algSelect_2"));
@@ -720,28 +723,31 @@ public:
         label_32 = new QLabel(groupBox_7);
         label_32->setObjectName(QStringLiteral("label_32"));
         label_32->setGeometry(QRect(130, 20, 51, 17));
-        objOkButton_2 = new QPushButton(groupBox_7);
-        objOkButton_2->setObjectName(QStringLiteral("objOkButton_2"));
-        objOkButton_2->setGeometry(QRect(260, 40, 40, 30));
-        objOkButton_3 = new QPushButton(groupBox_7);
-        objOkButton_3->setObjectName(QStringLiteral("objOkButton_3"));
-        objOkButton_3->setGeometry(QRect(310, 40, 40, 30));
-        listView = new QListView(tab_2);
-        listView->setObjectName(QStringLiteral("listView"));
-        listView->setGeometry(QRect(380, 20, 241, 171));
+        addAlgoObject = new QPushButton(groupBox_7);
+        addAlgoObject->setObjectName(QStringLiteral("addAlgoObject"));
+        addAlgoObject->setGeometry(QRect(250, 20, 40, 30));
+        subAlgoObject = new QPushButton(groupBox_7);
+        subAlgoObject->setObjectName(QStringLiteral("subAlgoObject"));
+        subAlgoObject->setGeometry(QRect(250, 50, 40, 30));
         groupBox_8 = new QGroupBox(tab_2);
         groupBox_8->setObjectName(QStringLiteral("groupBox_8"));
-        groupBox_8->setGeometry(QRect(10, 100, 361, 81));
+        groupBox_8->setGeometry(QRect(10, 100, 291, 81));
         groupBox_8->setFlat(false);
         label_33 = new QLabel(groupBox_8);
         label_33->setObjectName(QStringLiteral("label_33"));
         label_33->setGeometry(QRect(10, 20, 91, 17));
-        objOkButton_4 = new QPushButton(groupBox_8);
-        objOkButton_4->setObjectName(QStringLiteral("objOkButton_4"));
-        objOkButton_4->setGeometry(QRect(200, 40, 71, 30));
-        objSource_3 = new QLineEdit(groupBox_8);
-        objSource_3->setObjectName(QStringLiteral("objSource_3"));
-        objSource_3->setGeometry(QRect(10, 40, 113, 30));
+        abortMission = new QPushButton(groupBox_8);
+        abortMission->setObjectName(QStringLiteral("abortMission"));
+        abortMission->setGeometry(QRect(200, 40, 71, 30));
+        stateMission = new QLineEdit(groupBox_8);
+        stateMission->setObjectName(QStringLiteral("stateMission"));
+        stateMission->setGeometry(QRect(10, 40, 161, 30));
+        startMission = new QPushButton(tab_2);
+        startMission->setObjectName(QStringLiteral("startMission"));
+        startMission->setGeometry(QRect(20, 200, 99, 27));
+        listWidget = new QListWidget(tab_2);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+        listWidget->setGeometry(QRect(310, 10, 301, 221));
         mainTabWidget->addTab(tab_2, QString());
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
@@ -757,7 +763,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        mainTabWidget->setCurrentIndex(0);
+        mainTabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -882,11 +888,12 @@ public:
         );
         label_26->setText(QApplication::translate("MainWindow", "Algorithm:", 0));
         label_32->setText(QApplication::translate("MainWindow", "Object:", 0));
-        objOkButton_2->setText(QApplication::translate("MainWindow", "+", 0));
-        objOkButton_3->setText(QApplication::translate("MainWindow", "-", 0));
+        addAlgoObject->setText(QApplication::translate("MainWindow", "+", 0));
+        subAlgoObject->setText(QApplication::translate("MainWindow", "-", 0));
         groupBox_8->setTitle(QApplication::translate("MainWindow", "Current State", 0));
         label_33->setText(QApplication::translate("MainWindow", "Info:", 0));
-        objOkButton_4->setText(QApplication::translate("MainWindow", "Abort", 0));
+        abortMission->setText(QApplication::translate("MainWindow", "Abort", 0));
+        startMission->setText(QApplication::translate("MainWindow", "Start Mission", 0));
         mainTabWidget->setTabText(mainTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Mission", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));
     } // retranslateUi

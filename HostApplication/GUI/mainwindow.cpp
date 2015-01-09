@@ -77,8 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_haltDetection = false;
     m_skipValue = 0;
 
-
-    m_3DWindow.drawPyramid();
+    //m_3DWindow.drawPyramid();
 
     /*################*/
     /* Mission Window */
