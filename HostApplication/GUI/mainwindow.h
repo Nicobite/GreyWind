@@ -92,6 +92,8 @@ private slots:
     void addAlgoObject();
     void subAlgoObject();
 	void emitAlgoChoice2(const QString& text);
+    void stopMission();
+    void startMission();
 
 signals:
     void vidSourceChanged(std::string src);
@@ -113,6 +115,11 @@ signals:
 
     void pressCmd(int keyval);
     void releaseCmd();
+
+	void newMissionObject(QString algo, QString obj);
+    void delMissionObject();
+    void stopMissionSignal();
+    void startMissionSignal();
 
 };
 

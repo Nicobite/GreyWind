@@ -88,6 +88,10 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,              SLOT(subAlgoObject()));
     QObject::connect(ui->algSelect_2, SIGNAL(currentIndexChanged(QString)),
                      this,          SLOT(emitAlgoChoice2(QString)));
+    QObject::connect(ui->abortMission, SIGNAL(clicked()),
+                     this,             SLOT(stopMission()));
+    QObject::connect(ui->startMission, SIGNAL(clicked()),
+                     this,              SLOT(startMission()));
 }
 
 MainWindow::~MainWindow(){
@@ -483,19 +487,6 @@ void MainWindow::updateSizeBlackList(int size)
 /* Mission Window */
 /*################*/
 
-void MainWindow::emitAlgoChoice2(const QString &text){
-    m_algochoosen = text;
-    dispToCuteConsole(
-        "[MainWindow] Detection algorithm is changed to "+text+"!"
-    );
-    if(text == "<none>"){
-        dispToCuteConsole(
-            "[MainWindow] No detection algorithm is selected!"
-        );
-    }
-    emit detectAlgoChanged(text.toStdString());
-}
-
 void MainWindow::addAlgoObject(){
     if (ui->listWidget->count() == 0){
         ui->listWidget->addItem(QString("**Algo****||****Objet****"));
@@ -508,13 +499,42 @@ void MainWindow::addAlgoObject(){
     else{
         ui->listWidget->addItem(QString("**")+m_algochoosen+QString("****||****")+ui->objSource_2->text());
     }
+    emit newMissionObject(m_algochoosen, ui->objSource_2->text());
 }
 
 void MainWindow::subAlgoObject(){
+    QString txt;
+    QString algo;
+    QString obj;
+    bool algo_ok;
+    int sizeList = ui->listWidget->count();
+    int sizeItem;
     if (ui->listWidget->count() == 0){
         this->dispToCuteConsole("[Mission]No mission selected.");
     }else{
-        ui->listWidget->currentItem()->setBackgroundColor(Qt::blue);
-        ui->listWidget->takeItem(ui->listWidget->currentRow());
+        sizeItem = ui->listWidget->item(sizeList-1)->text().size();
+        for (int i = 0; i < sizeItem;i++){
+            if ((ui->listWidget->item(sizeList-1)->text()[i]!='*')&&
+                (ui->listWidget->item(sizeList-1)->text()[i]!='|')){
+                txt += ui->listWidget->item(sizeList-1)->text()[i];
+            }
+            if ((ui->listWidget->item(sizeList-1)->text()[i]=='|')&&(algo_ok == false)){
+                algo = txt;
+                txt = QString("");
+                algo_ok = true;
+            }
+            if (algo_ok){
+                obj = txt;
+            }
+        }
+        ui->listWidget->takeItem(sizeList-1);
     }
+}
+
+void MainWindow::stopMission(){
+    emit stopMissionSignal();
+}
+
+void MainWindow::startMission(){
+    emit startMissionSignal();
 }

@@ -17,6 +17,11 @@
 #include "Tracking/collimator.h"
 #include "localizationfunctions.h"
 
+/* Structure for one mission */
+typedef struct t_mission{
+    QString algo;
+    QString obj;
+}Mission;
 
 enum AppState{ AppTestMode, AppMissionMode};
 
@@ -49,6 +54,7 @@ private:
 
     AppState m_appState;
     MissionState m_missionState;
+	std::queue<Mission> m_listMission;
 
     bool m_objDetected;
     Mat m_imgDetected;
@@ -85,6 +91,11 @@ public slots:
     void handleValidatedObject(Point point, Size size);
     void handleTrackerInitialisation();
     void handleCollimatorThreadMessages(std::string mess);
+
+	void addNewMission(QString algo, QString obj);
+    void subMission();
+    void abortMission();
+    void startMission();
 };
 
 #endif // CONTROL_H
