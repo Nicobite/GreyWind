@@ -10,12 +10,17 @@ PMTrackingAlgo::~PMTrackingAlgo(){
 }
 
 void PMTrackingAlgo::initialise(cv::Mat img, cv::Point point, cv::Size size){
-    cv::Rect myROI(point, size);
+    cv::Size realSize;
+    realSize.width = size.width*2;
+    realSize.height = size.height*2;
+    cv::Point realPoint;
+    realPoint.x = point.x - size.width;
+    realPoint.y = point.y - size.height;
+    cv::Rect myROI(realPoint, realSize);
     img(myROI).copyTo(m_tmpl);
-
     m_status = true;
     m_coordinate = point;
-    m_size = size;
+    m_size = realSize;
 }
 
 void PMTrackingAlgo::track(cv::Mat img){
@@ -28,5 +33,8 @@ void PMTrackingAlgo::track(cv::Mat img){
     minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc, cv::Mat());
 
     //printf("[ScaleOpt] Found maximum %f at (%i,%i) \n", maxVal, maxLoc.x, maxLoc.y);
-    m_coordinate = maxLoc;
+    cv::Point center;
+    center.x = maxLoc.x + m_size.width/2;
+    center.y = maxLoc.y + m_size.height/2;
+    m_coordinate = center;
 }

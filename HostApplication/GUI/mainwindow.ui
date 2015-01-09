@@ -1947,7 +1947,7 @@
         <string>Object:</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="objOkButton_2">
+      <widget class="QPushButton" name="addAlgoObject">
        <property name="geometry">
         <rect>
          <x>250</x>
@@ -1960,7 +1960,7 @@
         <string>+</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="objOkButton_3">
+      <widget class="QPushButton" name="subAlgoObject">
        <property name="geometry">
         <rect>
          <x>250</x>
@@ -1973,16 +1973,6 @@
         <string>-</string>
        </property>
       </widget>
-     </widget>
-     <widget class="QListView" name="listView">
-      <property name="geometry">
-       <rect>
-        <x>310</x>
-        <y>20</y>
-        <width>311</width>
-        <height>171</height>
-       </rect>
-      </property>
      </widget>
      <widget class="QGroupBox" name="groupBox_8">
       <property name="geometry">
@@ -2012,7 +2002,7 @@
         <string>Info:</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="objOkButton_4">
+      <widget class="QPushButton" name="abortMission">
        <property name="geometry">
         <rect>
          <x>200</x>
@@ -2025,7 +2015,7 @@
         <string>Abort</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="objSource_3">
+      <widget class="QLineEdit" name="stateMission">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -2036,7 +2026,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="startMission">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -2047,6 +2037,16 @@
       </property>
       <property name="text">
        <string>Start Mission</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listWidget">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>10</y>
+        <width>301</width>
+        <height>221</height>
+       </rect>
       </property>
      </widget>
     </widget>

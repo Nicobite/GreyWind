@@ -62,7 +62,12 @@ MainWindow::MainWindow(QWidget *parent) :
     // Connect blackList button and it action
     QObject::connect(&m_detectionWindow,    SIGNAL(sendAddToBlackListDetection()),
                      this,              SLOT(addToBlackListDetection()));
-
+    QObject::connect(&m_detectionWindow,    SIGNAL(sendSkip1Detection()),
+                     this,                  SLOT(skip1Detection()));
+    QObject::connect(&m_detectionWindow,    SIGNAL(sendSkip5Detection()),
+                     this,                  SLOT(skip5Detections()));
+    QObject::connect(&m_detectionWindow,    SIGNAL(sendSkip10Detection()),
+                     this,                  SLOT(skip10Detections()));
     //Tracker
     QObject::connect(ui->trackAlgSelect, SIGNAL(currentIndexChanged(QString)),
                      this,               SLOT(emitTrackerChoice(QString)));
@@ -70,8 +75,20 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,            SLOT(emitTrackerInit()));
 
     m_haltDetection = false;
+    m_skipValue = 0;
+
 
     m_3DWindow.drawPyramid();
+
+    /*################*/
+    /* Mission Window */
+    /*################*/
+    QObject::connect(ui->addAlgoObject, SIGNAL(clicked()),
+                     this,              SLOT(addAlgoObject()));
+    QObject::connect(ui->subAlgoObject, SIGNAL(clicked()),
+                     this,              SLOT(subAlgoObject()));
+    QObject::connect(ui->algSelect_2, SIGNAL(currentIndexChanged(QString)),
+                     this,          SLOT(emitAlgoChoice2(QString)));
 }
 
 MainWindow::~MainWindow(){
@@ -187,13 +204,30 @@ void MainWindow::updateLocationView(float x, float y, float z, float psi){
 
 
 void MainWindow::drawDetectedEllipse(Point center, Size size){
-    // Save the values of the center et the size of the ellipse
-    m_center=center;
-    m_size=size;
 
     // Draw the ellipse
-    if(!m_haltDetection){
+    if(!m_haltDetection || m_skipValue>0){
+        // Save the values of the center et the size of the ellipse
+        m_center=center;
+        m_size=size;
+
         ui->theFrame->pushShape(center, size, CyanEllipse, m_objectName);
+
+        if(m_skipValue > 0){
+            m_skipValue --;
+            if(m_skipValue == 0){
+                // Save the values of the center and the size that we detect
+                m_center_detected=m_center;
+                m_size_detected=m_size;
+
+                // Draw the ellipse of detection validation with the last values of center and size
+                ui->theFrame->pushShape(m_center_detected, m_size_detected, RedEllipse, m_objectName);
+
+                //enable buttons
+                m_detectionWindow.enable(true);
+                this->ui->theFrame->setHaltDraw(true);
+            }
+        }
     }
 }
 
@@ -204,7 +238,7 @@ void MainWindow::drawTrackedRect(Point center, Size size){
 
 void MainWindow::drawLaserDot(Point center, Size size){
     // Draw the ellipse
-    ui->theFrame->pushShape(center, size, RedSquare, m_objectName);
+    ui->theFrame->pushShape(center, size, RedSquare, "laser");
 }
 
 
@@ -226,7 +260,9 @@ void MainWindow::updateSonarView(int distance){
     ui->distanceDisplay->display(distance);
 }
 
-
+void MainWindow::updateTrackState(std::string state){
+    ui->trackState->setText(QString::fromStdString(state));
+}
 
 /*
  * Private slots
@@ -331,15 +367,13 @@ void MainWindow::displayDetection(){
     // Stop the different detections
     //emit sendStopDrawingEllipse();
 
-    // Change the color of the pen
-    ui->theFrame->penChange(Qt::red,5);
-
     // Save the values of the center and the size that we detect
     m_center_detected=m_center;
     m_size_detected=m_size;
 
     // Draw the ellipse of detection validation with the last values of center and size
     ui->theFrame->pushShape(m_center_detected, m_size_detected, RedEllipse, m_objectName);
+    DEBUG("--> pushing red circle");
 
     m_haltDetection = true;
     this->ui->theFrame->setHaltDraw(true);
@@ -364,11 +398,10 @@ void MainWindow::validDetection(){
 
     // Change the color of the pen
     ui->theFrame->pushShape(m_center_detected, m_size_detected, GreenEllipse, m_objectName);
+    DEBUG("--> pushing green circle");
 
     // detection window disappears
     m_detectionWindow.close();
-    m_haltDetection = false;
-    this->ui->theFrame->setHaltDraw(false);
 
     // Change the icon in the mainWindow
     QPixmap pm (":/HostApplication/ressources/tick_octagon.png");
@@ -380,7 +413,28 @@ void MainWindow::validDetection(){
     ui->xCenterlabel->setNum(m_center_detected.x);
     ui->yCenterlabel->setNum(m_center_detected.y);
     ui->radiuslabel->setNum(m_size_detected.width);
-    emit sigDetectedObject(m_center_detected, m_size_detected);
+    emit sigValidatedObject(m_center_detected, m_size_detected);
+
+    ui->detectButton->setEnabled(false);
+    ui->trackButton->setEnabled(true);
+}
+
+void MainWindow::skip1Detection(){
+    m_detectionWindow.enable(false);
+    this->ui->theFrame->setHaltDraw(false);
+    m_skipValue = 1;
+}
+
+void MainWindow::skip5Detections(){
+    m_detectionWindow.enable(false);
+    this->ui->theFrame->setHaltDraw(false);
+    m_skipValue = 5;
+}
+
+void MainWindow::skip10Detections(){
+    m_detectionWindow.enable(false);
+    this->ui->theFrame->setHaltDraw(false);
+    m_skipValue = 10;
 }
 
 void MainWindow::addToBlackListDetection(){
@@ -392,8 +446,6 @@ void MainWindow::addToBlackListDetection(){
     m_detectionWindow.close();
 
     // next ellipse will appear in cyan as normal
-    ui->theFrame->penChange(Qt::cyan,3);
-
     m_haltDetection = false;
     this->ui->theFrame->setHaltDraw(false);
 
@@ -414,6 +466,11 @@ void MainWindow::addToBlackListDetection(){
 void MainWindow::clearBlackList()
 {
     emit sendClearBlackList();
+    m_haltDetection = false;
+    this->ui->theFrame->setHaltDraw(false);
+    ui->objectDetectedLocationgroupBox->setEnabled(false);
+    ui->detectButton->setEnabled(true);
+    ui->trackButton->setEnabled(false);
 }
 
 void MainWindow::updateSizeBlackList(int size)
@@ -422,3 +479,43 @@ void MainWindow::updateSizeBlackList(int size)
     ui->sizeBlackListlabel->setNum(size);
 }
 
+
+/*################*/
+/* Mission Window */
+/*################*/
+
+void MainWindow::emitAlgoChoice2(const QString &text){
+    m_algochoosen = text;
+    dispToCuteConsole(
+        "[MainWindow] Detection algorithm is changed to "+text+"!"
+    );
+    if(text == "<none>"){
+        dispToCuteConsole(
+            "[MainWindow] No detection algorithm is selected!"
+        );
+    }
+    emit detectAlgoChanged(text.toStdString());
+}
+
+void MainWindow::addAlgoObject(){
+    if (ui->listWidget->count() == 0){
+        ui->listWidget->addItem(QString("**Algo****||****Objet****"));
+    }
+    if(m_algochoosen == "<none>"){
+        this->dispToCuteConsole("[Mission]No algorithm is actived. Nothing to do");
+    }else if (ui->objSource_2->text().isEmpty()){
+            this->dispToCuteConsole("[Mission]No object is selected. Nothing to do");
+    }
+    else{
+        ui->listWidget->addItem(QString("**")+m_algochoosen+QString("****||****")+ui->objSource_2->text());
+    }
+}
+
+void MainWindow::subAlgoObject(){
+    if (ui->listWidget->count() == 0){
+        this->dispToCuteConsole("[Mission]No mission selected.");
+    }else{
+        ui->listWidget->currentItem()->setBackgroundColor(Qt::blue);
+        ui->listWidget->takeItem(ui->listWidget->currentRow());
+    }
+}

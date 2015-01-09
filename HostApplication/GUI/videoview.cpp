@@ -54,12 +54,12 @@ void VideoView::updateDraw(){
         image2 = QImage(640,360,QImage::Format_ARGB32);
         image2.fill(QColor(0,0,0,0));
         QPainter painter(&image2);
-        painter.setPen(m_pen);
-        painter.setFont( QFont("Arial") );
+
 
         DEBUG("while: debut" << CURRENT_TIME);
 
         while(!m_drawPointFIFO.empty()){
+
             m_currentPoint = QPoint(m_drawPointFIFO.front().x, m_drawPointFIFO.front().y);
             m_currentWidth = m_drawSizeFIFO.front().width;
             m_currentHeight = m_drawSizeFIFO.front().height;
@@ -70,39 +70,48 @@ void VideoView::updateDraw(){
             m_drawSizeFIFO.pop();
             m_drawShapeFIFO.pop();
             m_drawTagFIFO.pop();
+            m_pen.setWidth(3);
+            painter.setFont( QFont("Arial") );
 
             switch (m_currentShape) {
             case CyanEllipse:
                 m_pen.setColor(Qt::cyan);
+                painter.setPen(m_pen);
                 painter.drawEllipse(m_currentPoint, m_currentWidth, m_currentHeight);
                 break;
             case RedEllipse:
                 m_pen.setColor(Qt::red);
+                painter.setPen(m_pen);
                 painter.drawEllipse(m_currentPoint, m_currentWidth, m_currentHeight);
                 break;
             case GreenEllipse:
                 m_pen.setColor(Qt::green);
+                painter.setPen(m_pen);
                 painter.drawEllipse(m_currentPoint, m_currentWidth, m_currentHeight);
                 break;
             case BlackEllipse:
                 m_pen.setColor(Qt::black);
+                painter.setPen(m_pen);
                 painter.drawEllipse(m_currentPoint, m_currentWidth, m_currentHeight);
                 break;
             case CyanSquare:
                 m_pen.setColor(Qt::cyan);
-                painter.drawRect(m_currentPoint.x()-m_currentWidth,
-                                 m_currentPoint.y()-m_currentHeight,
+                painter.setPen(m_pen);
+                painter.drawRect(m_currentPoint.x()-m_currentWidth/2,
+                                 m_currentPoint.y()-m_currentHeight/2,
                                  m_currentWidth,
                                  m_currentHeight);
                 break;
             case RedSquare:
                 m_pen.setColor(Qt::red);
-                painter.drawRect(m_currentPoint.x()-m_currentWidth,
-                                 m_currentPoint.y()-m_currentHeight,
+                painter.setPen(m_pen);
+                painter.drawRect(m_currentPoint.x()-m_currentWidth/2,
+                                 m_currentPoint.y()-m_currentHeight/2,
                                  m_currentWidth,
                                  m_currentHeight);
                 break;
             }
+
 
 
             string = QString::fromStdString(m_currentTag)+" (x"+QString::number(m_currentPoint.x())+";y"+QString::number(m_currentPoint.y())+")";
@@ -135,6 +144,8 @@ void VideoView::pushShape(Point point, Size size, Shape shape, string tag){
     m_drawSizeFIFO.push(size);
     m_drawShapeFIFO.push(shape);
     m_drawTagFIFO.push(tag);
+    DEBUG("--> got pushed");
+
 }
 
 void VideoView::resetDrawLabel(){
@@ -160,10 +171,10 @@ void VideoView::penInit(void){
     m_pen.setWidth(3);
 }
 
-void VideoView::penChange(QColor color, int size){
+/*void VideoView::penChange(QColor color, int size){
     m_pen.setColor(color);
     m_pen.setWidth(size);
-}
+}*/
 
 void VideoView::setObjname(std::string objname){
     m_objName = objname;

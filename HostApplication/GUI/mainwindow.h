@@ -48,7 +48,9 @@ private:
     Point m_center_detected; // Get from pressure on detectButton
     std::string m_objectName;
     bool m_haltDetection;
-
+    QString m_algochoosen;
+    int m_skipValue;
+	
 public slots:
     void setFrame(QImage image);
     void updateNavdataView(navdata_t nd);
@@ -57,6 +59,7 @@ public slots:
     void drawLaserDot(Point center, Size size);
     void updateConnectionStatus(bool status);
     void updateSonarView(int distance);
+    void updateTrackState(std::string state);
 
 private slots:
     void emitVidSource(const QString& text);
@@ -71,6 +74,9 @@ private slots:
     void displayDetection();
     void validDetection();
     void addToBlackListDetection();
+    void skip1Detection();
+    void skip5Detections();
+    void skip10Detections();
     void displayHelpDetect();
 
     void emitAlgoChoice(const QString& text);
@@ -81,6 +87,9 @@ private slots:
     void clearBlackList();
     void updateSizeBlackList(int size);
 
+    void addAlgoObject();
+    void subAlgoObject();
+	void emitAlgoChoice2(const QString& text);
 
 signals:
     void vidSourceChanged(std::string src);
@@ -90,8 +99,9 @@ signals:
     void laserState(bool state);
     void sonarRequest();
 
-    void sigDetectedObject(Point point, Size size);
+    void sigValidatedObject(Point point, Size size);
     void sendObjectToBlackList(Point point, Size size);
+    void sendClearBlackList();
 
     void detectAlgoChanged(std::string src);
     void detectObjectChanged(std::string src);
@@ -101,7 +111,6 @@ signals:
 
     void pressCmd(int keyval);
     void releaseCmd();
-    void sendClearBlackList();
 
 };
 

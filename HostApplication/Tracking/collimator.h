@@ -6,6 +6,7 @@
 #include <Detection/laserdetect.hpp>
 #include "opencv2/opencv.hpp"
 #include <queue>
+#include "includes.h"
 
 using namespace cv;
 
@@ -21,6 +22,8 @@ public:
     void run();
 
     bool isAligned();
+    void handleFrame(Mat frame);
+
 
 private:
     bool m_running;
@@ -30,15 +33,16 @@ private:
     laserDetect m_laser_detector;
     queue<Mat> m_FIFO;
 
+
     void getLaserPosition(Mat frame, bool &visible, Point &point, Size &size);
 
 signals:
     void detectedObject(Point center, Size size);
+    void detectedLaser(Point center, Size size);
     void sigMessageToConsole(std::string message);
     void sigDirections(std::string messsage);
 
 public slots:
-    void handleFrame(Mat frame);
     void changeAlgo(std::string algoname);
 
 };

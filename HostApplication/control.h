@@ -30,9 +30,14 @@ public:
     Control(int childPID=0, char* childSemFD=NULL, int childPipeWrFD=0, QObject *parent = 0);
     ~Control();
 
-    void state_machine();
+    //void state_machine();
+
+protected:
+     //void run();
 
 private:
+    bool            m_running;
+
     MainWindow      m_mainWindow;
     bool            m_connected;
     DroneInterface* m_interface;
@@ -49,6 +54,9 @@ private:
     Mat m_imgDetected;
     Size m_sizeDetected;
     Point m_centerDetected;
+
+    int m_videoDestination; //0: none, 1: detect, 2: tracker, 3:save to m_objDetected
+    bool m_frameSaved; //internal variable
 
     std::queue<Point> m_blackListCenterFIFO;
     std::queue<Size> m_blackListSizeFIFO;
@@ -74,6 +82,7 @@ public slots:
     void addObjectToBlacklist(Point point, Size size);
     void clearAllBlackList();
 
+    void handleValidatedObject(Point point, Size size);
     void handleTrackerInitialisation();
     void handleCollimatorThreadMessages(std::string mess);
 };
