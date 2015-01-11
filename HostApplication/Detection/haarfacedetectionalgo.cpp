@@ -39,7 +39,7 @@ void HaarFaceDetectionAlgo::detect(Mat &frame)
         try{
             //DEBUG("B4 detectMS\t\t" << CURRENT_TIME);
             //m_face_cascade.detectMultiScale( frame_gray, m_faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );  //face
-            m_face_cascade.detectMultiScale( frame_gray, m_faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+            m_face_cascade.detectMultiScale( frame_gray, m_faces, 1.1, 2, 0|4, Size(30, 30) );
 
             //DEBUG("Af detectMS\t\t" << CURRENT_TIME);
 

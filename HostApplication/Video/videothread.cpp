@@ -2,6 +2,7 @@
 #include "Video/videothread.hpp"
 #include "opencv2/opencv.hpp"
 #include <QTime>
+#define CV_IMWRITE_JPEG_QUALITY 1
 
 
 VideoThread::VideoThread(QObject *parent) :
@@ -10,6 +11,8 @@ VideoThread::VideoThread(QObject *parent) :
     m_running = false;
     m_source = "None";
     m_nbFramesBeforeDetect = 40;
+    m_picnumber = 0;
+    m_takepicture = false;
 }
 
 VideoThread::~VideoThread(){
@@ -53,11 +56,22 @@ void VideoThread::run() //TODO + TODO2 make better folders
             {
                 try{
                     capture->read(frame);
-                    Size dsize(640, 360);
-                    resize(frame, frame, dsize, 0, 0);
 
                     // Just a check
                     if(!frame.empty()){
+                        Size dsize(640, 360);
+                        resize(frame, frame, dsize, 0, 0);
+
+                        if(m_takepicture){
+                            vector<int> compression_params;
+                            compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
+                            compression_params.push_back(95);
+                            std::string filename = QString("./pics/image"+QString::number(m_picnumber++)+".jpg").toStdString();
+                            bool result = imwrite(filename, frame, compression_params);
+                            m_takepicture = false;
+                        }
+
+
                         if(frameCounter >= m_nbFramesBeforeDetect){
                             emit sendDetectionFrame(frame);
                             frameCounter = 0;
@@ -130,4 +144,8 @@ void VideoThread::setSource(std::string src){
 
 void VideoThread::setDetectionPeriod(int nbFramesBeforeDetect){
     m_nbFramesBeforeDetect = nbFramesBeforeDetect;
+}
+
+void VideoThread::savePicture(){
+    m_takepicture = true;
 }

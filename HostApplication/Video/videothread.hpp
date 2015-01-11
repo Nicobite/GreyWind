@@ -26,10 +26,14 @@ private:
      int m_nbFramesBeforeDetect;
      std::string m_source;
      int openVideo(VideoCapture * capture);
+     int m_picnumber;
+     bool m_takepicture;
+
 
 public slots:
     void setSource(std::string src);
     void setDetectionPeriod(int nbFramesBeforeDetect);
+    void savePicture();
 
 signals:
     void sendDetectionFrame(Mat frame);

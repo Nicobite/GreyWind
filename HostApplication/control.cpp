@@ -50,6 +50,9 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     // * Couldn't change source
     QObject::connect(m_vidThread,       SIGNAL(cannotChangeSource(std::string,int)),
                      this,              SLOT(changeVideoSource(std::string,int)));
+    // Take picture
+    QObject::connect(&m_mainWindow,     SIGNAL(sigTakePicture()),
+                     m_vidThread,       SLOT(savePicture()));
     // Starting videoThread
     m_currentVidSource  = "None";
     m_vidThread->start();
@@ -98,15 +101,12 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
 
     m_mainWindow.show();
 
-    //m_running = true;
     m_collimator.start();
 
 }
 
 Control::~Control(){
-    //m_running = false;
-    //this->quit();
-    //this->wait();
+
 
     m_interface->get_daemon()->kill_daemon();
     delete m_interface;
@@ -114,12 +114,7 @@ Control::~Control(){
     delete m_detectThread;
 }
 
-/*
-void Control::run(){
-    state_machine();
-}
-
-
+/* é
 void Control::state_machine(){
     while(m_running){
        switch(m_appState){
@@ -225,9 +220,11 @@ void Control::clearAllBlackList()
     }
     emit sendSizeBlackList((int)m_blackListCenterFIFO.size());
 
+
     m_videoDestination = 1;
     m_objDetected = false;
 
+    m_collimator.deinit();
 }
 
 void Control::handleNavdata(navdata_t nd){

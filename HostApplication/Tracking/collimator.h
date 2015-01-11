@@ -20,6 +20,7 @@ public:
 
     void init(Mat img, Point point, Size size);
     void run();
+    void deinit();
 
     bool isAligned();
     void handleFrame(Mat frame);

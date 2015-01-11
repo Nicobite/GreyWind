@@ -79,7 +79,7 @@ void laserDetect::bestcontours2Coordinates(vector<vector<Point>  > contours){
 
     for(unsigned int i=0; i<contours.size(); i++){
         float res = matchShapes(m_laserContour, contours[i], 1 , 0.0);
-        if(res > 0.4 || arcLength(contours[i], false)<20){
+        if(res > 0.5 || arcLength(contours[i], false)<15){
             //nop
         } else{
             std::cout << "BestContour : "<< res << " " << arcLength(contours[i], false) << " " << contourArea(contours[i]) << endl;

@@ -48,7 +48,6 @@ private:
     Point m_center_detected; // Get from pressure on detectButton
     std::string m_objectName;
     bool m_haltDetection;
-    QString m_algochoosen;
     int m_skipValue;
 	
 public slots:
@@ -89,7 +88,8 @@ private slots:
 
     void addAlgoObject();
     void subAlgoObject();
-	void emitAlgoChoice2(const QString& text);
+
+    void emitTakePicture();
 
 signals:
     void vidSourceChanged(std::string src);
@@ -111,6 +111,8 @@ signals:
 
     void pressCmd(int keyval);
     void releaseCmd();
+
+    void sigTakePicture();
 
 };
 

@@ -11,6 +11,7 @@ Collimator::Collimator(QObject *parent):
 Collimator::~Collimator()
 {
     m_running = false;
+    delete m_tracker;
 }
 
 void Collimator::init(Mat img, Point point, Size size){
@@ -37,11 +38,33 @@ void Collimator::init(Mat img, Point point, Size size){
                 emit sigMessageToConsole("Initializing current tracking algorithm(Lucas-Kannade)...");
                 emit sigMessageToConsole("Not yet implemented.  Algorithm removed.");
                 m_running = false;
-
                 //New algorithm
                 //m_tracker = new PCMDetectionAlgo(m_object2detect);
                 //emit sigMessageToConsole("Algorithm is running.");
             }
+        }
+    }
+}
+
+void Collimator::deinit(){
+    emit sigMessageToConsole("Removing previous detection algorithm...");
+
+    if(m_tracker != NULL){
+        delete m_tracker;
+        m_tracker = NULL;
+    }
+    m_running = false;
+    if(m_algoname == "<none>"){
+        emit sigMessageToConsole("Detection algorithm is removed.");
+
+    } else{
+        if(m_algoname == "PatternMatching"){
+            emit sigMessageToConsole("Changing current tracking algorithm to PatternMatching...");
+            m_tracker =  new PMTrackingAlgo();
+
+        } else if(m_algoname == "LucasKannade"){
+            emit sigMessageToConsole("Changing current detection algorithm to Lucas-Kannade...");
+            emit sigMessageToConsole("Not yet implemented.  Algorithm removed.");
         }
     }
 }
