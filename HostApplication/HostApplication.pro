@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     GUI/helpdetect.cpp \
     Tracking/collimator.cpp \
     GUI/glwidget.cpp \
-    GUI/webview.cpp
+    GUI/webview.cpp \
+    missionthread.cpp
 
 LIBS += `pkg-config opencv --libs`
 
@@ -73,7 +74,8 @@ HEADERS  += Detection/laserdetect.hpp \
     GUI/helpdetect.h \
     Tracking/collimator.h \
     GUI/glwidget.h \
-    GUI/webview.h
+    GUI/webview.h \
+    missionthread.h
 
 FORMS    += GUI/help.ui \
     GUI/mainwindow.ui \

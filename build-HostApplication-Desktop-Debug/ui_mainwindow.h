@@ -134,12 +134,14 @@ public:
     QLabel *trackState;
     QWidget *tab_2;
     QGroupBox *groupBox_7;
-    QComboBox *algSelect_2;
+    QComboBox *algDetectSelect;
     QLabel *label_26;
     QLineEdit *objSource_2;
     QLabel *label_32;
     QPushButton *addAlgoObject;
     QPushButton *subAlgoObject;
+    QLabel *label_35;
+    QComboBox *algTrackingSelect;
     QGroupBox *groupBox_8;
     QLabel *label_33;
     QPushButton *abortMission;
@@ -708,30 +710,43 @@ public:
         tab_2->setObjectName(QStringLiteral("tab_2"));
         groupBox_7 = new QGroupBox(tab_2);
         groupBox_7->setObjectName(QStringLiteral("groupBox_7"));
-        groupBox_7->setGeometry(QRect(10, 20, 301, 81));
+        groupBox_7->setGeometry(QRect(0, 0, 311, 141));
         groupBox_7->setFlat(false);
-        algSelect_2 = new QComboBox(groupBox_7);
-        algSelect_2->setObjectName(QStringLiteral("algSelect_2"));
-        algSelect_2->setGeometry(QRect(10, 40, 91, 27));
-        algSelect_2->setFocusPolicy(Qt::NoFocus);
+        algDetectSelect = new QComboBox(groupBox_7);
+        algDetectSelect->setObjectName(QStringLiteral("algDetectSelect"));
+        algDetectSelect->setGeometry(QRect(10, 40, 91, 27));
+        algDetectSelect->setFocusPolicy(Qt::NoFocus);
         label_26 = new QLabel(groupBox_7);
         label_26->setObjectName(QStringLiteral("label_26"));
-        label_26->setGeometry(QRect(10, 20, 91, 17));
+        label_26->setGeometry(QRect(0, 10, 151, 31));
+        QFont font4;
+        font4.setPointSize(10);
+        font4.setBold(false);
+        font4.setWeight(50);
+        label_26->setFont(font4);
         objSource_2 = new QLineEdit(groupBox_7);
         objSource_2->setObjectName(QStringLiteral("objSource_2"));
-        objSource_2->setGeometry(QRect(130, 40, 113, 30));
+        objSource_2->setGeometry(QRect(90, 100, 113, 30));
         label_32 = new QLabel(groupBox_7);
         label_32->setObjectName(QStringLiteral("label_32"));
-        label_32->setGeometry(QRect(130, 20, 51, 17));
+        label_32->setGeometry(QRect(120, 80, 51, 17));
         addAlgoObject = new QPushButton(groupBox_7);
         addAlgoObject->setObjectName(QStringLiteral("addAlgoObject"));
-        addAlgoObject->setGeometry(QRect(250, 20, 40, 30));
+        addAlgoObject->setGeometry(QRect(210, 80, 40, 30));
         subAlgoObject = new QPushButton(groupBox_7);
         subAlgoObject->setObjectName(QStringLiteral("subAlgoObject"));
-        subAlgoObject->setGeometry(QRect(250, 50, 40, 30));
+        subAlgoObject->setGeometry(QRect(210, 110, 40, 30));
+        label_35 = new QLabel(groupBox_7);
+        label_35->setObjectName(QStringLiteral("label_35"));
+        label_35->setGeometry(QRect(180, 10, 121, 31));
+        label_35->setFont(font4);
+        algTrackingSelect = new QComboBox(groupBox_7);
+        algTrackingSelect->setObjectName(QStringLiteral("algTrackingSelect"));
+        algTrackingSelect->setGeometry(QRect(190, 40, 91, 27));
+        algTrackingSelect->setFocusPolicy(Qt::NoFocus);
         groupBox_8 = new QGroupBox(tab_2);
         groupBox_8->setObjectName(QStringLiteral("groupBox_8"));
-        groupBox_8->setGeometry(QRect(10, 100, 291, 81));
+        groupBox_8->setGeometry(QRect(10, 140, 291, 81));
         groupBox_8->setFlat(false);
         label_33 = new QLabel(groupBox_8);
         label_33->setObjectName(QStringLiteral("label_33"));
@@ -741,10 +756,10 @@ public:
         abortMission->setGeometry(QRect(200, 40, 71, 30));
         stateMission = new QLineEdit(groupBox_8);
         stateMission->setObjectName(QStringLiteral("stateMission"));
-        stateMission->setGeometry(QRect(10, 40, 161, 30));
+        stateMission->setGeometry(QRect(0, 40, 161, 30));
         startMission = new QPushButton(tab_2);
         startMission->setObjectName(QStringLiteral("startMission"));
-        startMission->setGeometry(QRect(20, 200, 99, 27));
+        startMission->setGeometry(QRect(10, 220, 99, 27));
         listWidget = new QListWidget(tab_2);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setGeometry(QRect(310, 10, 301, 221));
@@ -879,17 +894,25 @@ public:
         trackState->setText(QApplication::translate("MainWindow", "-", 0));
         mainTabWidget->setTabText(mainTabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tests", 0));
         groupBox_7->setTitle(QApplication::translate("MainWindow", "Add/Remove Objects", 0));
-        algSelect_2->clear();
-        algSelect_2->insertItems(0, QStringList()
+        algDetectSelect->clear();
+        algDetectSelect->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "<none>", 0)
          << QApplication::translate("MainWindow", "Haar", 0)
          << QApplication::translate("MainWindow", "PCM", 0)
          << QApplication::translate("MainWindow", "SURF", 0)
         );
-        label_26->setText(QApplication::translate("MainWindow", "Algorithm:", 0));
+        label_26->setText(QApplication::translate("MainWindow", "Detection  Algorithm:", 0));
         label_32->setText(QApplication::translate("MainWindow", "Object:", 0));
         addAlgoObject->setText(QApplication::translate("MainWindow", "+", 0));
         subAlgoObject->setText(QApplication::translate("MainWindow", "-", 0));
+        label_35->setText(QApplication::translate("MainWindow", "Tracking Algorithm:", 0));
+        algTrackingSelect->clear();
+        algTrackingSelect->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "<none>", 0)
+         << QApplication::translate("MainWindow", "PCM", 0)
+         << QApplication::translate("MainWindow", "SURF", 0)
+         << QApplication::translate("MainWindow", "LUCAS KANADE", 0)
+        );
         groupBox_8->setTitle(QApplication::translate("MainWindow", "Current State", 0));
         label_33->setText(QApplication::translate("MainWindow", "Info:", 0));
         abortMission->setText(QApplication::translate("MainWindow", "Abort", 0));

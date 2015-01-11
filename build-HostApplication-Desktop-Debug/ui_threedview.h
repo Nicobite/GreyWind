@@ -17,7 +17,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QSlider>
-#include "GUI/glwidget.h"
+#include <GUI/glwidget.h>
 
 QT_BEGIN_NAMESPACE
 

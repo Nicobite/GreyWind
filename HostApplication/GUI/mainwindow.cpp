@@ -86,8 +86,10 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,              SLOT(addAlgoObject()));
     QObject::connect(ui->subAlgoObject, SIGNAL(clicked()),
                      this,              SLOT(subAlgoObject()));
-    QObject::connect(ui->algSelect_2, SIGNAL(currentIndexChanged(QString)),
-                     this,          SLOT(emitAlgoChoice2(QString)));
+    QObject::connect(ui->algDetectSelect, SIGNAL(currentIndexChanged(QString)),
+                     this,          SLOT(emitAlgoDetectionChoice(QString)));
+    QObject::connect(ui->algTrackingSelect, SIGNAL(currentIndexChanged(QString)),
+                     this,          SLOT(emitAlgoTrackingChoice(QString)));
     QObject::connect(ui->abortMission, SIGNAL(clicked()),
                      this,             SLOT(stopMission()));
     QObject::connect(ui->startMission, SIGNAL(clicked()),
@@ -499,7 +501,7 @@ void MainWindow::addAlgoObject(){
     else{
         ui->listWidget->addItem(QString("**")+m_algochoosen+QString("****||****")+ui->objSource_2->text());
     }
-    emit newMissionObject(m_algochoosen, ui->objSource_2->text());
+     //emit newMissionObject(m_algochoosen, ui->objSource_2->text());
 }
 
 void MainWindow::subAlgoObject(){
@@ -532,9 +534,17 @@ void MainWindow::subAlgoObject(){
 }
 
 void MainWindow::stopMission(){
-    emit stopMissionSignal();
+    //ADECOM emit stopMissionSignal();
 }
 
 void MainWindow::startMission(){
-    emit startMissionSignal();
+    //ADECOM emit startMissionSignal();
+}
+
+void MainWindow::emitAlgoDetectionChoice(const QString& text){
+
+}
+
+void MainWindow::emitAlgoTrackingChoice(const QString& text){
+
 }

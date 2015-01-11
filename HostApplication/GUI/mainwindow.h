@@ -91,7 +91,8 @@ private slots:
 
     void addAlgoObject();
     void subAlgoObject();
-	void emitAlgoChoice2(const QString& text);
+    void emitAlgoDetectionChoice(const QString& text);
+    void emitAlgoTrackingChoice(const QString& text);
     void stopMission();
     void startMission();
 
@@ -116,7 +117,7 @@ signals:
     void pressCmd(int keyval);
     void releaseCmd();
 
-	void newMissionObject(QString algo, QString obj);
+    //void newMissionObject(QString algo, QString obj);
     void delMissionObject();
     void stopMissionSignal();
     void startMissionSignal();
