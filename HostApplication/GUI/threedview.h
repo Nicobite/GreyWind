@@ -15,7 +15,6 @@ class ThreeDView : public QDialog
 public:
     explicit ThreeDView(QWidget *parent = 0);
     ~ThreeDView();
-    void drawPyramid();
 
 private:
     Ui::ThreeDView *ui;

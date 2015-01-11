@@ -1,11 +1,16 @@
 #include "threedview.h"
 #include "ui_threedview.h"
+#include "glwidget.h"
+#include <QKeyEvent>
 
 ThreeDView::ThreeDView(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ThreeDView)
 {
     ui->setupUi(this);
+    connect(ui->myGlWidget, SIGNAL(xRotationChanged(int)), ui->xRotSlider, SLOT(setValue(int)));
+    connect(ui->myGlWidget, SIGNAL(yRotationChanged(int)), ui->yRotSlider, SLOT(setValue(int)));
+    connect(ui->myGlWidget, SIGNAL(zRotationChanged(int)), ui->zRotSlider, SLOT(setValue(int)));
 }
 
 ThreeDView::~ThreeDView()
@@ -13,48 +18,10 @@ ThreeDView::~ThreeDView()
     delete ui;
 }
 
-void ThreeDView::drawPyramid(){
-
-    ui->glWidget->qglClearColor(Qt::black);
-
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_CULL_FACE);
-        glShadeModel(GL_SMOOTH);
-        glEnable(GL_LIGHTING);
-        glEnable(GL_LIGHT0);
-
-        static GLfloat lightPosition[4] = { 0, 0, 10, 1.0 };
-        glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-
-    ui->glWidget->qglColor(Qt::red);
-    glBegin(GL_QUADS);
-        glNormal3f( 0, 0,-1);
-        glNormal3f(-1,-1, 0);
-        glNormal3f( 1,-1, 0);
-        glNormal3f( 0, 0,1.2);
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f( 0,-1,0.707);
-        glNormal3f(-1,-1, 0);
-        glNormal3f( 1,-1, 0);
-        glNormal3f( 0, 0,1.2);
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f(-1, 0,0.707);
-        glNormal3f( 1,-1, 0);
-        glNormal3f( 1, 1, 0);
-        glNormal3f( 0, 0,1.2);
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f( 0, 1,0.707);
-        glNormal3f( 1, 1, 0);
-        glNormal3f(-1, 1, 0);
-        glNormal3f( 0, 0,1.2);
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f(-1, 0,0.707);
-        glNormal3f(-1, 1, 0);
-        glNormal3f(-1, 1, 0);
-        glNormal3f( 0, 0,1.2);
-    glEnd();
+void QDialog::keyPressEvent(QKeyEvent *e)
+{
+    if (e->key() == Qt::Key_Escape)
+        close();
+    else
+        QWidget::keyPressEvent(e);
 }

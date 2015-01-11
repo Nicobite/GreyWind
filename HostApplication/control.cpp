@@ -98,7 +98,15 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
 
     //************************************************/
     //************************************************/
-
+    // Mission signals
+    QObject::connect(&m_mainWindow,     SIGNAL(newMissionObject(QString,QString)),
+                     this,              SLOT(addNewMission(QString,QString)));
+    QObject::connect(&m_mainWindow,     SIGNAL(delMissionObject()),
+                     this,              SLOT(subMission()));
+    QObject::connect(&m_mainWindow,     SIGNAL(stopMissionSignal()),
+                     this,              SLOT(abortMission()));
+    QObject::connect(&m_mainWindow,     SIGNAL(startMissionSignal()),
+                     this,              SLOT(startMission()));
     m_mainWindow.show();
 
     m_collimator.start();
@@ -322,5 +330,21 @@ void Control::handleDetectThreadMessages(std::string mess){
 
 void Control::handleCollimatorThreadMessages(std::string mess){
     this->m_mainWindow.dispToCuteConsole("[Collimator] "+QString::fromStdString(mess));
+}
+
+/* Mission slots */
+void Control::addNewMission(QString algo, QString obj){
+    m_listMission.push(Mission{algo,obj});
+}
+
+void Control::subMission(){
+    m_listMission.pop();
+}
+
+void Control::abortMission(){
+
+}
+void Control::startMission(){
+
 }
 

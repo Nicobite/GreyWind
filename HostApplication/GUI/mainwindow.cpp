@@ -79,12 +79,11 @@ MainWindow::MainWindow(QWidget *parent) :
     m_skipValue = 0;
 
 
-
     QObject::connect(ui->savePicButton, SIGNAL(clicked()),
                      this,              SLOT(emitTakePicture()));
 
 
-    m_3DWindow.drawPyramid();
+    //m_3DWindow.drawPyramid();
 
     /*################*/
     /* Mission Window */
@@ -93,6 +92,16 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,              SLOT(addAlgoObject()));
     QObject::connect(ui->subAlgoObject, SIGNAL(clicked()),
                      this,              SLOT(subAlgoObject()));
+
+    QObject::connect(ui->algDetectSelect, SIGNAL(currentIndexChanged(QString)),
+                     this,          SLOT(emitAlgoDetectionChoice(QString)));
+    QObject::connect(ui->algTrackingSelect, SIGNAL(currentIndexChanged(QString)),
+                     this,          SLOT(emitAlgoTrackingChoice(QString)));
+    QObject::connect(ui->abortMission, SIGNAL(clicked()),
+                     this,             SLOT(stopMission()));
+    QObject::connect(ui->startMission, SIGNAL(clicked()),
+                     this,              SLOT(startMission()));
+
 }
 
 MainWindow::~MainWindow(){
@@ -501,17 +510,54 @@ void MainWindow::addAlgoObject(){
     else{
         ui->listWidget->addItem(QString("**")+algo_chosen+QString("****||****")+ui->objSource_2->text());
     }
+     //emit newMissionObject(m_algochoosen, ui->objSource_2->text());
 }
 
 void MainWindow::subAlgoObject(){
+    QString txt;
+    QString algo;
+    QString obj;
+    bool algo_ok;
+    int sizeList = ui->listWidget->count();
+    int sizeItem;
     if (ui->listWidget->count() == 0){
         this->dispToCuteConsole("[Mission] No mission selected.");
     }else{
-        ui->listWidget->currentItem()->setBackgroundColor(Qt::blue);
-        ui->listWidget->takeItem(ui->listWidget->currentRow());
+        sizeItem = ui->listWidget->item(sizeList-1)->text().size();
+        for (int i = 0; i < sizeItem;i++){
+            if ((ui->listWidget->item(sizeList-1)->text()[i]!='*')&&
+                (ui->listWidget->item(sizeList-1)->text()[i]!='|')){
+                txt += ui->listWidget->item(sizeList-1)->text()[i];
+            }
+            if ((ui->listWidget->item(sizeList-1)->text()[i]=='|')&&(algo_ok == false)){
+                algo = txt;
+                txt = QString("");
+                algo_ok = true;
+            }
+            if (algo_ok){
+                obj = txt;
+            }
+        }
+        ui->listWidget->takeItem(sizeList-1);
     }
 }
 
 void MainWindow::emitTakePicture(){
     emit sigTakePicture();
+}
+
+void MainWindow::stopMission(){
+    //ADECOM emit stopMissionSignal();
+}
+
+void MainWindow::startMission(){
+    //ADECOM emit startMissionSignal();
+}
+
+void MainWindow::emitAlgoDetectionChoice(const QString& text){
+
+}
+
+void MainWindow::emitAlgoTrackingChoice(const QString& text){
+
 }
