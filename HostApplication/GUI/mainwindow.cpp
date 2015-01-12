@@ -101,6 +101,7 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,             SLOT(stopMission()));
     QObject::connect(ui->startMission, SIGNAL(clicked()),
                      this,              SLOT(startMission()));
+
     QObject::connect(ui->addAlgoObject,  SIGNAL(clicked()),
                      this,             SLOT(emitObjectChoiceMission()));
 }
@@ -502,17 +503,7 @@ void MainWindow::addAlgoObject(){
     if (ui->listWidget->count() == 0){
         ui->listWidget->addItem(QString("**Algo****||****Objet****"));
     }
-<<<<<<< HEAD
-    /*QString algo_chosen = ui->algSelect_2->currentText();
-    if(algo_chosen == "<none>"){
-        this->dispToCuteConsole("[Mission] No algorithm is actived. Nothing to do");
-    }else if (ui->objSource_2->text().isEmpty()){
-            this->dispToCuteConsole("[Mission] No object is selected. Nothing to do");
-    }
-    else{
-        ui->listWidget->addItem(QString("**")+algo_chosen+QString("****||****")+ui->objSource_2->text());
-    }*/
-=======
+
     if(m_algochoosen == "<none>"){
         this->dispToCuteConsole("[Mission]No algorithm is actived. Nothing to do");
     }else if (ui->objSourceMission->text().isEmpty()){
@@ -521,7 +512,6 @@ void MainWindow::addAlgoObject(){
     else{
         ui->listWidget->addItem(QString("**")+m_algochoosen+QString("****||****")+ui->objSourceMission->text());
     }
->>>>>>> 9aba10bf017b2851164fb79cc6d04a0fccf512cf
      //emit newMissionObject(m_algochoosen, ui->objSource_2->text());
 }
 

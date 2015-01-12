@@ -50,6 +50,7 @@ private:
     Point m_center_detected; // Get from pressure on detectButton
     std::string m_objectName;
     bool m_haltDetection;
+    QString m_algochoosen;
     int m_skipValue;
 	
 public slots:
