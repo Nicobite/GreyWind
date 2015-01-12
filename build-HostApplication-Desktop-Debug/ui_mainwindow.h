@@ -136,7 +136,7 @@ public:
     QGroupBox *groupBox_7;
     QComboBox *algDetectSelect;
     QLabel *label_26;
-    QLineEdit *objSource_2;
+    QLineEdit *objSourceMission;
     QLabel *label_32;
     QPushButton *addAlgoObject;
     QPushButton *subAlgoObject;
@@ -724,9 +724,9 @@ public:
         font4.setBold(false);
         font4.setWeight(50);
         label_26->setFont(font4);
-        objSource_2 = new QLineEdit(groupBox_7);
-        objSource_2->setObjectName(QStringLiteral("objSource_2"));
-        objSource_2->setGeometry(QRect(90, 100, 113, 30));
+        objSourceMission = new QLineEdit(groupBox_7);
+        objSourceMission->setObjectName(QStringLiteral("objSourceMission"));
+        objSourceMission->setGeometry(QRect(90, 100, 113, 30));
         label_32 = new QLabel(groupBox_7);
         label_32->setObjectName(QStringLiteral("label_32"));
         label_32->setGeometry(QRect(120, 80, 51, 17));
@@ -778,7 +778,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        mainTabWidget->setCurrentIndex(1);
+        mainTabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
