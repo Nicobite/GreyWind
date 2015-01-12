@@ -94,14 +94,15 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,              SLOT(subAlgoObject()));
 
     QObject::connect(ui->algDetectSelect, SIGNAL(currentIndexChanged(QString)),
-                     this,          SLOT(emitAlgoDetectionChoice(QString)));
+                     this,          SLOT(emitAlgoDetectionMissionChoice(QString)));
     QObject::connect(ui->algTrackingSelect, SIGNAL(currentIndexChanged(QString)),
-                     this,          SLOT(emitAlgoTrackingChoice(QString)));
+                     this,          SLOT(emitAlgoTrackingMissionChoice(QString)));
     QObject::connect(ui->abortMission, SIGNAL(clicked()),
                      this,             SLOT(stopMission()));
     QObject::connect(ui->startMission, SIGNAL(clicked()),
                      this,              SLOT(startMission()));
-
+    QObject::connect(ui->addAlgoObject,  SIGNAL(clicked()),
+                     this,             SLOT(emitObjectChoiceMission()));
 }
 
 MainWindow::~MainWindow(){
@@ -501,6 +502,7 @@ void MainWindow::addAlgoObject(){
     if (ui->listWidget->count() == 0){
         ui->listWidget->addItem(QString("**Algo****||****Objet****"));
     }
+<<<<<<< HEAD
     /*QString algo_chosen = ui->algSelect_2->currentText();
     if(algo_chosen == "<none>"){
         this->dispToCuteConsole("[Mission] No algorithm is actived. Nothing to do");
@@ -510,6 +512,16 @@ void MainWindow::addAlgoObject(){
     else{
         ui->listWidget->addItem(QString("**")+algo_chosen+QString("****||****")+ui->objSource_2->text());
     }*/
+=======
+    if(m_algochoosen == "<none>"){
+        this->dispToCuteConsole("[Mission]No algorithm is actived. Nothing to do");
+    }else if (ui->objSourceMission->text().isEmpty()){
+            this->dispToCuteConsole("[Mission]No object is selected. Nothing to do");
+    }
+    else{
+        ui->listWidget->addItem(QString("**")+m_algochoosen+QString("****||****")+ui->objSourceMission->text());
+    }
+>>>>>>> 9aba10bf017b2851164fb79cc6d04a0fccf512cf
      //emit newMissionObject(m_algochoosen, ui->objSource_2->text());
 }
 
@@ -547,17 +559,59 @@ void MainWindow::emitTakePicture(){
 }
 
 void MainWindow::stopMission(){
-    //ADECOM emit stopMissionSignal();
+     emit stopMissionSignal();
 }
 
 void MainWindow::startMission(){
-    //ADECOM emit startMissionSignal();
+
+    // Local for testing the behaviour but will be the entire function
+    emitVidSource("Local");
+
+     emit startMissionSignal();
 }
 
-void MainWindow::emitAlgoDetectionChoice(const QString& text){
+void MainWindow::emitAlgoDetectionMissionChoice(const QString& text){
+    dispToCuteConsole(
+        "[MainWindow] Detection algorithm for mission is changed to "+text+"!"
+    );
+    ui->theFrame->resetDrawLabel();
+    if(text == "<none>"){
+        dispToCuteConsole(
+            "[MainWindow] No detection algorithm for mission is selected!"
+        );
+    }
+    emit detectAlgoChanged(text.toStdString());
 
 }
 
-void MainWindow::emitAlgoTrackingChoice(const QString& text){
+void MainWindow::emitAlgoTrackingMissionChoice(const QString& text){
 
+    dispToCuteConsole(
+        "[MainWindow] Tracking algorithm for mission is changed to "+text+"!"
+    );
+    ui->theFrame->resetDrawLabel();
+    if(text == "<none>"){
+        dispToCuteConsole(
+            "[MainWindow] No tracking algorithm for mission is selected!"
+        );
+    }
+    emit detectTrackerChanged(text.toStdString());
+
+}
+
+void MainWindow::emitObjectChoiceMission()
+{
+    this->ui->theFrame->setObjname(this->ui->objSourceMission->text().toStdString());
+    m_objectName = this->ui->objSourceMission->text().toStdString();
+    dispToCuteConsole(
+        "[MainWindow] Attempting to change the object to detect to "+this->ui->objSource->text()+"!"
+    );
+    ui->theFrame->resetDrawLabel();
+    if(this->ui->objSourceMission->text() == ""){
+        dispToCuteConsole(
+            "[MainWindow] No object is to be detected!"
+        );
+    }
+    emit detectObjectChanged(this->ui->objSourceMission->text().toStdString());
+    emit detectObjectMissionChoosen(this->ui->objSourceMission->text().toStdString());
 }

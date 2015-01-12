@@ -99,14 +99,26 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     //************************************************/
     //************************************************/
     // Mission signals
+    m_missionThread = new MissionThread;
     QObject::connect(&m_mainWindow,     SIGNAL(newMissionObject(QString,QString)),
                      this,              SLOT(addNewMission(QString,QString)));
     QObject::connect(&m_mainWindow,     SIGNAL(delMissionObject()),
                      this,              SLOT(subMission()));
     QObject::connect(&m_mainWindow,     SIGNAL(stopMissionSignal()),
-                     this,              SLOT(abortMission()));
+                     m_missionThread,              SLOT(abortMission()));
     QObject::connect(&m_mainWindow,     SIGNAL(startMissionSignal()),
-                     this,              SLOT(startMission()));
+                     m_missionThread,              SLOT(startMission()));
+    QObject::connect(&m_mainWindow,     SIGNAL(detectAlgoChanged(std::string)),
+                     m_missionThread,    SLOT(detectAlgoChoosen(std::string)));
+    QObject::connect(&m_mainWindow,     SIGNAL(detectTrackerChanged(std::string)),
+                     m_missionThread,    SLOT(trackingAlgoChoosen(std::string)));
+    QObject::connect(&m_mainWindow,     SIGNAL(detectObjectMissionChoosen(std::string)),
+                     m_missionThread,    SLOT(objectToDetectChoosen(std::string)));
+    QObject::connect(m_missionThread,     SIGNAL(sendDetectionToDo()),
+                     &m_mainWindow,    SLOT(displayDetection()));
+    QObject::connect(m_missionThread,     SIGNAL(finished()),
+                     this,    SLOT(runMission()));
+    m_missionThread->start();
     m_mainWindow.show();
 
     m_collimator.start();
@@ -341,10 +353,8 @@ void Control::subMission(){
     m_listMission.pop();
 }
 
-void Control::abortMission(){
-
+void Control::runMission(){
+    m_missionThread->start();
 }
-void Control::startMission(){
 
-}
 

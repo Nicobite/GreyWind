@@ -1931,7 +1931,7 @@
         <string>Detection  Algorithm:</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="objSource_2">
+      <widget class="QLineEdit" name="objSourceMission">
        <property name="geometry">
         <rect>
          <x>90</x>

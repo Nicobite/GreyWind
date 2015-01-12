@@ -16,6 +16,7 @@
 #include "Detection/haarfacedetectionalgo.h"
 #include "Tracking/collimator.h"
 #include "localizationfunctions.h"
+#include "missionthread.h"
 
 /* Structure for one mission */
 typedef struct t_mission{
@@ -51,6 +52,7 @@ private:
     DetectThread*   m_detectThread;
     LocalizationFunctions m_locfunc;
     Collimator      m_collimator;
+    MissionThread* m_missionThread;
 
     AppState m_appState;
     MissionState m_missionState;
@@ -94,8 +96,7 @@ public slots:
 
 	void addNewMission(QString algo, QString obj);
     void subMission();
-    void abortMission();
-    void startMission();
+    void runMission();
 };
 
 #endif // CONTROL_H

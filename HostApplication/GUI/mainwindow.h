@@ -90,10 +90,11 @@ private slots:
 
     void addAlgoObject();
     void subAlgoObject();
-    void emitAlgoDetectionChoice(const QString& text);
-    void emitAlgoTrackingChoice(const QString& text);
+    void emitAlgoDetectionMissionChoice(const QString& text);
+    void emitAlgoTrackingMissionChoice(const QString& text);
     void stopMission();
     void startMission();
+    void emitObjectChoiceMission();
 
     void emitTakePicture();
 
@@ -124,6 +125,7 @@ signals:
     void delMissionObject();
     void stopMissionSignal();
     void startMissionSignal();
+    void detectObjectMissionChoosen(std::string src);
 
 };
 
