@@ -179,12 +179,12 @@ void MainWindow::keyReleaseEvent(QKeyEvent* e){
 
 void MainWindow::focusInEvent(QFocusEvent* event){
     if(m_connected){
-        this->ui->controlGraphicLabel->setPixmap(QPixmap(":/HostApplication/ressources/joystick.png"));
+        this->ui->controlGraphicLabel->setPixmap(QPixmap(":/ressources/joystick.png"));
     }
 }
 
 void MainWindow::focusOutEvent(QFocusEvent* event){
-    this->ui->controlGraphicLabel->setPixmap(QPixmap(":/HostApplication/ressources/joystick_inactive.png"));
+    this->ui->controlGraphicLabel->setPixmap(QPixmap(":/ressources/joystick_inactive.png"));
 }
 
 
@@ -265,7 +265,7 @@ void MainWindow::updateConnectionStatus(bool status){
     this->ui->connectButton->setEnabled(false);
 
     m_connected = true;
-    this->ui->controlGraphicLabel->setPixmap(QPixmap(":/HostApplication/ressources/joystick.png"));
+    this->ui->controlGraphicLabel->setPixmap(QPixmap(":/ressources/joystick.png"));
     this->ui->controlTextLabel->setText("No command.");
 }
 
@@ -417,7 +417,7 @@ void MainWindow::validDetection(){
     m_detectionWindow.close();
 
     // Change the icon in the mainWindow
-    QPixmap pm (":/HostApplication/ressources/tick_octagon.png");
+    QPixmap pm (":/ressources/tick_octagon.png");
     ui->objectDetectedIconlabel->setPixmap(pm);
 
     // Add information about the location of the detected object
@@ -463,7 +463,7 @@ void MainWindow::addToBlackListDetection(){
     this->ui->theFrame->setHaltDraw(false);
 
     // Change the icon in the mainWindow
-    QPixmap pm (":/HostApplication/ressources/Icon-16x16-not_ok.png");
+    QPixmap pm (":/ressources/Icon-16x16-not_ok.png");
     ui->objectDetectedIconlabel->setPixmap(pm);
 
     //Disable the groupbox
@@ -501,7 +501,7 @@ void MainWindow::addAlgoObject(){
     if (ui->listWidget->count() == 0){
         ui->listWidget->addItem(QString("**Algo****||****Objet****"));
     }
-    QString algo_chosen = ui->algSelect_2->currentText();
+    /*QString algo_chosen = ui->algSelect_2->currentText();
     if(algo_chosen == "<none>"){
         this->dispToCuteConsole("[Mission] No algorithm is actived. Nothing to do");
     }else if (ui->objSource_2->text().isEmpty()){
@@ -509,7 +509,7 @@ void MainWindow::addAlgoObject(){
     }
     else{
         ui->listWidget->addItem(QString("**")+algo_chosen+QString("****||****")+ui->objSource_2->text());
-    }
+    }*/
      //emit newMissionObject(m_algochoosen, ui->objSource_2->text());
 }
 

@@ -12,6 +12,7 @@ PCMDetectionAlgo::PCMDetectionAlgo(String pcm_filename): DetectionAlgo()
 
     m_cntr_height=boundingRect(m_contour_template).height;
     m_cntr_width=boundingRect(m_contour_template).width;
+    m_lastGoodPattern = 0;
 }
 
 PCMDetectionAlgo::~PCMDetectionAlgo(){
@@ -26,6 +27,34 @@ void PCMDetectionAlgo::detect(Mat &frame){
     Scalar avg = mean(frame);
     Rect size = getAverageShapeSize(frame, m_contour_template, position_contour);
 
+    //Try the last working index
+    if(!found){
+        Mat tempTempl;
+        m_templates[m_lastGoodPattern].copyTo(tempTempl);
+
+        floodFill(tempTempl, Point(0,0), avg, 0, cv::Scalar(255), cv::Scalar(255), 8);
+        floodFill(tempTempl, Point(tempTempl.cols-1,0), avg, 0, cv::Scalar(255), cv::Scalar(255), 8);
+        floodFill(tempTempl, Point(0,tempTempl.rows-1), avg, 0, cv::Scalar(255), cv::Scalar(255), 8);
+        floodFill(tempTempl, Point(tempTempl.cols-1,tempTempl.rows-1), avg, 0, cv::Scalar(255), cv::Scalar(255), 8);
+
+        Point match_pos;
+        float match_score;
+        detectPattern(frame, tempTempl, size, match_pos, match_score);
+
+        char mess[50];
+        sprintf(mess, "PCM Distance: %i", norm(Mat(match_pos), Mat(position_contour)));
+        DEBUG(mess);
+
+        if(norm(Mat(match_pos), Mat(position_contour))<=40){
+            found = true;
+
+            //emit detectedObject(Point(match_pos.x+0.5*size.width, match_pos.y+0.5*size.height), Size(size.width/2 , size.height/2));
+            emit detectedObject(Point(0.5*match_pos.x+0.5*position_contour.x+0.5*size.width, 0.5*match_pos.y+0.5*position_contour.y+0.5*size.height), Size(size.width/2 , size.height/2));
+
+        }
+    }
+
+    //Try others
     while(!found){
         Mat tempTempl;
         m_templates[iter].copyTo(tempTempl);
@@ -39,11 +68,15 @@ void PCMDetectionAlgo::detect(Mat &frame){
         float match_score;
         detectPattern(frame, tempTempl, size, match_pos, match_score);
 
-        if(norm(Mat(match_pos), Mat(position_contour))<=30){
+        char mess[50];
+        sprintf(mess, "PCM Distance: %d", int(norm(Mat(match_pos), Mat(position_contour))));
+        DEBUG(mess);
+
+        if(norm(Mat(match_pos), Mat(position_contour))<=40){
             found = true;
             //rectangle( frame, match_pos, Point( match_pos.x + size.width , match_pos.y + size.height), Scalar(0,255,0), 2, 8, 0 );
-
-            emit detectedObject(Point(match_pos.x+0.5*size.width, match_pos.y+0.5*size.height), Size(size.width/2 , size.height/2));
+            m_lastGoodPattern = iter;
+            emit detectedObject(Point(0.5*match_pos.x+0.5*position_contour.x+0.5*size.width, 0.5*match_pos.y+0.5*position_contour.y+0.5*size.height), Size(size.width/2 , size.height/2));
 
             //imshow( "Pattern Matching", frame );
         } else{
@@ -112,7 +145,7 @@ Rect PCMDetectionAlgo::getAverageShapeSize(Mat& frame, vector<Point>& contour_te
     GaussianBlur( im_edges, im_edges, Size(7,7), 3);
     threshold(im_edges, im_edges, 200, 255, THRESH_BINARY_INV);
 
-#if SHOW_DEBUG==1
+#if SHOW_DEBUG==0
     imshow("Contours", im_edges);
 #endif
     findContours( im_edges, contoursTempl, hierarchyTempl, RETR_LIST, CONTOUR_APPROX_MODE, Point(0, 0) );
@@ -133,21 +166,22 @@ Rect PCMDetectionAlgo::getAverageShapeSize(Mat& frame, vector<Point>& contour_te
     }
 
     if(bestIndex != -1){
-        char title[50];
+        char title[100];
+#if SHOW_DEBUG==1
         frame.copyTo(drawedge);
         drawContours(drawedge, contoursTempl, bestIndex, Scalar(0,255,0), 2);
         sprintf(title, "Source Image");
-#if SHOW_DEBUG==1
         imshow(title, drawedge);
 #endif
 
-        m_cntr_height=0.9*m_cntr_height + 0.1*boundingRect(contoursTempl[bestIndex]).height;
-        m_cntr_width=0.9*m_cntr_width + 0.1*boundingRect(contoursTempl[bestIndex]).width;
+        m_cntr_height=0.7*m_cntr_height + 0.3*boundingRect(contoursTempl[bestIndex]).height;
+        m_cntr_width=0.7*m_cntr_width + 0.3*boundingRect(contoursTempl[bestIndex]).width;
 
         pos.x = boundingRect(contoursTempl[bestIndex]).x;
         pos.y = boundingRect(contoursTempl[bestIndex]).y;
 
-        printf("Match result: %f,\th = %f,\tw=%f\n", indexScore, m_cntr_height, m_cntr_width);
+        sprintf(title,"Match result: %f,\th = %f,\tw=%f\n", indexScore, m_cntr_height, m_cntr_width);
+        DEBUG(title);
     }
 
     Rect size;

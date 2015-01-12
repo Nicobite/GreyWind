@@ -18,6 +18,7 @@ private:
     vector<Point> m_contour_template;
     vector<Mat> m_templates;
     float m_cntr_height, m_cntr_width;
+    int m_lastGoodPattern;
 public:
     PCMDetectionAlgo(String pcm_filename);
     ~PCMDetectionAlgo();

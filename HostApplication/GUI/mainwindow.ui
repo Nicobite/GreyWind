@@ -740,8 +740,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset>
-       <normaloff>:/HostApplication/ressources/Help-icon.png</normaloff>:/HostApplication/ressources/Help-icon.png</iconset>
+      <iconset resource="../HostApplication.qrc">
+       <normaloff>:/ressources/Help-icon.png</normaloff>:/ressources/Help-icon.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -784,7 +784,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>:/HostApplication/ressources/joystick_inactive.png</pixmap>
+         <pixmap resource="../HostApplication.qrc">:/ressources/joystick_inactive.png</pixmap>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -1170,7 +1170,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -1382,8 +1382,8 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>:/HostApplication/ressources/system-software-update.png</normaloff>:/HostApplication/ressources/system-software-update.png</iconset>
+        <iconset resource="../HostApplication.qrc">
+         <normaloff>:/ressources/system-software-update.png</normaloff>:/ressources/system-software-update.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -1579,7 +1579,7 @@
         <enum>Qt::AutoText</enum>
        </property>
        <property name="pixmap">
-        <pixmap>:/HostApplication/ressources/Icon-16x16-not_ok.png</pixmap>
+        <pixmap resource="../HostApplication.qrc">:/ressources/Icon-16x16-not_ok.png</pixmap>
        </property>
       </widget>
       <widget class="QLabel" name="label_11">
@@ -1735,8 +1735,8 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>:/HostApplication/ressources/Help-icon.png</normaloff>:/HostApplication/ressources/Help-icon.png</iconset>
+        <iconset resource="../HostApplication.qrc">
+         <normaloff>:/ressources/Help-icon.png</normaloff>:/ressources/Help-icon.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -2157,6 +2157,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../HostApplication.qrc"/>
+ </resources>
  <connections/>
 </ui>
