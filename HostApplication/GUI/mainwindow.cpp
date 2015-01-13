@@ -340,6 +340,7 @@ void MainWindow::emitTrackerChoice(const QString& text){
 }
 
 void MainWindow::emitTrackerInit(){
+
     emit initialiseTracker();
 }
 
@@ -598,7 +599,7 @@ void MainWindow::emitAlgoTrackingMissionChoice(const QString& text){
             "[MainWindow] No tracking algorithm for mission is selected!"
         );
     }
-    ui->listWidget->addItem(QString("****  Tracking algo : ")+text+QString("  *****"));
+    ui->listWidget->addItem(QString("*****       Tracker: ")+text+QString("       *****"));
     //missionTracker=text.toStdString();
     emit trackingAlgoMissionChoosen(text);
     emit missionStatusChanged();
@@ -619,7 +620,7 @@ void MainWindow::emitObjectChoiceMission()
             "[MainWindow] No object is to be detected!"
         );
     }
-    ui->listWidget->addItem(QString("******        Object : ")+this->ui->objSourceMission->text()+QString("                        *******"));
+    ui->listWidget->addItem(QString("******               Object : ")+this->ui->objSourceMission->text()+QString("                  *******"));
     emit detectObjectChanged(this->ui->objSourceMission->text().toStdString());
     emit detectObjectMissionChoosen(this->ui->objSourceMission->text().toStdString());
     emit missionStatusChanged();

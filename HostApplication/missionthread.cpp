@@ -65,13 +65,18 @@ void MissionThread::run(){
 
         case WAIT_USER_VALIDATION_DETECTION:
         DEBUG("> MissionThread::run():: WAIT_USER_VALIDATION_DETECTION");
-        emit updateMissionListWidget("      WAIT USER VALIDATION        ");
+        emit updateMissionListWidget("      WAIT USER VALIDATION         ");
         if(detectionIsValid==true)
         {
             // The user valids the detection
             mission_status=TRACKING;
+            // The algorithm choosen for tracking is implemented
             emit sendTrackAlgoChoosen(trackingAlgo);
-            emit missionStatusChanged();
+            /*
+             * We dont run again the thread here because a runMission
+             *  will be launched from control handleFrame when objectDetected=true
+             * */
+
         }
         else
         {
@@ -84,7 +89,8 @@ void MissionThread::run(){
 
         case TRACKING:
         DEBUG("> MissionThread::run()::TRACKING");
-        emit updateMissionListWidget("                 TRACKING                    ");
+        emit updateMissionListWidget("                    TRACKING                      ");
+        // Tracking can start now
         emit sendStartTracking();
         mission_status=MEASUREMENT;
         emit missionStatusChanged();
@@ -93,6 +99,7 @@ void MissionThread::run(){
 
         case MEASUREMENT:
         DEBUG("> MissionThread::run()::MEASUREMENT");
+        emit updateMissionListWidget("              MEASUREMENT                 ");
 
             break;
 

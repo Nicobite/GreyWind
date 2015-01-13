@@ -201,7 +201,6 @@ void Control::changeVideoSource(std::string src, int err){
 }
 
 void Control::handleFrame(Mat frame){
-
     if(m_videoDestination==1){
         m_detectThread->pushMatToFIFO(frame);
         m_frameSaved = false;
@@ -216,6 +215,8 @@ void Control::handleFrame(Mat frame){
 
         m_videoDestination = 2;
         m_objDetected = true;
+        runMission();
+
 
     }else{
         m_frameSaved = false;

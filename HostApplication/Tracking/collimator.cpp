@@ -71,16 +71,12 @@ void Collimator::deinit(){
 }
 
 void Collimator::run(){
-    DEBUG("> MissionThread::run()::COLLIMATOR RUN3");
     while(!m_running);
     while(m_running){
-        DEBUG("> MissionThread::run()::COLLIMATOR RUN2");
         if(!m_FIFO.empty()){
-            DEBUG("> MissionThread::run()::COLLIMATOR RUN1");
             // Popping element
             if(m_tracker != NULL){
                 //DEBUG("Nbr elements m_FIFO : "+QString::number(m_FIFO.size()));
-                DEBUG("> MissionThread::run()::COLLIMATOR RUN");
                 m_tracker->track(m_FIFO.front());
                 Point objPoint; Size objSize;
                 objPoint = m_tracker->getCoordinate();
@@ -191,7 +187,6 @@ void Collimator::changeAlgo(std::string algoname){
 
         } else{
             if(m_algoname == "PatternMatching"){
-                DEBUG("> MissionThread::run()::PATTERN MATCHING");
                 emit sigMessageToConsole("Changing current tracking algorithm to PatternMatching...");
                 m_tracker =  new PMTrackingAlgo();
 

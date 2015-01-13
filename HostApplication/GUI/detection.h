@@ -2,6 +2,7 @@
 #define DETECTION_H
 
 #include <QDialog>
+#include "includes.h"
 
 namespace Ui {
 class Detection;
