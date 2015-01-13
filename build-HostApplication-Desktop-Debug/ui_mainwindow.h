@@ -144,10 +144,12 @@ public:
     QComboBox *algTrackingSelect;
     QGroupBox *groupBox_8;
     QLabel *label_33;
-    QPushButton *abortMission;
     QLineEdit *stateMission;
+    QLCDNumber *distanceDisplayMission;
+    QLabel *label_36;
     QPushButton *startMission;
     QListWidget *listWidget;
+    QPushButton *abortMission;
     QPushButton *savePicButton;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
@@ -754,18 +756,26 @@ public:
         label_33 = new QLabel(groupBox_8);
         label_33->setObjectName(QStringLiteral("label_33"));
         label_33->setGeometry(QRect(10, 20, 91, 17));
-        abortMission = new QPushButton(groupBox_8);
-        abortMission->setObjectName(QStringLiteral("abortMission"));
-        abortMission->setGeometry(QRect(200, 40, 71, 30));
         stateMission = new QLineEdit(groupBox_8);
         stateMission->setObjectName(QStringLiteral("stateMission"));
-        stateMission->setGeometry(QRect(0, 40, 161, 30));
+        stateMission->setGeometry(QRect(0, 40, 111, 30));
+        distanceDisplayMission = new QLCDNumber(groupBox_8);
+        distanceDisplayMission->setObjectName(QStringLiteral("distanceDisplayMission"));
+        distanceDisplayMission->setGeometry(QRect(150, 40, 101, 31));
+        distanceDisplayMission->setFrameShape(QFrame::StyledPanel);
+        distanceDisplayMission->setSegmentStyle(QLCDNumber::Flat);
+        label_36 = new QLabel(groupBox_8);
+        label_36->setObjectName(QStringLiteral("label_36"));
+        label_36->setGeometry(QRect(140, 20, 131, 17));
         startMission = new QPushButton(tab_2);
         startMission->setObjectName(QStringLiteral("startMission"));
-        startMission->setGeometry(QRect(10, 220, 99, 27));
+        startMission->setGeometry(QRect(10, 220, 101, 31));
         listWidget = new QListWidget(tab_2);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setGeometry(QRect(310, 10, 301, 221));
+        abortMission = new QPushButton(tab_2);
+        abortMission->setObjectName(QStringLiteral("abortMission"));
+        abortMission->setGeometry(QRect(130, 220, 71, 30));
         mainTabWidget->addTab(tab_2, QString());
         savePicButton = new QPushButton(centralWidget);
         savePicButton->setObjectName(QStringLiteral("savePicButton"));
@@ -784,7 +794,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        mainTabWidget->setCurrentIndex(0);
+        mainTabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -920,8 +930,12 @@ public:
         );
         groupBox_8->setTitle(QApplication::translate("MainWindow", "Current State", 0));
         label_33->setText(QApplication::translate("MainWindow", "Info:", 0));
-        abortMission->setText(QApplication::translate("MainWindow", "Abort", 0));
+#ifndef QT_NO_TOOLTIP
+        distanceDisplayMission->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>(centimeters)</p></body></html>", 0));
+#endif // QT_NO_TOOLTIP
+        label_36->setText(QApplication::translate("MainWindow", "Measure distance:", 0));
         startMission->setText(QApplication::translate("MainWindow", "Start Mission", 0));
+        abortMission->setText(QApplication::translate("MainWindow", "Abort", 0));
         mainTabWidget->setTabText(mainTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Mission", 0));
         savePicButton->setText(QApplication::translate("MainWindow", "Picture", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));

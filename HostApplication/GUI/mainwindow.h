@@ -98,6 +98,7 @@ private slots:
     void startMission();
     void emitObjectChoiceMission();   
     void updateListWidget(QString text);
+    void updateSonarViewMission(int distance);
 
     void emitTakePicture();
 
@@ -132,6 +133,9 @@ signals:
     void missionStatusChanged();
     void sendUserResponseDetection(bool res);
     void trackingAlgoMissionChoosen(QString scr);
+    void sendTrackStatus(std::string st);
+    void disconnectSonarViewMission();
+
 
 };
 

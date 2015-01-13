@@ -106,6 +106,8 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      this,              SLOT(subMission()));
     QObject::connect(&m_mainWindow,     SIGNAL(missionStatusChanged()),
                      this,              SLOT(runMission()));
+    QObject::connect(&m_mainWindow,     SIGNAL(disconnectSonarViewMission()),
+                     this,              SLOT(disconnectSonarMission()));
 
     QObject::connect(&m_mainWindow,     SIGNAL(stopMissionSignal()),
                      m_missionThread,              SLOT(abortMission()));
@@ -119,6 +121,8 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      m_missionThread,    SLOT(objectToDetectChoosen(std::string)));
     QObject::connect(&m_mainWindow,     SIGNAL(sendUserResponseDetection(bool)),
                      m_missionThread,    SLOT(userDetectionValidation(bool)));
+    QObject::connect(&m_mainWindow,     SIGNAL(sendTrackStatus(std::string)),
+                     m_missionThread,    SLOT(updateTrackStatus(std::string)));
 
     QObject::connect(m_missionThread,     SIGNAL(sendDetectionToDo()),
                      &m_mainWindow,    SLOT(displayDetection()));
@@ -132,6 +136,8 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      &m_mainWindow,    SLOT(emitTrackerInit()));
     QObject::connect(m_missionThread,     SIGNAL(sendTrackAlgoChoosen(QString)),
                      &m_mainWindow,    SLOT(emitTrackerChoice(QString)));
+    QObject::connect(m_missionThread,      SIGNAL(makeOneMeasure()),
+                     &m_mainWindow,                SLOT(emitSonarRequest()));
 
 
     m_missionThread->start();
@@ -343,6 +349,8 @@ void Control::connectDrone(){
         // * Distance measurement response: droneInterface -> mainWindow
         QObject::connect(this->m_interface->get_sensor_thread(),    SIGNAL(newSonarData(int)),
                          &m_mainWindow,                             SLOT(updateSonarView(int)));
+        QObject::connect(this->m_interface->get_sensor_thread(),    SIGNAL(newSonarData(int)),
+                         &m_mainWindow,                             SLOT(updateSonarViewMission(int)));
 
         if(m_interface->get_daemon()->is_control_running()){
             QObject::connect(&m_mainWindow,                                         SIGNAL(pressCmd(int)),
@@ -378,4 +386,9 @@ void Control::runMission(){
     m_missionThread->start();
 }
 
+void Control::disconnectSonarMission(){
 
+    QObject::disconnect(this->m_interface->get_sensor_thread(),    SIGNAL(newSonarData(int)),
+                     &m_mainWindow,                             SLOT(updateSonarViewMission(int)));
+
+}

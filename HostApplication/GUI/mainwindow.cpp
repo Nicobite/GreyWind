@@ -97,8 +97,6 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,          SLOT(emitAlgoDetectionMissionChoice(QString)));
     QObject::connect(ui->algTrackingSelect, SIGNAL(currentIndexChanged(QString)),
                      this,          SLOT(emitAlgoTrackingMissionChoice(QString)));
-//    QObject::connect(ui->algTrackingSelect, SIGNAL(currentIndexChanged(QString)),
-//                     this,               SLOT(emitTrackerChoice(QString)));
 
     QObject::connect(ui->abortMission, SIGNAL(clicked()),
                      this,             SLOT(stopMission()));
@@ -278,8 +276,16 @@ void MainWindow::updateSonarView(int distance){
     ui->distanceDisplay->display(distance);
 }
 
+void MainWindow::updateSonarViewMission(int distance){
+    ui->distanceDisplayMission->display(distance);
+    emit disconnectSonarViewMission();
+}
+
+
 void MainWindow::updateTrackState(std::string state){
     ui->trackState->setText(QString::fromStdString(state));
+    emit sendTrackStatus(state);
+    //emit missionStatusChanged();
 }
 
 /*

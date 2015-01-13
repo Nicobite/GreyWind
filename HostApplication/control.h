@@ -97,6 +97,7 @@ public slots:
 	void addNewMission(QString algo, QString obj);
     void subMission();
     void runMission();
+    void disconnectSonarMission();
 };
 
 #endif // CONTROL_H

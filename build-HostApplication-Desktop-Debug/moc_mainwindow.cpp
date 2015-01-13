@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[81];
-    char stringdata[1203];
+    QByteArrayData data[85];
+    char stringdata[1272];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -65,51 +65,55 @@ QT_MOC_LITERAL(32, 446, 25),
 QT_MOC_LITERAL(33, 472, 3),
 QT_MOC_LITERAL(34, 476, 26),
 QT_MOC_LITERAL(35, 503, 3),
-QT_MOC_LITERAL(36, 507, 8),
-QT_MOC_LITERAL(37, 516, 5),
-QT_MOC_LITERAL(38, 522, 17),
-QT_MOC_LITERAL(39, 540, 9),
-QT_MOC_LITERAL(40, 550, 2),
-QT_MOC_LITERAL(41, 553, 19),
-QT_MOC_LITERAL(42, 573, 6),
-QT_MOC_LITERAL(43, 580, 15),
-QT_MOC_LITERAL(44, 596, 12),
-QT_MOC_LITERAL(45, 609, 22),
-QT_MOC_LITERAL(46, 632, 6),
-QT_MOC_LITERAL(47, 639, 15),
-QT_MOC_LITERAL(48, 655, 8),
-QT_MOC_LITERAL(49, 664, 16),
-QT_MOC_LITERAL(50, 681, 13),
-QT_MOC_LITERAL(51, 695, 4),
-QT_MOC_LITERAL(52, 700, 18),
-QT_MOC_LITERAL(53, 719, 16),
-QT_MOC_LITERAL(54, 736, 17),
-QT_MOC_LITERAL(55, 754, 14),
-QT_MOC_LITERAL(56, 769, 16),
-QT_MOC_LITERAL(57, 786, 11),
-QT_MOC_LITERAL(58, 798, 9),
-QT_MOC_LITERAL(59, 808, 16),
-QT_MOC_LITERAL(60, 825, 14),
-QT_MOC_LITERAL(61, 840, 23),
-QT_MOC_LITERAL(62, 864, 14),
-QT_MOC_LITERAL(63, 879, 15),
-QT_MOC_LITERAL(64, 895, 16),
-QT_MOC_LITERAL(65, 912, 17),
-QT_MOC_LITERAL(66, 930, 14),
-QT_MOC_LITERAL(67, 945, 16),
-QT_MOC_LITERAL(68, 962, 17),
-QT_MOC_LITERAL(69, 980, 15),
-QT_MOC_LITERAL(70, 996, 14),
-QT_MOC_LITERAL(71, 1011, 19),
-QT_MOC_LITERAL(72, 1031, 13),
-QT_MOC_LITERAL(73, 1045, 13),
-QT_MOC_LITERAL(74, 1059, 30),
-QT_MOC_LITERAL(75, 1090, 29),
-QT_MOC_LITERAL(76, 1120, 11),
-QT_MOC_LITERAL(77, 1132, 12),
-QT_MOC_LITERAL(78, 1145, 23),
-QT_MOC_LITERAL(79, 1169, 16),
-QT_MOC_LITERAL(80, 1186, 15)
+QT_MOC_LITERAL(36, 507, 15),
+QT_MOC_LITERAL(37, 523, 2),
+QT_MOC_LITERAL(38, 526, 26),
+QT_MOC_LITERAL(39, 553, 8),
+QT_MOC_LITERAL(40, 562, 5),
+QT_MOC_LITERAL(41, 568, 17),
+QT_MOC_LITERAL(42, 586, 9),
+QT_MOC_LITERAL(43, 596, 2),
+QT_MOC_LITERAL(44, 599, 19),
+QT_MOC_LITERAL(45, 619, 6),
+QT_MOC_LITERAL(46, 626, 15),
+QT_MOC_LITERAL(47, 642, 12),
+QT_MOC_LITERAL(48, 655, 22),
+QT_MOC_LITERAL(49, 678, 6),
+QT_MOC_LITERAL(50, 685, 15),
+QT_MOC_LITERAL(51, 701, 8),
+QT_MOC_LITERAL(52, 710, 16),
+QT_MOC_LITERAL(53, 727, 13),
+QT_MOC_LITERAL(54, 741, 4),
+QT_MOC_LITERAL(55, 746, 18),
+QT_MOC_LITERAL(56, 765, 16),
+QT_MOC_LITERAL(57, 782, 17),
+QT_MOC_LITERAL(58, 800, 14),
+QT_MOC_LITERAL(59, 815, 16),
+QT_MOC_LITERAL(60, 832, 11),
+QT_MOC_LITERAL(61, 844, 9),
+QT_MOC_LITERAL(62, 854, 16),
+QT_MOC_LITERAL(63, 871, 14),
+QT_MOC_LITERAL(64, 886, 23),
+QT_MOC_LITERAL(65, 910, 14),
+QT_MOC_LITERAL(66, 925, 15),
+QT_MOC_LITERAL(67, 941, 16),
+QT_MOC_LITERAL(68, 958, 17),
+QT_MOC_LITERAL(69, 976, 14),
+QT_MOC_LITERAL(70, 991, 16),
+QT_MOC_LITERAL(71, 1008, 17),
+QT_MOC_LITERAL(72, 1026, 15),
+QT_MOC_LITERAL(73, 1042, 14),
+QT_MOC_LITERAL(74, 1057, 19),
+QT_MOC_LITERAL(75, 1077, 13),
+QT_MOC_LITERAL(76, 1091, 13),
+QT_MOC_LITERAL(77, 1105, 30),
+QT_MOC_LITERAL(78, 1136, 29),
+QT_MOC_LITERAL(79, 1166, 11),
+QT_MOC_LITERAL(80, 1178, 12),
+QT_MOC_LITERAL(81, 1191, 23),
+QT_MOC_LITERAL(82, 1215, 16),
+QT_MOC_LITERAL(83, 1232, 22),
+QT_MOC_LITERAL(84, 1255, 15)
     },
     "MainWindow\0vidSourceChanged\0\0std::string\0"
     "src\0detectFrameRateChanged\0fbd\0"
@@ -125,6 +129,7 @@ QT_MOC_LITERAL(80, 1186, 15)
     "detectObjectMissionChoosen\0"
     "missionStatusChanged\0sendUserResponseDetection\0"
     "res\0trackingAlgoMissionChoosen\0scr\0"
+    "sendTrackStatus\0st\0disconnectSonarViewMission\0"
     "setFrame\0image\0updateNavdataView\0"
     "navdata_t\0nd\0drawDetectedEllipse\0"
     "center\0drawTrackedRect\0drawLaserDot\0"
@@ -144,7 +149,8 @@ QT_MOC_LITERAL(80, 1186, 15)
     "emitAlgoDetectionMissionChoice\0"
     "emitAlgoTrackingMissionChoice\0stopMission\0"
     "startMission\0emitObjectChoiceMission\0"
-    "updateListWidget\0emitTakePicture\0"
+    "updateListWidget\0updateSonarViewMission\0"
+    "emitTakePicture\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -154,77 +160,80 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      61,   14, // methods
+      64,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      23,       // signalCount
+      25,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  319,    2, 0x06,
-       5,    1,  322,    2, 0x06,
-       7,    0,  325,    2, 0x06,
-       8,    0,  326,    2, 0x06,
-       9,    1,  327,    2, 0x06,
-      11,    0,  330,    2, 0x06,
-      12,    2,  331,    2, 0x06,
-      17,    2,  336,    2, 0x06,
-      18,    0,  341,    2, 0x06,
-      19,    1,  342,    2, 0x06,
-      20,    1,  345,    2, 0x06,
-      21,    1,  348,    2, 0x06,
-      22,    0,  351,    2, 0x06,
-      23,    1,  352,    2, 0x06,
-      25,    0,  355,    2, 0x06,
-      26,    0,  356,    2, 0x06,
-      27,    0,  357,    2, 0x06,
-      28,    0,  358,    2, 0x06,
-      29,    0,  359,    2, 0x06,
-      30,    1,  360,    2, 0x06,
-      31,    0,  363,    2, 0x06,
-      32,    1,  364,    2, 0x06,
-      34,    1,  367,    2, 0x06,
+       1,    1,  334,    2, 0x06,
+       5,    1,  337,    2, 0x06,
+       7,    0,  340,    2, 0x06,
+       8,    0,  341,    2, 0x06,
+       9,    1,  342,    2, 0x06,
+      11,    0,  345,    2, 0x06,
+      12,    2,  346,    2, 0x06,
+      17,    2,  351,    2, 0x06,
+      18,    0,  356,    2, 0x06,
+      19,    1,  357,    2, 0x06,
+      20,    1,  360,    2, 0x06,
+      21,    1,  363,    2, 0x06,
+      22,    0,  366,    2, 0x06,
+      23,    1,  367,    2, 0x06,
+      25,    0,  370,    2, 0x06,
+      26,    0,  371,    2, 0x06,
+      27,    0,  372,    2, 0x06,
+      28,    0,  373,    2, 0x06,
+      29,    0,  374,    2, 0x06,
+      30,    1,  375,    2, 0x06,
+      31,    0,  378,    2, 0x06,
+      32,    1,  379,    2, 0x06,
+      34,    1,  382,    2, 0x06,
+      36,    1,  385,    2, 0x06,
+      38,    0,  388,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-      36,    1,  370,    2, 0x0a,
-      38,    1,  373,    2, 0x0a,
-      41,    2,  376,    2, 0x0a,
-      43,    2,  381,    2, 0x0a,
-      44,    2,  386,    2, 0x0a,
-      45,    1,  391,    2, 0x0a,
-      47,    1,  394,    2, 0x0a,
-      49,    1,  397,    2, 0x0a,
-      50,    1,  400,    2, 0x08,
-      52,    1,  403,    2, 0x08,
-      53,    0,  406,    2, 0x08,
-      54,    0,  407,    2, 0x08,
-      55,    1,  408,    2, 0x08,
-      56,    0,  411,    2, 0x08,
-      57,    0,  412,    2, 0x08,
-      58,    0,  413,    2, 0x08,
-      59,    0,  414,    2, 0x08,
-      60,    0,  415,    2, 0x08,
-      61,    0,  416,    2, 0x08,
-      62,    0,  417,    2, 0x08,
-      63,    0,  418,    2, 0x08,
-      64,    0,  419,    2, 0x08,
-      65,    0,  420,    2, 0x08,
-      66,    1,  421,    2, 0x08,
-      67,    0,  424,    2, 0x08,
-      68,    1,  425,    2, 0x08,
-      69,    0,  428,    2, 0x08,
-      70,    0,  429,    2, 0x08,
-      71,    1,  430,    2, 0x08,
-      72,    0,  433,    2, 0x08,
-      73,    0,  434,    2, 0x08,
-      74,    1,  435,    2, 0x08,
-      75,    1,  438,    2, 0x08,
-      76,    0,  441,    2, 0x08,
-      77,    0,  442,    2, 0x08,
-      78,    0,  443,    2, 0x08,
-      79,    1,  444,    2, 0x08,
-      80,    0,  447,    2, 0x08,
+      39,    1,  389,    2, 0x0a,
+      41,    1,  392,    2, 0x0a,
+      44,    2,  395,    2, 0x0a,
+      46,    2,  400,    2, 0x0a,
+      47,    2,  405,    2, 0x0a,
+      48,    1,  410,    2, 0x0a,
+      50,    1,  413,    2, 0x0a,
+      52,    1,  416,    2, 0x0a,
+      53,    1,  419,    2, 0x08,
+      55,    1,  422,    2, 0x08,
+      56,    0,  425,    2, 0x08,
+      57,    0,  426,    2, 0x08,
+      58,    1,  427,    2, 0x08,
+      59,    0,  430,    2, 0x08,
+      60,    0,  431,    2, 0x08,
+      61,    0,  432,    2, 0x08,
+      62,    0,  433,    2, 0x08,
+      63,    0,  434,    2, 0x08,
+      64,    0,  435,    2, 0x08,
+      65,    0,  436,    2, 0x08,
+      66,    0,  437,    2, 0x08,
+      67,    0,  438,    2, 0x08,
+      68,    0,  439,    2, 0x08,
+      69,    1,  440,    2, 0x08,
+      70,    0,  443,    2, 0x08,
+      71,    1,  444,    2, 0x08,
+      72,    0,  447,    2, 0x08,
+      73,    0,  448,    2, 0x08,
+      74,    1,  449,    2, 0x08,
+      75,    0,  452,    2, 0x08,
+      76,    0,  453,    2, 0x08,
+      77,    1,  454,    2, 0x08,
+      78,    1,  457,    2, 0x08,
+      79,    0,  460,    2, 0x08,
+      80,    0,  461,    2, 0x08,
+      81,    0,  462,    2, 0x08,
+      82,    1,  463,    2, 0x08,
+      83,    1,  466,    2, 0x08,
+      84,    0,  469,    2, 0x08,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -250,17 +259,19 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   33,
     QMetaType::Void, QMetaType::QString,   35,
+    QMetaType::Void, 0x80000000 | 3,   37,
+    QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QImage,   37,
-    QMetaType::Void, 0x80000000 | 39,   40,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 15,   42,   16,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 15,   42,   16,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 15,   42,   16,
-    QMetaType::Void, QMetaType::Bool,   46,
-    QMetaType::Void, QMetaType::Int,   48,
+    QMetaType::Void, QMetaType::QImage,   40,
+    QMetaType::Void, 0x80000000 | 42,   43,
+    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 15,   45,   16,
+    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 15,   45,   16,
+    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 15,   45,   16,
+    QMetaType::Void, QMetaType::Bool,   49,
+    QMetaType::Void, QMetaType::Int,   51,
     QMetaType::Void, 0x80000000 | 3,   10,
-    QMetaType::Void, QMetaType::QString,   51,
+    QMetaType::Void, QMetaType::QString,   54,
     QMetaType::Void, QMetaType::Double,    6,
     QMetaType::Void,
     QMetaType::Void,
@@ -275,20 +286,21 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   51,
+    QMetaType::Void, QMetaType::QString,   54,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   51,
+    QMetaType::Void, QMetaType::QString,   54,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   16,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   51,
-    QMetaType::Void, QMetaType::QString,   51,
+    QMetaType::Void, QMetaType::QString,   54,
+    QMetaType::Void, QMetaType::QString,   54,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   51,
+    QMetaType::Void, QMetaType::QString,   54,
+    QMetaType::Void, QMetaType::Int,   51,
     QMetaType::Void,
 
        0        // eod
@@ -322,44 +334,47 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 20: _t->missionStatusChanged(); break;
         case 21: _t->sendUserResponseDetection((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 22: _t->trackingAlgoMissionChoosen((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 23: _t->setFrame((*reinterpret_cast< QImage(*)>(_a[1]))); break;
-        case 24: _t->updateNavdataView((*reinterpret_cast< navdata_t(*)>(_a[1]))); break;
-        case 25: _t->drawDetectedEllipse((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
-        case 26: _t->drawTrackedRect((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
-        case 27: _t->drawLaserDot((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
-        case 28: _t->updateConnectionStatus((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 29: _t->updateSonarView((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 30: _t->updateTrackState((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 31: _t->emitVidSource((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 32: _t->emitFramesB4Detect((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 33: _t->emitRstPosButton(); break;
-        case 34: _t->emitConnectButton(); break;
-        case 35: _t->emitLaserState((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 36: _t->emitSonarRequest(); break;
-        case 37: _t->displayHelp(); break;
-        case 38: _t->display3D(); break;
-        case 39: _t->displayDetection(); break;
-        case 40: _t->validDetection(); break;
-        case 41: _t->addToBlackListDetection(); break;
-        case 42: _t->skip1Detection(); break;
-        case 43: _t->skip5Detections(); break;
-        case 44: _t->skip10Detections(); break;
-        case 45: _t->displayHelpDetect(); break;
-        case 46: _t->emitAlgoChoice((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 47: _t->emitObjectChoice(); break;
-        case 48: _t->emitTrackerChoice((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 49: _t->emitTrackerInit(); break;
-        case 50: _t->clearBlackList(); break;
-        case 51: _t->updateSizeBlackList((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 52: _t->addAlgoObject(); break;
-        case 53: _t->subAlgoObject(); break;
-        case 54: _t->emitAlgoDetectionMissionChoice((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 55: _t->emitAlgoTrackingMissionChoice((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 56: _t->stopMission(); break;
-        case 57: _t->startMission(); break;
-        case 58: _t->emitObjectChoiceMission(); break;
-        case 59: _t->updateListWidget((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 60: _t->emitTakePicture(); break;
+        case 23: _t->sendTrackStatus((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 24: _t->disconnectSonarViewMission(); break;
+        case 25: _t->setFrame((*reinterpret_cast< QImage(*)>(_a[1]))); break;
+        case 26: _t->updateNavdataView((*reinterpret_cast< navdata_t(*)>(_a[1]))); break;
+        case 27: _t->drawDetectedEllipse((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
+        case 28: _t->drawTrackedRect((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
+        case 29: _t->drawLaserDot((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
+        case 30: _t->updateConnectionStatus((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 31: _t->updateSonarView((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 32: _t->updateTrackState((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 33: _t->emitVidSource((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 34: _t->emitFramesB4Detect((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 35: _t->emitRstPosButton(); break;
+        case 36: _t->emitConnectButton(); break;
+        case 37: _t->emitLaserState((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 38: _t->emitSonarRequest(); break;
+        case 39: _t->displayHelp(); break;
+        case 40: _t->display3D(); break;
+        case 41: _t->displayDetection(); break;
+        case 42: _t->validDetection(); break;
+        case 43: _t->addToBlackListDetection(); break;
+        case 44: _t->skip1Detection(); break;
+        case 45: _t->skip5Detections(); break;
+        case 46: _t->skip10Detections(); break;
+        case 47: _t->displayHelpDetect(); break;
+        case 48: _t->emitAlgoChoice((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 49: _t->emitObjectChoice(); break;
+        case 50: _t->emitTrackerChoice((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 51: _t->emitTrackerInit(); break;
+        case 52: _t->clearBlackList(); break;
+        case 53: _t->updateSizeBlackList((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 54: _t->addAlgoObject(); break;
+        case 55: _t->subAlgoObject(); break;
+        case 56: _t->emitAlgoDetectionMissionChoice((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 57: _t->emitAlgoTrackingMissionChoice((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 58: _t->stopMission(); break;
+        case 59: _t->startMission(); break;
+        case 60: _t->emitObjectChoiceMission(); break;
+        case 61: _t->updateListWidget((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 62: _t->updateSonarViewMission((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 63: _t->emitTakePicture(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -503,6 +518,18 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
                 *result = 22;
             }
         }
+        {
+            typedef void (MainWindow::*_t)(std::string );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::sendTrackStatus)) {
+                *result = 23;
+            }
+        }
+        {
+            typedef void (MainWindow::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::disconnectSonarViewMission)) {
+                *result = 24;
+            }
+        }
     }
 }
 
@@ -531,13 +558,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 61)
+        if (_id < 64)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 61;
+        _id -= 64;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 61)
+        if (_id < 64)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 61;
+        _id -= 64;
     }
     return _id;
 }
@@ -690,5 +717,18 @@ void MainWindow::trackingAlgoMissionChoosen(QString _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 22, _a);
+}
+
+// SIGNAL 23
+void MainWindow::sendTrackStatus(std::string _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 23, _a);
+}
+
+// SIGNAL 24
+void MainWindow::disconnectSonarViewMission()
+{
+    QMetaObject::activate(this, &staticMetaObject, 24, 0);
 }
 QT_END_MOC_NAMESPACE

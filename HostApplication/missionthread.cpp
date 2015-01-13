@@ -9,6 +9,7 @@ MissionThread::MissionThread(QObject *parent) :
     detectionAlgo="none";
     trackingAlgo="none";
     objectToDetect="none";
+    trackStatus="none";
 
 }
 
@@ -36,6 +37,7 @@ void MissionThread::run(){
                 // We start the mission
                 mission_status=DETECTION;
                 emit missionStatusChanged();
+                startMissionOrder=false; // in case of mission aborded
             }
         }
         else
@@ -100,16 +102,28 @@ void MissionThread::run(){
         case MEASUREMENT:
         DEBUG("> MissionThread::run()::MEASUREMENT");
         emit updateMissionListWidget("              MEASUREMENT                 ");
+        // When red dot is in the rectangle we can launch a measure
+        if (trackStatus=="OK")
+        {
+            // Make the measure
+            emit makeOneMeasure();
+            mission_status=MISSION_FINISHED;
+            emit missionStatusChanged();
+        }
 
             break;
 
         case MISSION_FINISHED:
         DEBUG("> MissionThread::run()::MISSION_FINISHED");
+        emit updateMissionListWidget("           MISSION FINISHED              ");
 
             break;
 
          case MISSION_ABORDED:
         DEBUG("> MissionThread::run()::MISSION_ABORDED");
+         emit updateMissionListWidget("           MISSION ABORDED!              ");
+        mission_status=MISSION_NOT_STARTED;
+        emit missionStatusChanged();
 
             break;
 
@@ -149,5 +163,15 @@ void MissionThread::userDetectionValidation(bool res)
 {
    detectionIsValid=res;
 }
+
+void MissionThread::updateTrackStatus(std::string st)
+{
+   trackStatus=st;
+   if (mission_status==MEASUREMENT)
+   {
+   emit missionStatusChanged();
+   }
+}
+
 
 

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Control_t {
-    QByteArrayData data[36];
-    char stringdata[447];
+    QByteArrayData data[37];
+    char stringdata[470];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -64,7 +64,8 @@ QT_MOC_LITERAL(31, 401, 13),
 QT_MOC_LITERAL(32, 415, 4),
 QT_MOC_LITERAL(33, 420, 3),
 QT_MOC_LITERAL(34, 424, 10),
-QT_MOC_LITERAL(35, 435, 10)
+QT_MOC_LITERAL(35, 435, 10),
+QT_MOC_LITERAL(36, 446, 22)
     },
     "Control\0sendFrameToDetect\0\0Mat\0frame\0"
     "sendDetectedObject\0Point\0point\0Size\0"
@@ -78,7 +79,7 @@ QT_MOC_LITERAL(35, 435, 10)
     "handleValidatedObject\0handleTrackerInitialisation\0"
     "handleCollimatorThreadMessages\0"
     "addNewMission\0algo\0obj\0subMission\0"
-    "runMission\0"
+    "runMission\0disconnectSonarMission\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -88,7 +89,7 @@ static const uint qt_meta_data_Control[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      20,   14, // methods
+      21,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -96,28 +97,29 @@ static const uint qt_meta_data_Control[] = {
        4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  114,    2, 0x06,
-       5,    2,  117,    2, 0x06,
-      10,    1,  122,    2, 0x06,
-      12,    1,  125,    2, 0x06,
+       1,    1,  119,    2, 0x06,
+       5,    2,  122,    2, 0x06,
+      10,    1,  127,    2, 0x06,
+      12,    1,  130,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-      13,    0,  128,    2, 0x0a,
-      14,    1,  129,    2, 0x0a,
-      17,    0,  132,    2, 0x0a,
-      18,    1,  133,    2, 0x0a,
-      19,    2,  136,    2, 0x0a,
-      19,    1,  141,    2, 0x2a,
-      23,    2,  144,    2, 0x0a,
-      24,    1,  149,    2, 0x0a,
-      26,    2,  152,    2, 0x0a,
-      27,    0,  157,    2, 0x0a,
-      28,    2,  158,    2, 0x0a,
-      29,    0,  163,    2, 0x0a,
-      30,    1,  164,    2, 0x0a,
-      31,    2,  167,    2, 0x0a,
-      34,    0,  172,    2, 0x0a,
-      35,    0,  173,    2, 0x0a,
+      13,    0,  133,    2, 0x0a,
+      14,    1,  134,    2, 0x0a,
+      17,    0,  137,    2, 0x0a,
+      18,    1,  138,    2, 0x0a,
+      19,    2,  141,    2, 0x0a,
+      19,    1,  146,    2, 0x2a,
+      23,    2,  149,    2, 0x0a,
+      24,    1,  154,    2, 0x0a,
+      26,    2,  157,    2, 0x0a,
+      27,    0,  162,    2, 0x0a,
+      28,    2,  163,    2, 0x0a,
+      29,    0,  168,    2, 0x0a,
+      30,    1,  169,    2, 0x0a,
+      31,    2,  172,    2, 0x0a,
+      34,    0,  177,    2, 0x0a,
+      35,    0,  178,    2, 0x0a,
+      36,    0,  179,    2, 0x0a,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -140,6 +142,7 @@ static const uint qt_meta_data_Control[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 20,   25,
     QMetaType::Void, QMetaType::QString, QMetaType::QString,   32,   33,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -171,6 +174,7 @@ void Control::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 17: _t->addNewMission((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 18: _t->subMission(); break;
         case 19: _t->runMission(); break;
+        case 20: _t->disconnectSonarMission(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -228,13 +232,13 @@ int Control::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 20)
+        if (_id < 21)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 20;
+        _id -= 21;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 20)
+        if (_id < 21)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 20;
+        _id -= 21;
     }
     return _id;
 }

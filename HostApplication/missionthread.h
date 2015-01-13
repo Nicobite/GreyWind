@@ -31,6 +31,7 @@ public:
     string objectToDetect;
     bool startMissionOrder;
     bool detectionIsValid;
+    string trackStatus;
 
 
 
@@ -46,6 +47,7 @@ signals:
     void updateMissionListWidget(QString);
     void sendStartTracking();
     void sendTrackAlgoChoosen(QString);
+    void makeOneMeasure();
 
 
 public slots:
@@ -55,6 +57,8 @@ public slots:
     void trackingAlgoChoosen(QString algoname);
     void objectToDetectChoosen(std::string objectname);
     void userDetectionValidation(bool res);
+    void updateTrackStatus(std::string st);
+
 
 
 };
