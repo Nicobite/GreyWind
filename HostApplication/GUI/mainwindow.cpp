@@ -97,6 +97,9 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,          SLOT(emitAlgoDetectionMissionChoice(QString)));
     QObject::connect(ui->algTrackingSelect, SIGNAL(currentIndexChanged(QString)),
                      this,          SLOT(emitAlgoTrackingMissionChoice(QString)));
+//    QObject::connect(ui->algTrackingSelect, SIGNAL(currentIndexChanged(QString)),
+//                     this,               SLOT(emitTrackerChoice(QString)));
+
     QObject::connect(ui->abortMission, SIGNAL(clicked()),
                      this,             SLOT(stopMission()));
     QObject::connect(ui->startMission, SIGNAL(clicked()),
@@ -429,9 +432,12 @@ void MainWindow::validDetection(){
     ui->yCenterlabel->setNum(m_center_detected.y);
     ui->radiuslabel->setNum(m_size_detected.width);
     emit sigValidatedObject(m_center_detected, m_size_detected);
+    emit sendUserResponseDetection(true);
+
 
     ui->detectButton->setEnabled(false);
     ui->trackButton->setEnabled(true);
+    emit missionStatusChanged();
 }
 
 void MainWindow::skip1Detection(){
@@ -471,8 +477,10 @@ void MainWindow::addToBlackListDetection(){
     //Disable the groupbox
     ui->objectDetectedLocationgroupBox->setEnabled(false);
 
+    emit sendUserResponseDetection(false);
     //Add the bad detected point to the blackList in the control class
     emit sendObjectToBlackList(m_center_detected,m_size_detected);
+    emit missionStatusChanged();
 
 
 
@@ -501,7 +509,7 @@ void MainWindow::updateSizeBlackList(int size)
 
 void MainWindow::addAlgoObject(){
     if (ui->listWidget->count() == 0){
-        ui->listWidget->addItem(QString("**Algo****||****Objet****"));
+        //ui->listWidget->addItem(QString("**Algo****||****Objet****"));
     }
 
     if(m_algochoosen == "<none>"){
@@ -510,7 +518,7 @@ void MainWindow::addAlgoObject(){
             this->dispToCuteConsole("[Mission]No object is selected. Nothing to do");
     }
     else{
-        ui->listWidget->addItem(QString("**")+m_algochoosen+QString("****||****")+ui->objSourceMission->text());
+        //ui->listWidget->addItem(QString("**")+m_algochoosen+QString("****||****")+ui->objSourceMission->text());
     }
      //emit newMissionObject(m_algochoosen, ui->objSource_2->text());
 }
@@ -549,15 +557,18 @@ void MainWindow::emitTakePicture(){
 }
 
 void MainWindow::stopMission(){
-     emit stopMissionSignal();
+    emit stopMissionSignal();
+    emit missionStatusChanged();
 }
 
 void MainWindow::startMission(){
 
     // Local for testing the behaviour but will be the entire function
     emitVidSource("Local");
+    ui->listWidget->addItem(QString("********** MISSION STARTED ************"));
 
-     emit startMissionSignal();
+    emit startMissionSignal();
+    emit missionStatusChanged();
 }
 
 void MainWindow::emitAlgoDetectionMissionChoice(const QString& text){
@@ -570,7 +581,9 @@ void MainWindow::emitAlgoDetectionMissionChoice(const QString& text){
             "[MainWindow] No detection algorithm for mission is selected!"
         );
     }
+    ui->listWidget->addItem(QString("******        Detection algo : ")+text+QString("        *******"));
     emit detectAlgoChanged(text.toStdString());
+    emit missionStatusChanged();
 
 }
 
@@ -585,9 +598,13 @@ void MainWindow::emitAlgoTrackingMissionChoice(const QString& text){
             "[MainWindow] No tracking algorithm for mission is selected!"
         );
     }
-    emit detectTrackerChanged(text.toStdString());
+    ui->listWidget->addItem(QString("****  Tracking algo : ")+text+QString("  *****"));
+    //missionTracker=text.toStdString();
+    emit trackingAlgoMissionChoosen(text);
+    emit missionStatusChanged();
 
 }
+
 
 void MainWindow::emitObjectChoiceMission()
 {
@@ -602,6 +619,13 @@ void MainWindow::emitObjectChoiceMission()
             "[MainWindow] No object is to be detected!"
         );
     }
+    ui->listWidget->addItem(QString("******        Object : ")+this->ui->objSourceMission->text()+QString("                        *******"));
     emit detectObjectChanged(this->ui->objSourceMission->text().toStdString());
     emit detectObjectMissionChoosen(this->ui->objSourceMission->text().toStdString());
+    emit missionStatusChanged();
+
+}
+
+void MainWindow::updateListWidget(QString text){
+    ui->listWidget->addItem(QString("***** ")+text+QString(" *****"));
 }

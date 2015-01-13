@@ -5,7 +5,7 @@ MissionThread::MissionThread(QObject *parent) :
 {
     mission_status=MISSION_NOT_STARTED;
     startMissionOrder=false;
-    detectionIsDone=false;
+    detectionIsValid=false;
     detectionAlgo="none";
     trackingAlgo="none";
     objectToDetect="none";
@@ -31,11 +31,11 @@ void MissionThread::run(){
          * - start command clicked  */
         if (detectionAlgo!="none" && trackingAlgo!="none" && objectToDetect!="none")
         {
-            DEBUG("> MissionThread::run()::BEFORE");
             if (startMissionOrder==true)
             {
                 // We start the mission
                 mission_status=DETECTION;
+                emit missionStatusChanged();
             }
         }
         else
@@ -54,18 +54,40 @@ void MissionThread::run(){
         DEBUG("> MissionThread::run()::DETECTION");
 
         // We stay in detection until a detection is done
-        // Check the flag detectionIsDone
+        // We will skip 5 detection times by default
+        emit updateMissionListWidget("                DETECTION                       ");
+        emit skip5order();
         emit sendDetectionToDo();
+        mission_status=WAIT_USER_VALIDATION_DETECTION;
+        //emit missionStatusChanged();
 
             break;
 
         case WAIT_USER_VALIDATION_DETECTION:
         DEBUG("> MissionThread::run():: WAIT_USER_VALIDATION_DETECTION");
+        emit updateMissionListWidget("      WAIT USER VALIDATION        ");
+        if(detectionIsValid==true)
+        {
+            // The user valids the detection
+            mission_status=TRACKING;
+            emit sendTrackAlgoChoosen(trackingAlgo);
+            emit missionStatusChanged();
+        }
+        else
+        {
+            // The user adds the detection to the blackList
+            mission_status=DETECTION;
+            emit missionStatusChanged();
+        }
 
             break;
 
         case TRACKING:
         DEBUG("> MissionThread::run()::TRACKING");
+        emit updateMissionListWidget("                 TRACKING                    ");
+        emit sendStartTracking();
+        mission_status=MEASUREMENT;
+        emit missionStatusChanged();
 
             break;
 
@@ -104,7 +126,7 @@ void MissionThread::detectAlgoChoosen(string algoname)
     detectionAlgo=algoname;
 }
 
-void MissionThread::trackingAlgoChoosen(string algoname)
+void MissionThread::trackingAlgoChoosen(QString algoname)
 {
     DEBUG("> MissionThread::run()::ALGO TRACKED");
     trackingAlgo=algoname;
@@ -114,6 +136,11 @@ void MissionThread::objectToDetectChoosen(std::string objectname)
 {
     DEBUG("> MissionThread::run()::OBJECT CHOOSEN");
     objectToDetect=objectname;
+}
+
+void MissionThread::userDetectionValidation(bool res)
+{
+   detectionIsValid=res;
 }
 
 

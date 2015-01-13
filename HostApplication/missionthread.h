@@ -27,10 +27,10 @@ public:
 
     MissionStatus mission_status;
     string detectionAlgo;
-    string trackingAlgo;
+    QString trackingAlgo;
     string objectToDetect;
     bool startMissionOrder;
-    bool detectionIsDone;
+    bool detectionIsValid;
 
 
 
@@ -41,14 +41,20 @@ private:
 signals:
 
     void sendDetectionToDo();
+    void missionStatusChanged();
+    void skip5order();
+    void updateMissionListWidget(QString);
+    void sendStartTracking();
+    void sendTrackAlgoChoosen(QString);
 
 
 public slots:
     void abortMission();
     void startMission();
     void detectAlgoChoosen(std::string algoname);
-    void trackingAlgoChoosen(std::string algoname);
+    void trackingAlgoChoosen(QString algoname);
     void objectToDetectChoosen(std::string objectname);
+    void userDetectionValidation(bool res);
 
 
 };

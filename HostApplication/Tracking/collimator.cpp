@@ -52,6 +52,7 @@ void Collimator::deinit(){
     if(m_tracker != NULL){
         delete m_tracker;
         m_tracker = NULL;
+        DEBUG("> MissionThread::run()::DEINIT TRACKER NULL");
     }
     m_running = false;
     if(m_algoname == "<none>"){
@@ -70,12 +71,16 @@ void Collimator::deinit(){
 }
 
 void Collimator::run(){
+    DEBUG("> MissionThread::run()::COLLIMATOR RUN3");
     while(!m_running);
     while(m_running){
+        DEBUG("> MissionThread::run()::COLLIMATOR RUN2");
         if(!m_FIFO.empty()){
+            DEBUG("> MissionThread::run()::COLLIMATOR RUN1");
             // Popping element
             if(m_tracker != NULL){
                 //DEBUG("Nbr elements m_FIFO : "+QString::number(m_FIFO.size()));
+                DEBUG("> MissionThread::run()::COLLIMATOR RUN");
                 m_tracker->track(m_FIFO.front());
                 Point objPoint; Size objSize;
                 objPoint = m_tracker->getCoordinate();
@@ -121,7 +126,7 @@ void Collimator::run(){
                 }
             }
             //usleep(2000);
-            //DEBUG("Popping...");
+            DEBUG("Popping...");
             m_FIFO.pop();
         }
     }
@@ -169,6 +174,7 @@ void Collimator::handleFrame(Mat frame){
 }
 
 void Collimator::changeAlgo(std::string algoname){
+    DEBUG("> MissionThread::run()::CHANGEALGO");
     if(m_running == false){
         m_algoname = algoname;
 
@@ -176,6 +182,7 @@ void Collimator::changeAlgo(std::string algoname){
 
         if(m_tracker != NULL){
             delete m_tracker;
+            DEBUG("> MissionThread::run()::CHANGE ALGO TRACKER NULL");
             m_tracker = NULL;
         }
 
@@ -184,6 +191,7 @@ void Collimator::changeAlgo(std::string algoname){
 
         } else{
             if(m_algoname == "PatternMatching"){
+                DEBUG("> MissionThread::run()::PATTERN MATCHING");
                 emit sigMessageToConsole("Changing current tracking algorithm to PatternMatching...");
                 m_tracker =  new PMTrackingAlgo();
 

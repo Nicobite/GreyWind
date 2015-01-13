@@ -148,6 +148,7 @@ public:
     QLineEdit *stateMission;
     QPushButton *startMission;
     QListWidget *listWidget;
+    QPushButton *savePicButton;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
     QToolBar *toolBar;
@@ -157,7 +158,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setWindowModality(Qt::NonModal);
-        MainWindow->resize(950, 800);
+        MainWindow->resize(986, 800);
         MainWindow->setMinimumSize(QSize(950, 800));
         MainWindow->setMaximumSize(QSize(16777215, 16777215));
         MainWindow->setFocusPolicy(Qt::ClickFocus);
@@ -367,7 +368,7 @@ public:
         helpButton->setGeometry(QRect(180, 50, 45, 30));
         helpButton->setFocusPolicy(Qt::NoFocus);
         QIcon icon;
-        icon.addFile(QStringLiteral(":/HostApplication/ressources/Help-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QStringLiteral(":/ressources/Help-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         helpButton->setIcon(icon);
         helpButton->setIconSize(QSize(24, 24));
         verticalLayoutWidget = new QWidget(groupBox_3);
@@ -386,7 +387,7 @@ public:
         controlGraphicLabel->setLayoutDirection(Qt::LeftToRight);
         controlGraphicLabel->setAutoFillBackground(true);
         controlGraphicLabel->setFrameShape(QFrame::NoFrame);
-        controlGraphicLabel->setPixmap(QPixmap(QString::fromUtf8(":/HostApplication/ressources/joystick_inactive.png")));
+        controlGraphicLabel->setPixmap(QPixmap(QString::fromUtf8(":/ressources/joystick_inactive.png")));
         controlGraphicLabel->setAlignment(Qt::AlignCenter);
         controlGraphicLabel->setTextInteractionFlags(Qt::NoTextInteraction);
 
@@ -596,7 +597,9 @@ public:
         getDistance->setObjectName(QStringLiteral("getDistance"));
         getDistance->setGeometry(QRect(130, 70, 41, 31));
         getDistance->setFocusPolicy(Qt::NoFocus);
-        getDistance->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/ressources/system-software-update.png"), QSize(), QIcon::Normal, QIcon::Off);
+        getDistance->setIcon(icon2);
         getDistance->setIconSize(QSize(24, 24));
         groupBox_4 = new QGroupBox(tab);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
@@ -646,7 +649,7 @@ public:
         objectDetectedIconlabel->setFrameShape(QFrame::NoFrame);
         objectDetectedIconlabel->setFrameShadow(QFrame::Plain);
         objectDetectedIconlabel->setTextFormat(Qt::AutoText);
-        objectDetectedIconlabel->setPixmap(QPixmap(QString::fromUtf8(":/HostApplication/ressources/Icon-16x16-not_ok.png")));
+        objectDetectedIconlabel->setPixmap(QPixmap(QString::fromUtf8(":/ressources/Icon-16x16-not_ok.png")));
         label_11 = new QLabel(groupBox_4);
         label_11->setObjectName(QStringLiteral("label_11"));
         label_11->setGeometry(QRect(10, 70, 141, 17));
@@ -764,13 +767,16 @@ public:
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setGeometry(QRect(310, 10, 301, 221));
         mainTabWidget->addTab(tab_2, QString());
+        savePicButton = new QPushButton(centralWidget);
+        savePicButton->setObjectName(QStringLiteral("savePicButton"));
+        savePicButton->setGeometry(QRect(920, 380, 61, 27));
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 950, 25));
+        menuBar->setGeometry(QRect(0, 0, 986, 25));
         MainWindow->setMenuBar(menuBar);
         toolBar = new QToolBar(MainWindow);
         toolBar->setObjectName(QStringLiteral("toolBar"));
@@ -909,8 +915,7 @@ public:
         algTrackingSelect->clear();
         algTrackingSelect->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "<none>", 0)
-         << QApplication::translate("MainWindow", "PCM", 0)
-         << QApplication::translate("MainWindow", "SURF", 0)
+         << QApplication::translate("MainWindow", "PatternMatching", 0)
          << QApplication::translate("MainWindow", "LUCAS KANADE", 0)
         );
         groupBox_8->setTitle(QApplication::translate("MainWindow", "Current State", 0));
@@ -918,6 +923,7 @@ public:
         abortMission->setText(QApplication::translate("MainWindow", "Abort", 0));
         startMission->setText(QApplication::translate("MainWindow", "Start Mission", 0));
         mainTabWidget->setTabText(mainTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Mission", 0));
+        savePicButton->setText(QApplication::translate("MainWindow", "Picture", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));
     } // retranslateUi
 

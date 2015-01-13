@@ -104,20 +104,36 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      this,              SLOT(addNewMission(QString,QString)));
     QObject::connect(&m_mainWindow,     SIGNAL(delMissionObject()),
                      this,              SLOT(subMission()));
+    QObject::connect(&m_mainWindow,     SIGNAL(missionStatusChanged()),
+                     this,              SLOT(runMission()));
+
     QObject::connect(&m_mainWindow,     SIGNAL(stopMissionSignal()),
                      m_missionThread,              SLOT(abortMission()));
     QObject::connect(&m_mainWindow,     SIGNAL(startMissionSignal()),
                      m_missionThread,              SLOT(startMission()));
     QObject::connect(&m_mainWindow,     SIGNAL(detectAlgoChanged(std::string)),
                      m_missionThread,    SLOT(detectAlgoChoosen(std::string)));
-    QObject::connect(&m_mainWindow,     SIGNAL(detectTrackerChanged(std::string)),
-                     m_missionThread,    SLOT(trackingAlgoChoosen(std::string)));
+    QObject::connect(&m_mainWindow,     SIGNAL(trackingAlgoMissionChoosen(QString)),
+                     m_missionThread,    SLOT(trackingAlgoChoosen(QString)));
     QObject::connect(&m_mainWindow,     SIGNAL(detectObjectMissionChoosen(std::string)),
                      m_missionThread,    SLOT(objectToDetectChoosen(std::string)));
+    QObject::connect(&m_mainWindow,     SIGNAL(sendUserResponseDetection(bool)),
+                     m_missionThread,    SLOT(userDetectionValidation(bool)));
+
     QObject::connect(m_missionThread,     SIGNAL(sendDetectionToDo()),
                      &m_mainWindow,    SLOT(displayDetection()));
-    QObject::connect(m_missionThread,     SIGNAL(finished()),
+    QObject::connect(m_missionThread,     SIGNAL(skip5order()),
+                     &m_mainWindow,    SLOT(skip5Detections()));
+    QObject::connect(m_missionThread,     SIGNAL(missionStatusChanged()),
                      this,    SLOT(runMission()));
+    QObject::connect(m_missionThread,     SIGNAL(updateMissionListWidget(QString)),
+                     &m_mainWindow,    SLOT(updateListWidget(QString)));
+    QObject::connect(m_missionThread,     SIGNAL(sendStartTracking()),
+                     &m_mainWindow,    SLOT(emitTrackerInit()));
+    QObject::connect(m_missionThread,     SIGNAL(sendTrackAlgoChoosen(QString)),
+                     &m_mainWindow,    SLOT(emitTrackerChoice(QString)));
+
+
     m_missionThread->start();
     m_mainWindow.show();
 
@@ -207,7 +223,7 @@ void Control::handleFrame(Mat frame){
 }
 
 void Control::handleTrackerInitialisation(){
-    while(!m_frameSaved&&!m_objDetected);
+    while(!m_frameSaved&& !m_objDetected);
     m_collimator.init(m_imgDetected, m_centerDetected, m_sizeDetected);
 }
 
@@ -354,6 +370,10 @@ void Control::subMission(){
 }
 
 void Control::runMission(){
+    while (m_missionThread->isFinished()!=true){
+
+    }
+    // Wait the thread is finished to start another thread
     m_missionThread->start();
 }
 

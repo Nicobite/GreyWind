@@ -52,6 +52,7 @@ private:
     bool m_haltDetection;
     QString m_algochoosen;
     int m_skipValue;
+    std::string missionTracker;
 	
 public slots:
     void setFrame(QImage image);
@@ -95,7 +96,8 @@ private slots:
     void emitAlgoTrackingMissionChoice(const QString& text);
     void stopMission();
     void startMission();
-    void emitObjectChoiceMission();
+    void emitObjectChoiceMission();   
+    void updateListWidget(QString text);
 
     void emitTakePicture();
 
@@ -127,6 +129,9 @@ signals:
     void stopMissionSignal();
     void startMissionSignal();
     void detectObjectMissionChoosen(std::string src);
+    void missionStatusChanged();
+    void sendUserResponseDetection(bool res);
+    void trackingAlgoMissionChoosen(QString scr);
 
 };
 

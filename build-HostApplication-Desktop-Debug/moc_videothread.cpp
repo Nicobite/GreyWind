@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_VideoThread_t {
-    QByteArrayData data[13];
-    char stringdata[147];
+    QByteArrayData data[14];
+    char stringdata[159];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,12 +41,14 @@ QT_MOC_LITERAL(8, 88, 3),
 QT_MOC_LITERAL(9, 92, 3),
 QT_MOC_LITERAL(10, 96, 9),
 QT_MOC_LITERAL(11, 106, 18),
-QT_MOC_LITERAL(12, 125, 20)
+QT_MOC_LITERAL(12, 125, 20),
+QT_MOC_LITERAL(13, 146, 11)
     },
     "VideoThread\0sendDetectionFrame\0\0Mat\0"
     "frame\0sendVideoFrame\0cannotChangeSource\0"
     "std::string\0src\0err\0setSource\0"
     "setDetectionPeriod\0nbFramesBeforeDetect\0"
+    "savePicture\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,7 +58,7 @@ static const uint qt_meta_data_VideoThread[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -64,13 +66,14 @@ static const uint qt_meta_data_VideoThread[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   39,    2, 0x06,
-       5,    1,   42,    2, 0x06,
-       6,    2,   45,    2, 0x06,
+       1,    1,   44,    2, 0x06,
+       5,    1,   47,    2, 0x06,
+       6,    2,   50,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-      10,    1,   50,    2, 0x0a,
-      11,    1,   53,    2, 0x0a,
+      10,    1,   55,    2, 0x0a,
+      11,    1,   58,    2, 0x0a,
+      13,    0,   61,    2, 0x0a,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -80,6 +83,7 @@ static const uint qt_meta_data_VideoThread[] = {
  // slots: parameters
     QMetaType::Void, 0x80000000 | 7,    8,
     QMetaType::Void, QMetaType::Int,   12,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -94,6 +98,7 @@ void VideoThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 2: _t->cannotChangeSource((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 3: _t->setSource((*reinterpret_cast< std::string(*)>(_a[1]))); break;
         case 4: _t->setDetectionPeriod((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->savePicture(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -145,13 +150,13 @@ int VideoThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }
