@@ -35,6 +35,7 @@ void MissionThread::run(){
             if (startMissionOrder==true)
             {
                 // We start the mission
+                emit updateMissionListWidget("           MISSION STARTED              ");
                 mission_status=DETECTION;
                 emit missionStatusChanged();
                 startMissionOrder=false; // in case of mission aborded
@@ -116,14 +117,14 @@ void MissionThread::run(){
         case MISSION_FINISHED:
         DEBUG("> MissionThread::run()::MISSION_FINISHED");
         emit updateMissionListWidget("           MISSION FINISHED              ");
+        reInitMission();
 
             break;
 
          case MISSION_ABORDED:
         DEBUG("> MissionThread::run()::MISSION_ABORDED");
          emit updateMissionListWidget("           MISSION ABORDED!              ");
-        mission_status=MISSION_NOT_STARTED;
-        emit missionStatusChanged();
+        reInitMission();
 
             break;
 
@@ -173,5 +174,21 @@ void MissionThread::updateTrackStatus(std::string st)
    }
 }
 
+void MissionThread::reInitMission()
+{
+    mission_status=MISSION_NOT_STARTED;
+    startMissionOrder=false;
+    detectionIsValid=false;
+    detectionAlgo="none";
+    trackingAlgo="none";
+    objectToDetect="none";
+    trackStatus="none";
+    emit reInitDetection(detectionAlgo);
+    emit sendTrackAlgoChoosen(trackingAlgo);
+    emit reInitTracking();
+    emit reInitWidgets();
+    emit reInitObjectChoice();
+    emit missionStatusChanged();
+}
 
 

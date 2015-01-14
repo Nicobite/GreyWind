@@ -39,6 +39,8 @@ private:
 
     void run();
 
+    void reInitMission();
+
 signals:
 
     void sendDetectionToDo();
@@ -48,6 +50,10 @@ signals:
     void sendStartTracking();
     void sendTrackAlgoChoosen(QString);
     void makeOneMeasure();
+    void reInitDetection(std::string);
+    void reInitTracking();
+    void reInitWidgets();
+    void reInitObjectChoice();
 
 
 public slots:
