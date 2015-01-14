@@ -17,7 +17,16 @@ public:
     explicit DetectionAlgo(QObject *parent = 0);
     ~DetectionAlgo();
 
+    Point getPoint();
+    Size getSize();
+
+    void detectOnFrame(Mat frame);
+
+
 protected:
+    Point m_point;
+    Size m_size;
+
     virtual void detect(Mat &frame) = 0;
 
 signals:

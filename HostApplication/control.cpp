@@ -69,6 +69,10 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      m_detectThread,    SLOT(changeDetectionAlgo(std::string)));
     QObject::connect(&m_mainWindow,     SIGNAL(detectObjectChanged(std::string)),
                      m_detectThread,    SLOT(changeObject2Detect(std::string)));
+    QObject::connect(&m_mainWindow,     SIGNAL(detectAlgoChanged(std::string)),
+                     this,    SLOT(updateDetectionAlgo(std::string)));
+    QObject::connect(&m_mainWindow,     SIGNAL(detectObjectChanged(std::string)),
+                     this,    SLOT(updateDetectionObject(std::string)));
     QObject::connect(m_detectThread,   SIGNAL(sigMessageToConsole(std::string)),
                      this,             SLOT(handleDetectThreadMessages(std::string)));
     // Detection related handlers:
@@ -231,7 +235,7 @@ void Control::handleFrame(Mat frame){
 
 void Control::handleTrackerInitialisation(){
     while(!m_frameSaved&& !m_objDetected);
-    m_collimator.init(m_imgDetected, m_centerDetected, m_sizeDetected);
+    m_collimator.init(m_imgDetected, m_centerDetected, m_sizeDetected, m_currentDetectAlgo, m_currentDetectObject);
 }
 
 void Control::handleValidatedObject(Point point, Size size){
@@ -280,6 +284,15 @@ void Control::resetPosition(){
 }
 
 // when detectionAlgo
+
+void Control::updateDetectionAlgo(std::string algo){
+    m_currentDetectAlgo = algo;
+}
+
+void Control::updateDetectionObject(std::string obj){
+    m_currentDetectObject = obj;
+}
+
 // sends signal to mainWindow
 void Control::handleDetectedObject(Point point, Size size){
     //TODO : add some fucking intelligence

@@ -3,6 +3,7 @@
 
 #include <QThread>
 #include <Tracking/pmtrackingalgo.h>
+#include <Tracking/detectiontrackingalgo.h>
 #include <Detection/laserdetect.hpp>
 #include "opencv2/opencv.hpp"
 #include <queue>
@@ -18,7 +19,7 @@ public:
     explicit Collimator(QObject *parent = 0);
     ~Collimator();
 
-    void init(Mat img, Point point, Size size);
+    void init(Mat img, Point point, Size size, std::string detecAlgoName, std::string detectObjName);
     void run();
     void deinit();
 

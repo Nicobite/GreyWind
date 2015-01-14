@@ -11,7 +11,7 @@ public:
     PMTrackingAlgo();
     ~PMTrackingAlgo();
 
-    void initialise(cv::Mat img, cv::Point point, cv::Size size);
+    void initialise(cv::Mat img, cv::Point point, cv::Size size, std::string detecAlgoName, std::string detectObjName);
     void track(cv::Mat img);
 
 };

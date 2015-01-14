@@ -47,9 +47,10 @@ void PCMDetectionAlgo::detect(Mat &frame){
 
         if(norm(Mat(match_pos), Mat(position_contour))<=40){
             found = true;
-
+            m_point = Point(0.5*match_pos.x+0.5*position_contour.x+0.5*size.width, 0.5*match_pos.y+0.5*position_contour.y+0.5*size.height);
+            m_size = Size(size.width/2 , size.height/2);
             //emit detectedObject(Point(match_pos.x+0.5*size.width, match_pos.y+0.5*size.height), Size(size.width/2 , size.height/2));
-            emit detectedObject(Point(0.5*match_pos.x+0.5*position_contour.x+0.5*size.width, 0.5*match_pos.y+0.5*position_contour.y+0.5*size.height), Size(size.width/2 , size.height/2));
+            emit detectedObject(m_point, m_size);
 
         }
     }
@@ -76,7 +77,10 @@ void PCMDetectionAlgo::detect(Mat &frame){
             found = true;
             //rectangle( frame, match_pos, Point( match_pos.x + size.width , match_pos.y + size.height), Scalar(0,255,0), 2, 8, 0 );
             m_lastGoodPattern = iter;
-            emit detectedObject(Point(0.5*match_pos.x+0.5*position_contour.x+0.5*size.width, 0.5*match_pos.y+0.5*position_contour.y+0.5*size.height), Size(size.width/2 , size.height/2));
+            m_point = Point(0.5*match_pos.x+0.5*position_contour.x+0.5*size.width, 0.5*match_pos.y+0.5*position_contour.y+0.5*size.height);
+            m_size = Size(size.width/2 , size.height/2);
+            //emit detectedObject(Point(match_pos.x+0.5*size.width, match_pos.y+0.5*size.height), Size(size.width/2 , size.height/2));
+            emit detectedObject(m_point, m_size);
 
             //imshow( "Pattern Matching", frame );
         } else{
@@ -145,7 +149,7 @@ Rect PCMDetectionAlgo::getAverageShapeSize(Mat& frame, vector<Point>& contour_te
     GaussianBlur( im_edges, im_edges, Size(7,7), 3);
     threshold(im_edges, im_edges, 200, 255, THRESH_BINARY_INV);
 
-#if SHOW_DEBUG==0
+#if SHOW_DEBUG
     imshow("Contours", im_edges);
 #endif
     findContours( im_edges, contoursTempl, hierarchyTempl, RETR_LIST, CONTOUR_APPROX_MODE, Point(0, 0) );

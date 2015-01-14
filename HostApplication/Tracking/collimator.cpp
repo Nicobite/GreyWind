@@ -14,7 +14,7 @@ Collimator::~Collimator()
     delete m_tracker;
 }
 
-void Collimator::init(Mat img, Point point, Size size){
+void Collimator::init(Mat img, Point point, Size size, std::string detecAlgoName, std::string detectObjName){
 
     if(m_running == false){
         if(m_algoname == "<none>"){
@@ -29,11 +29,20 @@ void Collimator::init(Mat img, Point point, Size size){
 
                 //New algorithm
                 //m_tracker = new HaarFaceDetectionAlgo(m_object2detect);
-                m_tracker->initialise(img, point, size);
+                m_tracker->initialise(img, point, size, detecAlgoName, detectObjName);
                 emit sigMessageToConsole("Algorithm is running.");
                 m_running = true;
 
-            } else if(m_algoname == "LucasKannade"){
+            } else if(m_algoname == "DetectionAlgo"){
+
+                emit sigMessageToConsole("Initializing current tracking algorithm(DetectionAlgo)...");
+                m_tracker->initialise(img, point, size, detecAlgoName, detectObjName);
+                m_running = true;
+                //New algorithm
+                //m_tracker = new PCMDetectionAlgo(m_object2detect);
+                //emit sigMessageToConsole("Algorithm is running.");
+
+            }else if(m_algoname == "LucasKannade"){
 
                 emit sigMessageToConsole("Initializing current tracking algorithm(Lucas-Kannade)...");
                 emit sigMessageToConsole("Not yet implemented.  Algorithm removed.");
@@ -191,7 +200,12 @@ void Collimator::changeAlgo(std::string algoname){
                 emit sigMessageToConsole("Changing current tracking algorithm to PatternMatching...");
                 m_tracker =  new PMTrackingAlgo();
 
-            } else if(m_algoname == "LucasKannade"){
+            }else if(m_algoname == "DetectionAlgo"){
+
+                emit sigMessageToConsole("Changing current tracking algorithm to DetectionAlgo...");
+                m_tracker =  new DetectionTrackingAlgo();
+
+            }else if(m_algoname == "LucasKannade"){
                 emit sigMessageToConsole("Changing current detection algorithm to Lucas-Kannade...");
                 emit sigMessageToConsole("Not yet implemented.  Algorithm removed.");
             }

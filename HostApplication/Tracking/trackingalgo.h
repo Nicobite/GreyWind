@@ -18,7 +18,7 @@ public:
     explicit TrackingAlgo(QObject *parent = 0);
     ~TrackingAlgo();
 
-    virtual void initialise(cv::Mat img, cv::Point point, cv::Size size) = 0;
+    virtual void initialise(cv::Mat img, cv::Point point, cv::Size size, std::string detecAlgoName, std::string detectObjName) = 0;
     virtual void track(cv::Mat img) = 0;
 
     cv::Point getCoordinate();

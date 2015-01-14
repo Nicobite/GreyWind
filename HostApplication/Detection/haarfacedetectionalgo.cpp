@@ -48,6 +48,8 @@ void HaarFaceDetectionAlgo::detect(Mat &frame)
                 //size = Size( m_faces[i].width/2, m_faces[i].height/2 );
                 size = Size( m_faces[i].width/2, m_faces[i].height/2);
                 //ellipse( frame, center, Size( m_faces[i].width/2, m_faces[i].height/2 ), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
+                m_point = center;
+                m_size = size;
                 emit detectedObject(center, size);
             }
         } catch(...){

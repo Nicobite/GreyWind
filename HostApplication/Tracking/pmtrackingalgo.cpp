@@ -9,7 +9,7 @@ PMTrackingAlgo::~PMTrackingAlgo(){
     m_status = false;
 }
 
-void PMTrackingAlgo::initialise(cv::Mat img, cv::Point point, cv::Size size){
+void PMTrackingAlgo::initialise(cv::Mat img, cv::Point point, cv::Size size, std::string detecAlgoName, std::string detectObjName){
     cv::Size realSize;
     realSize.width = size.width*2;
     realSize.height = size.height*2;

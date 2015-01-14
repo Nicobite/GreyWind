@@ -50,6 +50,8 @@ private:
     std::string     m_currentVidSource;
     VideoThread*    m_vidThread;
     DetectThread*   m_detectThread;
+    std::string     m_currentDetectAlgo;
+    std::string     m_currentDetectObject;
     LocalizationFunctions m_locfunc;
     Collimator      m_collimator;
     MissionThread* m_missionThread;
@@ -80,6 +82,9 @@ public slots:
     void connectDrone();
     void handleNavdata(navdata_t nd);
     void resetPosition();
+
+    void updateDetectionAlgo(std::string algo);
+    void updateDetectionObject(std::string obj);
 
     void handleFrame(Mat frame);
     void changeVideoSource(std::string src, int err=0);
