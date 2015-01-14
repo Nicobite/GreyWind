@@ -100,6 +100,7 @@ private slots:
     void updateListWidget(QString text);
     void updateSonarViewMission(int distance);
     void reInitWidgetsMission();
+    void changeStatusMission(QString text);
 
     void emitTakePicture();
 

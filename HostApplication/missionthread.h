@@ -54,6 +54,7 @@ signals:
     void reInitTracking();
     void reInitWidgets();
     void reInitObjectChoice();
+    void sendStatusMission(QString);
 
 
 public slots:

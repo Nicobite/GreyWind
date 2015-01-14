@@ -23,7 +23,8 @@ void MissionThread::run(){
     switch (mission_status) {
 
         case MISSION_NOT_STARTED:
-        //DEBUG("> MissionThread::run()::MissionNotStarted");
+        DEBUG("> MissionThread::run()::MissionNotStarted");
+        emit sendStatusMission("NOT STARTED");
 
         /* For Starting the mission we need 4 elements:
          * - detection algorithm choosen
@@ -55,10 +56,10 @@ void MissionThread::run(){
 
         case DETECTION:
         DEBUG("> MissionThread::run()::DETECTION");
+        emit sendStatusMission("DETECTION");
 
         // We stay in detection until a detection is done
         // We will skip 5 detection times by default
-        emit updateMissionListWidget("                DETECTION                       ");
         emit skip5order();
         emit sendDetectionToDo();
         mission_status=WAIT_USER_VALIDATION_DETECTION;
@@ -68,9 +69,9 @@ void MissionThread::run(){
 
         case WAIT_USER_VALIDATION_DETECTION:
         DEBUG("> MissionThread::run():: WAIT_USER_VALIDATION_DETECTION");
-        emit updateMissionListWidget("      WAIT USER VALIDATION         ");
         if(detectionIsValid==true)
         {
+            emit sendStatusMission("TRACKING");
             // The user valids the detection
             mission_status=TRACKING;
             // The algorithm choosen for tracking is implemented
@@ -92,7 +93,7 @@ void MissionThread::run(){
 
         case TRACKING:
         DEBUG("> MissionThread::run()::TRACKING");
-        emit updateMissionListWidget("                    TRACKING                      ");
+        emit sendStatusMission("TRACKING");
         // Tracking can start now
         emit sendStartTracking();
         mission_status=MEASUREMENT;
@@ -101,11 +102,11 @@ void MissionThread::run(){
             break;
 
         case MEASUREMENT:
-        DEBUG("> MissionThread::run()::MEASUREMENT");
-        emit updateMissionListWidget("              MEASUREMENT                 ");
+        DEBUG("> MissionThread::run()::MEASUREMENT");      
         // When red dot is in the rectangle we can launch a measure
         if (trackStatus=="OK")
         {
+            emit sendStatusMission("MEASUREMENT");
             // Make the measure
             emit makeOneMeasure();
             mission_status=MISSION_FINISHED;
@@ -116,15 +117,17 @@ void MissionThread::run(){
 
         case MISSION_FINISHED:
         DEBUG("> MissionThread::run()::MISSION_FINISHED");
-        emit updateMissionListWidget("           MISSION FINISHED              ");
+        emit updateMissionListWidget("           MISSION FINISHED              "); 
         reInitMission();
+        emit sendStatusMission("FINISHED");
 
             break;
 
          case MISSION_ABORDED:
         DEBUG("> MissionThread::run()::MISSION_ABORDED");
-         emit updateMissionListWidget("           MISSION ABORDED!              ");
+        emit updateMissionListWidget("           MISSION ABORDED!              ");
         reInitMission();
+        emit sendStatusMission("ABORDED");
 
             break;
 

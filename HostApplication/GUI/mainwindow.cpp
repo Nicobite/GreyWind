@@ -242,6 +242,7 @@ void MainWindow::drawDetectedEllipse(Point center, Size size){
                 //enable buttons
                 m_detectionWindow.enable(true);
                 this->ui->theFrame->setHaltDraw(true);
+                ui->stateMission->setText("WAIT USER VALID");
             }
         }
     }
@@ -647,4 +648,8 @@ void MainWindow::reInitWidgetsMission(){
     ui->algDetectSelect->setCurrentIndex(0);
     ui->algTrackingSelect->setCurrentIndex(0);
     ui->objSourceMission->setText("");
+}
+
+void MainWindow::changeStatusMission(QString text){
+    ui->stateMission->setText(text);
 }

@@ -758,7 +758,7 @@ public:
         label_33->setGeometry(QRect(10, 20, 91, 17));
         stateMission = new QLineEdit(groupBox_8);
         stateMission->setObjectName(QStringLiteral("stateMission"));
-        stateMission->setGeometry(QRect(0, 40, 111, 30));
+        stateMission->setGeometry(QRect(0, 40, 131, 30));
         distanceDisplayMission = new QLCDNumber(groupBox_8);
         distanceDisplayMission->setObjectName(QStringLiteral("distanceDisplayMission"));
         distanceDisplayMission->setGeometry(QRect(150, 40, 101, 31));
@@ -904,6 +904,7 @@ public:
          << QApplication::translate("MainWindow", "<none>", 0)
          << QApplication::translate("MainWindow", "PatternMatching", 0)
          << QApplication::translate("MainWindow", "LucasKannade", 0)
+         << QApplication::translate("MainWindow", "DetectionAlgo", 0)
         );
         trackButton->setText(QApplication::translate("MainWindow", "Track", 0));
         label_34->setText(QApplication::translate("MainWindow", "State :", 0));
@@ -927,6 +928,7 @@ public:
          << QApplication::translate("MainWindow", "<none>", 0)
          << QApplication::translate("MainWindow", "PatternMatching", 0)
          << QApplication::translate("MainWindow", "LUCAS KANADE", 0)
+         << QApplication::translate("MainWindow", "DetectionAlgo", 0)
         );
         groupBox_8->setTitle(QApplication::translate("MainWindow", "Current State", 0));
         label_33->setText(QApplication::translate("MainWindow", "Info:", 0));

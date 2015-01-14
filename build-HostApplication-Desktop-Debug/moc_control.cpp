@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Control_t {
-    QByteArrayData data[38];
-    char stringdata[487];
+    QByteArrayData data[40];
+    char stringdata[529];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -47,41 +47,43 @@ QT_MOC_LITERAL(14, 137, 13),
 QT_MOC_LITERAL(15, 151, 9),
 QT_MOC_LITERAL(16, 161, 2),
 QT_MOC_LITERAL(17, 164, 13),
-QT_MOC_LITERAL(18, 178, 11),
-QT_MOC_LITERAL(19, 190, 17),
-QT_MOC_LITERAL(20, 208, 11),
-QT_MOC_LITERAL(21, 220, 3),
-QT_MOC_LITERAL(22, 224, 3),
-QT_MOC_LITERAL(23, 228, 20),
-QT_MOC_LITERAL(24, 249, 26),
-QT_MOC_LITERAL(25, 276, 4),
-QT_MOC_LITERAL(26, 281, 20),
-QT_MOC_LITERAL(27, 302, 17),
-QT_MOC_LITERAL(28, 320, 21),
-QT_MOC_LITERAL(29, 342, 27),
-QT_MOC_LITERAL(30, 370, 30),
-QT_MOC_LITERAL(31, 401, 13),
-QT_MOC_LITERAL(32, 415, 4),
-QT_MOC_LITERAL(33, 420, 3),
-QT_MOC_LITERAL(34, 424, 10),
-QT_MOC_LITERAL(35, 435, 10),
-QT_MOC_LITERAL(36, 446, 22),
-QT_MOC_LITERAL(37, 469, 16)
+QT_MOC_LITERAL(18, 178, 19),
+QT_MOC_LITERAL(19, 198, 11),
+QT_MOC_LITERAL(20, 210, 4),
+QT_MOC_LITERAL(21, 215, 21),
+QT_MOC_LITERAL(22, 237, 3),
+QT_MOC_LITERAL(23, 241, 11),
+QT_MOC_LITERAL(24, 253, 17),
+QT_MOC_LITERAL(25, 271, 3),
+QT_MOC_LITERAL(26, 275, 3),
+QT_MOC_LITERAL(27, 279, 20),
+QT_MOC_LITERAL(28, 300, 26),
+QT_MOC_LITERAL(29, 327, 4),
+QT_MOC_LITERAL(30, 332, 20),
+QT_MOC_LITERAL(31, 353, 17),
+QT_MOC_LITERAL(32, 371, 21),
+QT_MOC_LITERAL(33, 393, 27),
+QT_MOC_LITERAL(34, 421, 30),
+QT_MOC_LITERAL(35, 452, 13),
+QT_MOC_LITERAL(36, 466, 10),
+QT_MOC_LITERAL(37, 477, 10),
+QT_MOC_LITERAL(38, 488, 22),
+QT_MOC_LITERAL(39, 511, 16)
     },
     "Control\0sendFrameToDetect\0\0Mat\0frame\0"
     "sendDetectedObject\0Point\0point\0Size\0"
     "size\0sendConnectionStatus\0status\0"
     "sendSizeBlackList\0connectDrone\0"
     "handleNavdata\0navdata_t\0nd\0resetPosition\0"
-    "handleFrame\0changeVideoSource\0std::string\0"
-    "src\0err\0handleDetectedObject\0"
-    "handleDetectThreadMessages\0mess\0"
-    "addObjectToBlacklist\0clearAllBlackList\0"
+    "updateDetectionAlgo\0std::string\0algo\0"
+    "updateDetectionObject\0obj\0handleFrame\0"
+    "changeVideoSource\0src\0err\0"
+    "handleDetectedObject\0handleDetectThreadMessages\0"
+    "mess\0addObjectToBlacklist\0clearAllBlackList\0"
     "handleValidatedObject\0handleTrackerInitialisation\0"
     "handleCollimatorThreadMessages\0"
-    "addNewMission\0algo\0obj\0subMission\0"
-    "runMission\0disconnectSonarMission\0"
-    "collimatorDeinit\0"
+    "addNewMission\0subMission\0runMission\0"
+    "disconnectSonarMission\0collimatorDeinit\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -91,7 +93,7 @@ static const uint qt_meta_data_Control[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      22,   14, // methods
+      24,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -99,30 +101,32 @@ static const uint qt_meta_data_Control[] = {
        4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  124,    2, 0x06,
-       5,    2,  127,    2, 0x06,
-      10,    1,  132,    2, 0x06,
-      12,    1,  135,    2, 0x06,
+       1,    1,  134,    2, 0x06,
+       5,    2,  137,    2, 0x06,
+      10,    1,  142,    2, 0x06,
+      12,    1,  145,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-      13,    0,  138,    2, 0x0a,
-      14,    1,  139,    2, 0x0a,
-      17,    0,  142,    2, 0x0a,
-      18,    1,  143,    2, 0x0a,
-      19,    2,  146,    2, 0x0a,
-      19,    1,  151,    2, 0x2a,
-      23,    2,  154,    2, 0x0a,
-      24,    1,  159,    2, 0x0a,
-      26,    2,  162,    2, 0x0a,
-      27,    0,  167,    2, 0x0a,
-      28,    2,  168,    2, 0x0a,
-      29,    0,  173,    2, 0x0a,
-      30,    1,  174,    2, 0x0a,
-      31,    2,  177,    2, 0x0a,
-      34,    0,  182,    2, 0x0a,
-      35,    0,  183,    2, 0x0a,
-      36,    0,  184,    2, 0x0a,
-      37,    0,  185,    2, 0x0a,
+      13,    0,  148,    2, 0x0a,
+      14,    1,  149,    2, 0x0a,
+      17,    0,  152,    2, 0x0a,
+      18,    1,  153,    2, 0x0a,
+      21,    1,  156,    2, 0x0a,
+      23,    1,  159,    2, 0x0a,
+      24,    2,  162,    2, 0x0a,
+      24,    1,  167,    2, 0x2a,
+      27,    2,  170,    2, 0x0a,
+      28,    1,  175,    2, 0x0a,
+      30,    2,  178,    2, 0x0a,
+      31,    0,  183,    2, 0x0a,
+      32,    2,  184,    2, 0x0a,
+      33,    0,  189,    2, 0x0a,
+      34,    1,  190,    2, 0x0a,
+      35,    2,  193,    2, 0x0a,
+      36,    0,  198,    2, 0x0a,
+      37,    0,  199,    2, 0x0a,
+      38,    0,  200,    2, 0x0a,
+      39,    0,  201,    2, 0x0a,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -134,17 +138,19 @@ static const uint qt_meta_data_Control[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 15,   16,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 19,   20,
+    QMetaType::Void, 0x80000000 | 19,   22,
     QMetaType::Void, 0x80000000 | 3,    4,
-    QMetaType::Void, 0x80000000 | 20, QMetaType::Int,   21,   22,
-    QMetaType::Void, 0x80000000 | 20,   21,
+    QMetaType::Void, 0x80000000 | 19, QMetaType::Int,   25,   26,
+    QMetaType::Void, 0x80000000 | 19,   25,
     QMetaType::Void, 0x80000000 | 6, 0x80000000 | 8,    7,    9,
-    QMetaType::Void, 0x80000000 | 20,   25,
-    QMetaType::Void, 0x80000000 | 6, 0x80000000 | 8,    7,    9,
-    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 19,   29,
     QMetaType::Void, 0x80000000 | 6, 0x80000000 | 8,    7,    9,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 20,   25,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,   32,   33,
+    QMetaType::Void, 0x80000000 | 6, 0x80000000 | 8,    7,    9,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 19,   29,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,   20,   22,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -165,21 +171,23 @@ void Control::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 4: _t->connectDrone(); break;
         case 5: _t->handleNavdata((*reinterpret_cast< navdata_t(*)>(_a[1]))); break;
         case 6: _t->resetPosition(); break;
-        case 7: _t->handleFrame((*reinterpret_cast< Mat(*)>(_a[1]))); break;
-        case 8: _t->changeVideoSource((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 9: _t->changeVideoSource((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 10: _t->handleDetectedObject((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
-        case 11: _t->handleDetectThreadMessages((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 12: _t->addObjectToBlacklist((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
-        case 13: _t->clearAllBlackList(); break;
-        case 14: _t->handleValidatedObject((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
-        case 15: _t->handleTrackerInitialisation(); break;
-        case 16: _t->handleCollimatorThreadMessages((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 17: _t->addNewMission((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 18: _t->subMission(); break;
-        case 19: _t->runMission(); break;
-        case 20: _t->disconnectSonarMission(); break;
-        case 21: _t->collimatorDeinit(); break;
+        case 7: _t->updateDetectionAlgo((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 8: _t->updateDetectionObject((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 9: _t->handleFrame((*reinterpret_cast< Mat(*)>(_a[1]))); break;
+        case 10: _t->changeVideoSource((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 11: _t->changeVideoSource((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 12: _t->handleDetectedObject((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
+        case 13: _t->handleDetectThreadMessages((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 14: _t->addObjectToBlacklist((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
+        case 15: _t->clearAllBlackList(); break;
+        case 16: _t->handleValidatedObject((*reinterpret_cast< Point(*)>(_a[1])),(*reinterpret_cast< Size(*)>(_a[2]))); break;
+        case 17: _t->handleTrackerInitialisation(); break;
+        case 18: _t->handleCollimatorThreadMessages((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 19: _t->addNewMission((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 20: _t->subMission(); break;
+        case 21: _t->runMission(); break;
+        case 22: _t->disconnectSonarMission(); break;
+        case 23: _t->collimatorDeinit(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -237,13 +245,13 @@ int Control::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 22)
+        if (_id < 24)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 22;
+        _id -= 24;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 22)
+        if (_id < 24)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 22;
+        _id -= 24;
     }
     return _id;
 }

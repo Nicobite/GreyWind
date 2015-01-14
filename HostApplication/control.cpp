@@ -151,6 +151,8 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      &m_mainWindow,    SLOT(reInitWidgetsMission()));
     QObject::connect(m_missionThread,      SIGNAL(reInitObjectChoice()),
                      &m_mainWindow,    SLOT(emitObjectChoiceMission()));
+    QObject::connect(m_missionThread,      SIGNAL(sendStatusMission(QString)),
+                     &m_mainWindow,    SLOT(changeStatusMission(QString)));
 
 
     m_missionThread->start();
