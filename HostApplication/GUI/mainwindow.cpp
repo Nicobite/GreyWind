@@ -575,7 +575,7 @@ void MainWindow::startMission(){
     //emitVidSource("TCP");
     //emit vidSourceChanged("TCP");
 
-    ui->listWidget->addItem(QString("********** MISSION STARTED ************"));
+    //ui->listWidget->addItem(QString("********** MISSION STARTED ************"));
 
     emit startMissionSignal();
     emit missionStatusChanged();
@@ -628,8 +628,11 @@ void MainWindow::emitObjectChoiceMission()
         dispToCuteConsole(
             "[MainWindow] No object is to be detected!"
         );
+        ui->listWidget->addItem(QString("******               Object : none                *******"));
     }
+    else{
     ui->listWidget->addItem(QString("******               Object : ")+this->ui->objSourceMission->text()+QString("                  *******"));
+    }
     emit detectObjectChanged(this->ui->objSourceMission->text().toStdString());
     emit detectObjectMissionChoosen(this->ui->objSourceMission->text().toStdString());
     emit missionStatusChanged();
@@ -638,4 +641,10 @@ void MainWindow::emitObjectChoiceMission()
 
 void MainWindow::updateListWidget(QString text){
     ui->listWidget->addItem(QString("***** ")+text+QString(" *****"));
+}
+
+void MainWindow::reInitWidgetsMission(){
+    ui->algDetectSelect->setCurrentIndex(0);
+    ui->algTrackingSelect->setCurrentIndex(0);
+    ui->objSourceMission->setText("");
 }

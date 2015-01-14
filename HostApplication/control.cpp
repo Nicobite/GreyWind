@@ -134,6 +134,9 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      &m_mainWindow,    SLOT(skip5Detections()));
     QObject::connect(m_missionThread,     SIGNAL(missionStatusChanged()),
                      this,    SLOT(runMission()));
+    QObject::connect(m_missionThread,     SIGNAL(reInitTracking()),
+                     this,    SLOT(collimatorDeinit()));
+
     QObject::connect(m_missionThread,     SIGNAL(updateMissionListWidget(QString)),
                      &m_mainWindow,    SLOT(updateListWidget(QString)));
     QObject::connect(m_missionThread,     SIGNAL(sendStartTracking()),
@@ -142,6 +145,12 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      &m_mainWindow,    SLOT(emitTrackerChoice(QString)));
     QObject::connect(m_missionThread,      SIGNAL(makeOneMeasure()),
                      &m_mainWindow,                SLOT(emitSonarRequest()));
+    QObject::connect(m_missionThread,      SIGNAL(currentIndexChanged(QString)),
+                     &m_mainWindow,    SLOT(emitAlgoDetectionMissionChoice(QString)));
+    QObject::connect(m_missionThread,      SIGNAL(reInitWidgets()),
+                     &m_mainWindow,    SLOT(reInitWidgetsMission()));
+    QObject::connect(m_missionThread,      SIGNAL(reInitObjectChoice()),
+                     &m_mainWindow,    SLOT(emitObjectChoiceMission()));
 
 
     m_missionThread->start();
@@ -271,6 +280,11 @@ void Control::clearAllBlackList()
     m_videoDestination = 1;
     m_objDetected = false;
 
+    m_collimator.deinit();
+}
+
+void Control::collimatorDeinit()
+{
     m_collimator.deinit();
 }
 

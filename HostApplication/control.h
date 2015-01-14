@@ -103,6 +103,7 @@ public slots:
     void subMission();
     void runMission();
     void disconnectSonarMission();
+    void collimatorDeinit();
 };
 
 #endif // CONTROL_H

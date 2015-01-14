@@ -54,6 +54,9 @@ private:
     std::string m_currentTag;
     QPen m_pen;
 
+private slots:
+
+
 };
 
 #endif // VIDEOVIEW_H
