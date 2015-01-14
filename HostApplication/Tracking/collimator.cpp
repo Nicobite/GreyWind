@@ -152,11 +152,12 @@ void Collimator::getLaserPosition(Mat frame, bool &visible, Point &point, Size &
 
     if( (m_laser_detector.getR() >= 3) &&
         (m_laser_detector.getX() >= 50) && (m_laser_detector.getX() <= (640-50)) &&
-        (m_laser_detector.getY() >= 28) && (m_laser_detector.getY() <= (360-28))){
+        (m_laser_detector.getY() >= 28) && (m_laser_detector.getY() <= (360-28)) && (m_laser_detector.getR()<=50)){
         visible = true;
         point.x = m_laser_detector.getX();
         point.y = m_laser_detector.getY();
         size.width = m_laser_detector.getR();
+        size.height=m_laser_detector.getR();
 
     } else{
         visible = false;

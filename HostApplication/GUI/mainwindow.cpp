@@ -571,7 +571,10 @@ void MainWindow::stopMission(){
 void MainWindow::startMission(){
 
     // Local for testing the behaviour but will be the entire function
-    emitVidSource("Local");
+    //emitVidSource("Local");
+    //emitVidSource("TCP");
+    //emit vidSourceChanged("TCP");
+
     ui->listWidget->addItem(QString("********** MISSION STARTED ************"));
 
     emit startMissionSignal();
