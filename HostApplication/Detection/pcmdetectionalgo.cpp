@@ -77,7 +77,8 @@ void PCMDetectionAlgo::detect(Mat &frame){
             found = true;
             //rectangle( frame, match_pos, Point( match_pos.x + size.width , match_pos.y + size.height), Scalar(0,255,0), 2, 8, 0 );
             m_lastGoodPattern = iter;
-            m_point = Point(0.5*match_pos.x+0.5*position_contour.x+0.5*size.width, 0.5*match_pos.y+0.5*position_contour.y+0.5*size.height);
+            //m_point = Point(0.5*match_pos.x+0.5*position_contour.x+0.5*size.width, 0.5*match_pos.y+0.5*position_contour.y+0.5*size.height);
+            m_point = Point(match_pos.x+0.5*size.width, match_pos.y+0.5*size.height);
             m_size = Size(size.width/2 , size.height/2);
             //emit detectedObject(Point(match_pos.x+0.5*size.width, match_pos.y+0.5*size.height), Size(size.width/2 , size.height/2));
             emit detectedObject(m_point, m_size);
@@ -143,7 +144,7 @@ Rect PCMDetectionAlgo::getAverageShapeSize(Mat& frame, vector<Point>& contour_te
 
     cvtColor(frame, im_gray, COLOR_BGR2GRAY);
     blur( im_gray, im_gray, Size(3,3) );
-    Canny(im_gray, im_edges, 35, 3*35, 3);
+    Canny(im_gray, im_edges, 35,3*25, 3);
     blur( im_edges, im_edges, Size(3,3) );
     threshold(im_edges, im_edges, 35, 255, THRESH_BINARY_INV);
     GaussianBlur( im_edges, im_edges, Size(7,7), 3);
