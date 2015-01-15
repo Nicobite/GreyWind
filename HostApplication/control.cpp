@@ -292,7 +292,8 @@ void Control::collimatorDeinit()
 
 void Control::handleNavdata(navdata_t nd){
     m_locfunc.updatePosition(nd.vx, nd.vy, nd.yaw);
-    m_mainWindow.updateLocationView(m_locfunc.get_x(), m_locfunc.get_y(), nd.altitude, nd.yaw);
+    m_locfunc.updateAltitude(nd.altitude);
+    m_mainWindow.updateLocationView(m_locfunc.get_x(), m_locfunc.get_y(), m_locfunc.get_z(), m_locfunc.get_yaw());
 }
 
 void Control::resetPosition(){
@@ -420,4 +421,13 @@ void Control::disconnectSonarMission(){
     QObject::disconnect(this->m_interface->get_sensor_thread(),    SIGNAL(newSonarData(int)),
                      &m_mainWindow,                             SLOT(updateSonarViewMission(int)));
 
+}
+
+void Control::handleLocalizedObject(std::string obj, double dist){
+    m_localizedObjectName.push(obj);
+
+    struct square_coord coord = LocalizationFunctions::straightFwdXYZ(m_locfunc.get_z(), dist, m_locfunc.get_yaw());
+    coord.x += m_locfunc.get_x();
+    coord.y += m_locfunc.get_y();
+    m_localizedObjectPos.push(coord);
 }

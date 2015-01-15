@@ -10,7 +10,8 @@ MissionThread::MissionThread(QObject *parent) :
     trackingAlgo="none";
     objectToDetect="none";
     trackStatus="none";
-
+    m_gotNewSonarData=false;
+    m_latestSonarData=0;
 }
 
 
@@ -75,6 +76,7 @@ void MissionThread::run(){
             // The user valids the detection
             mission_status=TRACKING;
             // The algorithm choosen for tracking is implemented
+            emit setLaserState(Qt::Checked);
             emit sendTrackAlgoChoosen(trackingAlgo);
             /*
              * We dont run again the thread here because a runMission
@@ -108,9 +110,21 @@ void MissionThread::run(){
         {
             emit sendStatusMission("MEASUREMENT");
             // Make the measure
-            emit makeOneMeasure();
+            //emit makeOneMeasure();
+
+            //Serdar: mean-filtered measurement
+            double dist = filteredMeasurement();
+            char mess[30];
+            sprintf(mess, "Distance: %f", dist);
+            emit sendStatusMission(mess);
+
+            //Serdar: sending localized objects to Control
+            sendLocalizedObject(objectToDetect, dist);
+            //fin Serdar
+
             mission_status=MISSION_FINISHED;
             emit missionStatusChanged();
+            emit setLaserState(Qt::Unchecked);
         }
 
             break;
@@ -177,6 +191,11 @@ void MissionThread::updateTrackStatus(std::string st)
    }
 }
 
+void MissionThread::acquireSonarData(int distance){
+    m_latestSonarData=distance;
+    m_gotNewSonarData=true;
+}
+
 void MissionThread::reInitMission()
 {
     mission_status=MISSION_NOT_STARTED;
@@ -194,4 +213,15 @@ void MissionThread::reInitMission()
     emit missionStatusChanged();
 }
 
-
+double MissionThread::filteredMeasurement(){
+    double res = 0.0;
+    for(int i=0; i<10; i++){
+        emit makeOneMeasure();
+        while(!m_gotNewSonarData);
+        m_gotNewSonarData = false;
+        res += m_latestSonarData;
+        usleep(10000);
+    }
+    res /= 10;
+    return res;
+}

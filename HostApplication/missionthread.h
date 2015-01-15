@@ -25,6 +25,7 @@ public:
     explicit MissionThread(QObject *parent = 0);
     ~MissionThread();
 
+private:
     MissionStatus mission_status;
     string detectionAlgo;
     QString trackingAlgo;
@@ -33,13 +34,14 @@ public:
     bool detectionIsValid;
     string trackStatus;
 
+    bool m_gotNewSonarData;
+    int  m_latestSonarData;
 
-
-private:
 
     void run();
 
     void reInitMission();
+    double filteredMeasurement();
 
 signals:
 
@@ -49,12 +51,14 @@ signals:
     void updateMissionListWidget(QString);
     void sendStartTracking();
     void sendTrackAlgoChoosen(QString);
+    void setLaserState(int);
     void makeOneMeasure();
     void reInitDetection(std::string);
     void reInitTracking();
     void reInitWidgets();
     void reInitObjectChoice();
     void sendStatusMission(QString);
+    void sendLocalizedObject(std::string, double);
 
 
 public slots:
@@ -65,6 +69,7 @@ public slots:
     void objectToDetectChoosen(std::string objectname);
     void userDetectionValidation(bool res);
     void updateTrackStatus(std::string st);
+    void acquireSonarData(int distance);
 
 
 

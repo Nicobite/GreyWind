@@ -64,13 +64,15 @@ public slots:
     void updateSonarView(int distance);
     void updateTrackState(std::string state);
 
+    void emitLaserState(int state);
+    void emitSonarRequest();
+
 private slots:
     void emitVidSource(const QString& text);
     void emitFramesB4Detect(double fbd);
     void emitRstPosButton();
     void emitConnectButton();
-    void emitLaserState(int state);
-    void emitSonarRequest();
+
     void displayHelp();
     void display3D();
 

@@ -44,7 +44,7 @@ int LocalizationFunctions::diffCommand(QPoint pixel){
 }
 
 void LocalizationFunctions::updatePosition(float vx, float vy, float yaw){
-
+    m_yaw = yaw;
 #define ROUND_FACTOR 1
     //Deg to radians
     yaw = yaw*M_PI/180;
@@ -62,6 +62,10 @@ void LocalizationFunctions::updatePosition(float vx, float vy, float yaw){
     m_py_prv = m_py;
     m_vx_prv = m_vx;
     m_vy_prv = m_vy;
+}
+
+void LocalizationFunctions::updateAltitude(float altitude){
+    m_pz = altitude;
 }
 
 
@@ -83,4 +87,12 @@ float LocalizationFunctions::get_x(){
 
 float LocalizationFunctions::get_y(){
     return m_py;
+}
+
+float LocalizationFunctions::get_z(){
+    return m_pz;
+}
+
+float LocalizationFunctions::get_yaw(){
+    return m_yaw;
 }

@@ -7,6 +7,7 @@
 #include <QGridLayout>
 #include <QThread>
 
+#include "includes.h"
 #include "GUI/mainwindow.h"
 #include "GUI/help.h"
 #include "Drone_Interface/droneinterface.h"
@@ -71,6 +72,9 @@ private:
     std::queue<Point> m_blackListCenterFIFO;
     std::queue<Size> m_blackListSizeFIFO;
 
+    std::queue<std::string> m_localizedObjectName;
+    std::queue<struct square_coord> m_localizedObjectPos;
+
 signals:
     void sendFrameToDetect(Mat frame);
     void sendDetectedObject(Point point, Size size);
@@ -104,6 +108,7 @@ public slots:
     void runMission();
     void disconnectSonarMission();
     void collimatorDeinit();
+    void handleLocalizedObject(std::string obj, double dist);
 };
 
 #endif // CONTROL_H
