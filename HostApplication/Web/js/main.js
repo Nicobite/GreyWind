@@ -46,9 +46,22 @@ function init() {
 	object.add( drawCube(0,0,0,0xf55000) );
 	object.add( drawRoom() );
 	
+	/* The tricky part */
+	cppCom.intToJS.connect(myInterestingScriptFunction);
+	
+	
+	
 	//object.add( drawCube(500,0,0,0x000000) );
 	//object.add( drawCube(0,500,0,0x55f000) );
 	//object.add( drawCube(0,0,-500,0xf55000) );
+}
+
+/**
+
+*/
+function myInterestingScriptFunction(i){
+	object.add( drawCube(i,0,0,0x000000) );
+	alert('TEST');
 }
 
 /**

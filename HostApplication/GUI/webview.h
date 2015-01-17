@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::WebView *ui;
-};
 
+signals:
+    void intToJS(int i);
+
+public slots:
+    void updateView();
+
+};
 #endif // WEBVIEW_H
