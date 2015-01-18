@@ -24,6 +24,10 @@ WebView::~WebView()
 }
 
 void WebView::updateView(){
-    emit intToJS(300);
+    emit objToJS("f",100,100,100);
     DEBUG("After WebView emit");
+}
+
+void WebView::reloadPage(){
+    ui->widget->reload();
 }

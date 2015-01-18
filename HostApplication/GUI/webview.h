@@ -19,10 +19,11 @@ private:
     Ui::WebView *ui;
 
 signals:
-    void intToJS(int i);
+    void objToJS(QString type, int x, int y, int z);
 
 public slots:
     void updateView();
+    void reloadPage();
 
 };
 #endif // WEBVIEW_H
