@@ -83,8 +83,6 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,              SLOT(emitTakePicture()));
 
 
-    //m_3DWindow.drawPyramid();
-
     /*################*/
     /* Mission Window */
     /*################*/

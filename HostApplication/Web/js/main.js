@@ -12,7 +12,7 @@ var initX, initY;
 var diffX, diffY;
 var controls;
 
-var ROOMSIZE_X = 550;
+var ROOMSIZE_X = 800;
 var ROOMSIZE_Y = 800;
 var ROOMFLOOR = -200;
 
@@ -61,9 +61,21 @@ function init() {
 */
 function cppSlot(type,x,y,z){
 	var typeColor;
-	if(type="f"){
-		typeColor = 0xf55000;
+	
+	switch(type) {
+		case "f":
+		    typeColor = "rgb(255,120,120)";
+		    break;
+		case "p":
+		    typeColor = "rgb(100,225,225)";
+		    break;
+		case "b":
+		    typeColor = "rgb(255,240,55)";
+		    break;
+		default:
+		    typeColor = "rgb(150,150,150)";
 	}
+
 	object.add( drawCube(x,y,z,typeColor) );
 }
 
@@ -95,8 +107,11 @@ function drawRoom(){
 	geometry2.vertices.push(v3);
 	geometry2.vertices.push(v4);
 	geometry2.vertices.push(v1);
+	geometry2.vertices.push(v3);
+	geometry2.vertices.push(v2);
+	geometry2.vertices.push(v4);
 	// Creating material
-	var material2 = new THREE.LineBasicMaterial({color: 0x000000,linewidth: 2});
+	var material2 = new THREE.LineBasicMaterial({color: 0x000000,linewidth: 1});
 	var line = new THREE.Line(geometry2, material2);
 	line.position.x = 0;
 	line.position.y = 0;
@@ -110,7 +125,7 @@ function drawOrigin(){
 	var v2 = new THREE.Vector3(0,0,	-2*ROOMFLOOR);
 	geometry.vertices.push(v1);
 	geometry.vertices.push(v2);
-	var material = new THREE.LineBasicMaterial({color: 0x111000,linewidth: 1});
+	var material = new THREE.LineBasicMaterial({color: "rgb(50,50,50)",linewidth: 1});
 	var line = new THREE.Line(geometry, material);
 	line.position.x = 0;
 	line.position.y = 0;

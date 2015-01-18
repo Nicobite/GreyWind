@@ -18,16 +18,14 @@ WebView::WebView(QWidget *parent) :
 
 }
 
-WebView::~WebView()
-{
+WebView::~WebView(){
     delete ui;
 }
 
 void WebView::updateView(){
-    emit objToJS("f",100,100,100);
-    DEBUG("After WebView emit");
+    emit objToJS("b",100,100,0);
 }
 
 void WebView::reloadPage(){
-    ui->widget->reload();
+    ui->widget->reload(); //TODO This puts the JS in an error state for some reason
 }
