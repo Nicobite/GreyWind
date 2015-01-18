@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui opengl
+QT += core gui
 QT += webkitwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -32,14 +32,12 @@ SOURCES += main.cpp\
     GUI/painterthread.cpp \
     Detection/detectthread.cpp \
     localizationfunctions.cpp \
-    GUI/threedview.cpp \
     Tracking/trackingalgo.cpp \
     Tracking/pmtrackingalgo.cpp \
     GUI/detection.cpp \
     Detection/pcmdetectionalgo.cpp \
     GUI/helpdetect.cpp \
     Tracking/collimator.cpp \
-    GUI/glwidget.cpp \
     GUI/webview.cpp \
     missionthread.cpp \
     Tracking/detectiontrackingalgo.cpp
@@ -67,14 +65,12 @@ HEADERS  += Detection/laserdetect.hpp \
     GUI/painterthread.h \
     Detection/detectthread.h \
     localizationfunctions.h \
-    GUI/threedview.h \
     Tracking/trackingalgo.h \
     Tracking/pmtrackingalgo.h \
     GUI/detection.h \
     Detection/pcmdetectionalgo.h \
     GUI/helpdetect.h \
     Tracking/collimator.h \
-    GUI/glwidget.h \
     GUI/webview.h \
     missionthread.h \
     Tracking/detectiontrackingalgo.h
@@ -82,7 +78,6 @@ HEADERS  += Detection/laserdetect.hpp \
 FORMS    += GUI/help.ui \
     GUI/mainwindow.ui \
     GUI/videoview.ui \
-    GUI/threedview.ui \
     GUI/detection.ui \
     GUI/helpdetect.ui \
     GUI/webview.ui
