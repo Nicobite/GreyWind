@@ -40,7 +40,6 @@ private:
     bool m_connected;
     Help m_helpWindow;
     HelpDetect m_helpDetectWindow;
-    //ThreeDView m_3DWindow;
     WebView m_3DWindow;
     Detection m_detectionWindow;
     Size m_size; // Get from Control class
@@ -146,6 +145,8 @@ signals:
     void sendUserResponseDetection(bool res);
     void sendTrackStatus(std::string st);
     void disconnectSonarViewMission();
+
+    void to3DView(QString name, int x, int y, int z);
 };
 
 #endif // MAINWINDOW_H

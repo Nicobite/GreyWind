@@ -28,6 +28,7 @@ signals:
 
 public slots:
     void updateView();
+    void addObjToView(QString type, int x, int y, int z);
     void reloadPage();
 
 };
