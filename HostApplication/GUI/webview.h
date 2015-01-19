@@ -17,6 +17,18 @@ public:
 
 private:
     Ui::WebView *ui;
-};
 
+signals:
+    /*
+     * f    face        rose
+     * p    pyramid     cyan
+     * b    banana      yellow
+     */
+    void objToJS(QString type, int x, int y, int z);
+
+public slots:
+    void updateView();
+    void reloadPage();
+
+};
 #endif // WEBVIEW_H

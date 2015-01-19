@@ -11,7 +11,6 @@
 #include "Drone_Interface/droneinterface.h"
 #include "GUI/help.h"
 #include "GUI/helpdetect.h"
-#include "GUI/threedview.h"
 #include "GUI/webview.h"
 #include "GUI/detection.h"
 

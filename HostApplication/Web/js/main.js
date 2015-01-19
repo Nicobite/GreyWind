@@ -12,7 +12,7 @@ var initX, initY;
 var diffX, diffY;
 var controls;
 
-var ROOMSIZE_X = 550;
+var ROOMSIZE_X = 800;
 var ROOMSIZE_Y = 800;
 var ROOMFLOOR = -200;
 
@@ -43,8 +43,13 @@ function init() {
 	renderer.setSize( window.innerWidth * FACTOR, window.innerHeight * FACTOR );
 	document.body.appendChild( renderer.domElement );
 	
-	object.add( drawCube(0,0,0,0xf55000) );
+	object.add( drawOrigin() );
 	object.add( drawRoom() );
+	
+	/* The tricky part */
+	cppCom.objToJS.connect(cppSlot);
+	
+	
 	
 	//object.add( drawCube(500,0,0,0x000000) );
 	//object.add( drawCube(0,500,0,0x55f000) );
@@ -52,10 +57,33 @@ function init() {
 }
 
 /**
+
+*/
+function cppSlot(type,x,y,z){
+	var typeColor;
+	
+	switch(type) {
+		case "f":
+		    typeColor = "rgb(255,120,120)";
+		    break;
+		case "p":
+		    typeColor = "rgb(100,225,225)";
+		    break;
+		case "b":
+		    typeColor = "rgb(255,240,55)";
+		    break;
+		default:
+		    typeColor = "rgb(150,150,150)";
+	}
+
+	object.add( drawCube(x,y,z,typeColor) );
+}
+
+/**
 	Draws a cube
 */
 function drawCube(x,y,z,color1){
-	var geometry2 = new THREE.BoxGeometry( 180, 180, 180 );
+	var geometry2 = new THREE.BoxGeometry( 60, 60, 60 );
 	var material2 = new THREE.MeshBasicMaterial( { color: color1, wireframe: false } );
 	var mesh2 = new THREE.Mesh( geometry2, material2 );
 	mesh2.position.x = x;
@@ -68,7 +96,6 @@ function drawCube(x,y,z,color1){
 	Draws the simplest representation of a room
 */
 function drawRoom(){
-	// Creating a geometry around the origin
 	var geometry2 = new THREE.Geometry();
 	// Four vertices as the angles of the room
 	var v1 = new THREE.Vector3(ROOMSIZE_X	,	 ROOMSIZE_Y	,	ROOMFLOOR);
@@ -80,12 +107,29 @@ function drawRoom(){
 	geometry2.vertices.push(v3);
 	geometry2.vertices.push(v4);
 	geometry2.vertices.push(v1);
+	geometry2.vertices.push(v3);
+	geometry2.vertices.push(v2);
+	geometry2.vertices.push(v4);
 	// Creating material
-	var material2 = new THREE.LineBasicMaterial({color: 0x000000,linewidth: 3});
+	var material2 = new THREE.LineBasicMaterial({color: 0x000000,linewidth: 1});
 	var line = new THREE.Line(geometry2, material2);
 	line.position.x = 0;
 	line.position.y = 0;
 	line.position.z = ROOMFLOOR;
+	return line;
+}
+
+function drawOrigin(){
+	var geometry = new THREE.Geometry();
+	var v1 = new THREE.Vector3(0,0,	+2*ROOMFLOOR);
+	var v2 = new THREE.Vector3(0,0,	-2*ROOMFLOOR);
+	geometry.vertices.push(v1);
+	geometry.vertices.push(v2);
+	var material = new THREE.LineBasicMaterial({color: "rgb(50,50,50)",linewidth: 1});
+	var line = new THREE.Line(geometry, material);
+	line.position.x = 0;
+	line.position.y = 0;
+	line.position.z = 0;
 	return line;
 }
 
