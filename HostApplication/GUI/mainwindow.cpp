@@ -78,7 +78,6 @@ MainWindow::MainWindow(QWidget *parent) :
     m_haltDetection = false;
     m_skipValue = 0;
 
-
     QObject::connect(ui->savePicButton, SIGNAL(clicked()),
                      this,              SLOT(emitTakePicture()));
 
@@ -91,18 +90,24 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->subAlgoObject, SIGNAL(clicked()),
                      this,              SLOT(subAlgoObject()));
 
-    QObject::connect(ui->algDetectSelect, SIGNAL(currentIndexChanged(QString)),
+    /*QObject::connect(ui->algDetectSelect, SIGNAL(currentIndexChanged(QString)),
                      this,          SLOT(emitAlgoDetectionMissionChoice(QString)));
     QObject::connect(ui->algTrackingSelect, SIGNAL(currentIndexChanged(QString)),
                      this,          SLOT(emitAlgoTrackingMissionChoice(QString)));
-
+    QObject::connect(ui->addAlgoObject,  SIGNAL(clicked()),
+                     this,             SLOT(emitObjectChoiceMission()));
+*/
     QObject::connect(ui->abortMission, SIGNAL(clicked()),
                      this,             SLOT(stopMission()));
     QObject::connect(ui->startMission, SIGNAL(clicked()),
                      this,              SLOT(startMission()));
 
-    QObject::connect(ui->addAlgoObject,  SIGNAL(clicked()),
-                     this,             SLOT(emitObjectChoiceMission()));
+
+    ui->listWidget->addItem(QString("|  Object  |  D.Algo  |  T.Algo  | Distance |  Angle   |"));
+    ui->listWidget->addItem(QString("|----------|----------|----------|----------|----------|"));
+    m_current_objective = 0;
+    m_isLocalized = false;
+
 }
 
 MainWindow::~MainWindow(){
@@ -514,18 +519,32 @@ void MainWindow::updateSizeBlackList(int size)
 /*################*/
 
 void MainWindow::addAlgoObject(){
-    if (ui->listWidget->count() == 0){
-        //ui->listWidget->addItem(QString("**Algo****||****Objet****"));
-    }
+    //ui->listWidget->addItem(QString("|  Object  |  D.Algo  |  T.Algo  | Distance |  Angle   |"));
+    //ui->listWidget->addItem(QString("|----------|----------|----------|----------|----------|"));
 
-    if(m_algochoosen == "<none>"){
-        this->dispToCuteConsole("[Mission]No algorithm is actived. Nothing to do");
+    if(ui->algDetectSelect->currentText() == "<none>"){
+        this->dispToCuteConsole("[Mission]No detection algorithm is selected. Nothing to do");
     }else if (ui->objSourceMission->text().isEmpty()){
-            this->dispToCuteConsole("[Mission]No object is selected. Nothing to do");
+        this->dispToCuteConsole("[Mission]No object is selected. Nothing to do");
+    }else if (ui->algTrackingSelect->currentText() == "<none>"){
+        this->dispToCuteConsole("[Mission]No tracking algorithm  is selected. Nothing to do");
     }
     else{
-        //ui->listWidget->addItem(QString("**")+m_algochoosen+QString("****||****")+ui->objSourceMission->text());
+        QString objectname = ui->objSourceMission->text();
+        QString detectAlgoname = ui->algDetectSelect->currentText();
+        QString trackAlgoname = ui->algTrackingSelect->currentText();
+        objectname.truncate(10);
+        detectAlgoname.truncate(10);
+        trackAlgoname.truncate(10);
+        QString listItem;
+        listItem = "|"+ objectname + QString(10-objectname.size(), ' ') +
+                   "|"+ detectAlgoname + QString(10-detectAlgoname.size(), ' ') +
+                   "|"+ trackAlgoname + QString(10-trackAlgoname.size(), ' ') +
+                   "|"+ QString(10, 'x') + "|" + QString(10, 'x') + "|";
+        ui->listWidget->addItem(listItem);
+        ui->listWidget->addItem(QString("|----------|----------|----------|----------|----------|"));
     }
+
      //emit newMissionObject(m_algochoosen, ui->objSource_2->text());
 }
 
@@ -536,25 +555,11 @@ void MainWindow::subAlgoObject(){
     bool algo_ok;
     int sizeList = ui->listWidget->count();
     int sizeItem;
-    if (ui->listWidget->count() == 0){
+    if (ui->listWidget->count() <= 2){
         this->dispToCuteConsole("[Mission] No mission selected.");
     }else{
-        sizeItem = ui->listWidget->item(sizeList-1)->text().size();
-        for (int i = 0; i < sizeItem;i++){
-            if ((ui->listWidget->item(sizeList-1)->text()[i]!='*')&&
-                (ui->listWidget->item(sizeList-1)->text()[i]!='|')){
-                txt += ui->listWidget->item(sizeList-1)->text()[i];
-            }
-            if ((ui->listWidget->item(sizeList-1)->text()[i]=='|')&&(algo_ok == false)){
-                algo = txt;
-                txt = QString("");
-                algo_ok = true;
-            }
-            if (algo_ok){
-                obj = txt;
-            }
-        }
         ui->listWidget->takeItem(sizeList-1);
+        ui->listWidget->takeItem(sizeList-2);
     }
 }
 
@@ -568,18 +573,109 @@ void MainWindow::stopMission(){
 }
 
 void MainWindow::startMission(){
+    this->dispToCuteConsole("[Mission] Count:"+QString::number(ui->listWidget->count()));
 
-    // Local for testing the behaviour but will be the entire function
-    //emitVidSource("Local");
-    //emitVidSource("TCP");
-    //emit vidSourceChanged("TCP");
+    if (ui->listWidget->count()-2*m_current_objective > 2){
+        this->ui->addAlgoObject->setEnabled(false);
+        this->ui->subAlgoObject->setEnabled(false);
+        this->ui->startMission->setEnabled(false);
 
-    //ui->listWidget->addItem(QString("********** MISSION STARTED ************"));
+        QString objective = ui->listWidget->item(2+2*m_current_objective)->text();
 
-    emit startMissionSignal();
-    emit missionStatusChanged();
+        QString objectname = objective.mid(1,10).remove(QChar(' '), Qt::CaseInsensitive);
+        QString detectAlgoname = objective.mid(12,10).remove(QChar(' '), Qt::CaseInsensitive);
+        QString trackAlgoname = objective.mid(23,10).remove(QChar(' '), Qt::CaseInsensitive);;
+        this->dispToCuteConsole("[Mission] Objective : "+objectname+detectAlgoname+trackAlgoname);
+
+        emit detectObjectMissionChoosen(objectname.toStdString());
+        emit detectionAlgoMissionChoosen(detectAlgoname.toStdString());
+        emit trackingAlgoMissionChoosen(trackAlgoname);
+
+        emit detectAlgoChanged(detectAlgoname.toStdString());
+        emit detectObjectChanged(objectname.toStdString());
+        emit startMissionSignal();
+        emit missionStatusChanged();
+    }
 }
 
+
+void MainWindow::reInitWidgetsMission(){
+    ui->algDetectSelect->setCurrentIndex(0);
+    ui->algTrackingSelect->setCurrentIndex(0);
+    ui->objSourceMission->setText("");
+
+
+}
+
+void MainWindow::changeStatusMission(QString text){
+    ui->stateMission->setText(text);
+
+    if(text == "ABORTED" || text=="FINISHED"){
+
+        QString objective = ui->listWidget->item(2+2*m_current_objective)->text();
+        QString distanceInfo = objective.mid(34,10);
+        QString angleInfo = objective.mid(45,10);
+
+        if(text=="FINISHED"){
+            while(!m_isLocalized);
+            m_isLocalized = false;
+            if(m_locDistance < 0.0){
+                distanceInfo = "no sensor";
+                angleInfo = "no sensor";
+            } else{
+                distanceInfo = QString::number(m_locDistance);
+                angleInfo == QString::number(m_locAngle);
+                distanceInfo.truncate(10);
+                angleInfo.truncate(10);
+            }
+        } else{
+            distanceInfo = "aborted";
+            angleInfo = "aborted";
+        }
+        QString newinfo = objective.mid(0,34)+distanceInfo+QString(10-distanceInfo.size(), ' ') +
+                         "|"+ angleInfo + QString(10-angleInfo.size(), ' ')+"|";
+        ui->listWidget->item(2+2*m_current_objective)->setText(newinfo);
+
+        this->clearBlackList();
+
+        m_current_objective++;
+
+        if (ui->listWidget->count()-2*m_current_objective > 2){
+            this->ui->addAlgoObject->setEnabled(false);
+            this->ui->subAlgoObject->setEnabled(false);
+
+            QString objective = ui->listWidget->item(2+2*m_current_objective)->text();
+            QString objectname = objective.mid(1,10);
+            QString detectAlgoname = objective.mid(12,10);
+            QString trackAlgoname = objective.mid(23,10);
+
+            emit detectObjectMissionChoosen(objectname.toStdString());
+            emit detectionAlgoMissionChoosen(detectAlgoname.toStdString());
+            emit trackingAlgoMissionChoosen(trackAlgoname);
+
+            emit detectAlgoChanged(detectAlgoname.toStdString());
+            emit detectObjectChanged(objectname.toStdString());
+            emit startMissionSignal();
+            emit missionStatusChanged();
+        } else{
+            this->ui->addAlgoObject->setEnabled(true);
+            this->ui->subAlgoObject->setEnabled(true);
+            this->ui->startMission->setEnabled(true);
+
+            m_current_objective = 0;
+        }
+    }
+}
+
+
+void MainWindow::updateLocalizedObjectInfo(double dist, double angle){
+    m_isLocalized = true;
+    m_locDistance = dist;
+    m_locAngle = angle;
+}
+
+
+/*
 void MainWindow::emitAlgoDetectionMissionChoice(const QString& text){
     dispToCuteConsole(
         "[MainWindow] Detection algorithm for mission is changed to "+text+"!"
@@ -639,15 +735,6 @@ void MainWindow::emitObjectChoiceMission()
 }
 
 void MainWindow::updateListWidget(QString text){
-    ui->listWidget->addItem(QString("***** ")+text+QString(" *****"));
+    //ui->listWidget->addItem(QString("***** ")+text+QString(" *****"));
 }
-
-void MainWindow::reInitWidgetsMission(){
-    ui->algDetectSelect->setCurrentIndex(0);
-    ui->algTrackingSelect->setCurrentIndex(0);
-    ui->objSourceMission->setText("");
-}
-
-void MainWindow::changeStatusMission(QString text){
-    ui->stateMission->setText(text);
-}
+*/

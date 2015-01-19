@@ -37,7 +37,7 @@ void MissionThread::run(){
             if (startMissionOrder==true)
             {
                 // We start the mission
-                emit updateMissionListWidget("           MISSION STARTED              ");
+                emit sigMessageToConsole("Mission has started.");
                 mission_status=DETECTION;
                 emit missionStatusChanged();
                 startMissionOrder=false; // in case of mission aborded
@@ -131,7 +131,7 @@ void MissionThread::run(){
 
         case MISSION_FINISHED:
         DEBUG("> MissionThread::run()::MISSION_FINISHED");
-        emit updateMissionListWidget("           MISSION FINISHED              "); 
+        emit sigMessageToConsole("Mission is completed.");
         reInitMission();
         emit sendStatusMission("FINISHED");
 
@@ -139,9 +139,9 @@ void MissionThread::run(){
 
          case MISSION_ABORDED:
         DEBUG("> MissionThread::run()::MISSION_ABORDED");
-        emit updateMissionListWidget("           MISSION ABORDED!              ");
+        emit sigMessageToConsole("Mission is aborted.");
         reInitMission();
-        emit sendStatusMission("ABORDED");
+        emit sendStatusMission("ABORTED");
 
             break;
 
@@ -217,10 +217,18 @@ double MissionThread::filteredMeasurement(){
     double res = 0.0;
     for(int i=0; i<10; i++){
         emit makeOneMeasure();
-        while(!m_gotNewSonarData);
-        m_gotNewSonarData = false;
-        res += m_latestSonarData;
-        usleep(100000);
+        int  j = 0;
+        while(!m_gotNewSonarData && j<100000){
+            j++;
+        }
+        if(j<100000){
+            m_gotNewSonarData = false;
+            res += m_latestSonarData;
+            usleep(100000);
+        } else{
+            res = -10;
+            break;
+        }
     }
     res /= 10;
     return res;

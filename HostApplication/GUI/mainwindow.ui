@@ -1163,14 +1163,14 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>270</x>
       <y>380</y>
-      <width>631</width>
+      <width>641</width>
       <height>291</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -1878,7 +1878,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>311</width>
+        <width>271</width>
         <height>141</height>
        </rect>
       </property>
@@ -1993,7 +1993,7 @@
       <widget class="QLabel" name="label_35">
        <property name="geometry">
         <rect>
-         <x>180</x>
+         <x>150</x>
          <y>10</y>
          <width>121</width>
          <height>31</height>
@@ -2013,7 +2013,7 @@
       <widget class="QComboBox" name="algTrackingSelect">
        <property name="geometry">
         <rect>
-         <x>190</x>
+         <x>160</x>
          <y>40</y>
          <width>91</width>
          <height>27</height>
@@ -2029,17 +2029,17 @@
        </item>
        <item>
         <property name="text">
-         <string>PatternMatching</string>
+         <string>PM</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>LUCAS KANADE</string>
+         <string>LK</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>DetectionAlgo</string>
+         <string>DetectAlgo</string>
         </property>
        </item>
       </widget>
@@ -2049,7 +2049,7 @@
        <rect>
         <x>10</x>
         <y>140</y>
-        <width>291</width>
+        <width>271</width>
         <height>81</height>
        </rect>
       </property>
@@ -2085,7 +2085,7 @@
       <widget class="QLCDNumber" name="distanceDisplayMission">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>140</x>
          <y>40</y>
          <width>101</width>
          <height>31</height>
@@ -2131,11 +2131,17 @@
      <widget class="QListWidget" name="listWidget">
       <property name="geometry">
        <rect>
-        <x>310</x>
+        <x>280</x>
         <y>10</y>
-        <width>301</width>
+        <width>351</width>
         <height>221</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu Mono</family>
+        <pointsize>9</pointsize>
+       </font>
       </property>
      </widget>
      <widget class="QPushButton" name="abortMission">

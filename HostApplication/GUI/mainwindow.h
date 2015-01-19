@@ -52,6 +52,10 @@ private:
     QString m_algochoosen;
     int m_skipValue;
     std::string missionTracker;
+    int m_current_objective;
+
+    bool m_isLocalized;
+    double m_locDistance, m_locAngle;
 	
 public slots:
     void setFrame(QImage image);
@@ -65,6 +69,8 @@ public slots:
 
     void emitLaserState(int state);
     void emitSonarRequest();
+
+    void updateLocalizedObjectInfo(double dist, double angle);
 
 private slots:
     void emitVidSource(const QString& text);
@@ -93,12 +99,12 @@ private slots:
 
     void addAlgoObject();
     void subAlgoObject();
-    void emitAlgoDetectionMissionChoice(const QString& text);
-    void emitAlgoTrackingMissionChoice(const QString& text);
+    //void emitAlgoDetectionMissionChoice(const QString& text);
+    //void emitAlgoTrackingMissionChoice(const QString& text);
     void stopMission();
     void startMission();
-    void emitObjectChoiceMission();   
-    void updateListWidget(QString text);
+    //void emitObjectChoiceMission();
+    //void updateListWidget(QString text);
     void updateSonarViewMission(int distance);
     void reInitWidgetsMission();
     void changeStatusMission(QString text);
@@ -132,14 +138,14 @@ signals:
     void delMissionObject();
     void stopMissionSignal();
     void startMissionSignal();
+
+    void detectionAlgoMissionChoosen(std::string scr);
+    void trackingAlgoMissionChoosen(QString scr);
     void detectObjectMissionChoosen(std::string src);
     void missionStatusChanged();
     void sendUserResponseDetection(bool res);
-    void trackingAlgoMissionChoosen(QString scr);
     void sendTrackStatus(std::string st);
     void disconnectSonarViewMission();
-
-
 };
 
 #endif // MAINWINDOW_H

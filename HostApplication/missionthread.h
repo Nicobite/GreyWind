@@ -48,7 +48,8 @@ signals:
     void sendDetectionToDo();
     void missionStatusChanged();
     void skip5order();
-    void updateMissionListWidget(QString);
+    void sigMessageToConsole(std::string message);
+    //void updateMissionListWidget(QString);
     void sendStartTracking();
     void sendTrackAlgoChoosen(QString);
     void setLaserState(int);

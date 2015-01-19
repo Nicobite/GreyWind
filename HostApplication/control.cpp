@@ -64,16 +64,16 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
                      this,              SLOT(handleDetectedObject(Point,Size)));
     m_detectThread->start();
 
-    // Detectin config
+    // Detection config
     QObject::connect(&m_mainWindow,     SIGNAL(detectAlgoChanged(std::string)),
                      m_detectThread,    SLOT(changeDetectionAlgo(std::string)));
     QObject::connect(&m_mainWindow,     SIGNAL(detectObjectChanged(std::string)),
                      m_detectThread,    SLOT(changeObject2Detect(std::string)));
     QObject::connect(&m_mainWindow,     SIGNAL(detectAlgoChanged(std::string)),
-                     this,    SLOT(updateDetectionAlgo(std::string)));
+                     this,              SLOT(updateDetectionAlgo(std::string)));
     QObject::connect(&m_mainWindow,     SIGNAL(detectObjectChanged(std::string)),
-                     this,    SLOT(updateDetectionObject(std::string)));
-    QObject::connect(m_detectThread,   SIGNAL(sigMessageToConsole(std::string)),
+                     this,              SLOT(updateDetectionObject(std::string)));
+    QObject::connect(m_detectThread,    SIGNAL(sigMessageToConsole(std::string)),
                      this,             SLOT(handleDetectThreadMessages(std::string)));
     // Detection related handlers:
     QObject::connect(m_vidThread,       SIGNAL(sendDetectionFrame(Mat)),
@@ -104,55 +104,69 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     //************************************************/
     // Mission signals
     m_missionThread = new MissionThread;
-    QObject::connect(&m_mainWindow,     SIGNAL(newMissionObject(QString,QString)),
+    /*QObject::connect(&m_mainWindow,     SIGNAL(newMissionObject(QString,QString)),
                      this,              SLOT(addNewMission(QString,QString)));
     QObject::connect(&m_mainWindow,     SIGNAL(delMissionObject()),
                      this,              SLOT(subMission()));
+    */
     QObject::connect(&m_mainWindow,     SIGNAL(missionStatusChanged()),
                      this,              SLOT(runMission()));
     QObject::connect(&m_mainWindow,     SIGNAL(disconnectSonarViewMission()),
                      this,              SLOT(disconnectSonarMission()));
 
     QObject::connect(&m_mainWindow,     SIGNAL(stopMissionSignal()),
-                     m_missionThread,              SLOT(abortMission()));
+                     m_missionThread,   SLOT(abortMission()));
     QObject::connect(&m_mainWindow,     SIGNAL(startMissionSignal()),
-                     m_missionThread,              SLOT(startMission()));
-    QObject::connect(&m_mainWindow,     SIGNAL(detectAlgoChanged(std::string)),
-                     m_missionThread,    SLOT(detectAlgoChoosen(std::string)));
+                     m_missionThread,   SLOT(startMission()));
+
+    QObject::connect(&m_mainWindow,     SIGNAL(detectionAlgoMissionChoosen(std::string)),
+                     m_missionThread,   SLOT(detectAlgoChoosen(std::string)));
     QObject::connect(&m_mainWindow,     SIGNAL(trackingAlgoMissionChoosen(QString)),
-                     m_missionThread,    SLOT(trackingAlgoChoosen(QString)));
+                     m_missionThread,   SLOT(trackingAlgoChoosen(QString)));
     QObject::connect(&m_mainWindow,     SIGNAL(detectObjectMissionChoosen(std::string)),
-                     m_missionThread,    SLOT(objectToDetectChoosen(std::string)));
+                     m_missionThread,   SLOT(objectToDetectChoosen(std::string)));
+
     QObject::connect(&m_mainWindow,     SIGNAL(sendUserResponseDetection(bool)),
-                     m_missionThread,    SLOT(userDetectionValidation(bool)));
+                     m_missionThread,   SLOT(userDetectionValidation(bool)));
     QObject::connect(&m_mainWindow,     SIGNAL(sendTrackStatus(std::string)),
-                     m_missionThread,    SLOT(updateTrackStatus(std::string)));
+                     m_missionThread,   SLOT(updateTrackStatus(std::string)));
 
-    QObject::connect(m_missionThread,     SIGNAL(sendDetectionToDo()),
-                     &m_mainWindow,    SLOT(displayDetection()));
-    QObject::connect(m_missionThread,     SIGNAL(skip5order()),
-                     &m_mainWindow,    SLOT(skip5Detections()));
-    QObject::connect(m_missionThread,     SIGNAL(missionStatusChanged()),
-                     this,    SLOT(runMission()));
-    QObject::connect(m_missionThread,     SIGNAL(reInitTracking()),
-                     this,    SLOT(collimatorDeinit()));
+    QObject::connect(m_missionThread,   SIGNAL(sendDetectionToDo()),
+                     &m_mainWindow,     SLOT(displayDetection()));
+    QObject::connect(m_missionThread,   SIGNAL(skip5order()),
+                     &m_mainWindow,     SLOT(skip5Detections()));
+    QObject::connect(m_missionThread,   SIGNAL(missionStatusChanged()),
+                     this,              SLOT(runMission()));
+    QObject::connect(m_missionThread,   SIGNAL(reInitTracking()),
+                     this,              SLOT(collimatorDeinit()));
 
-    QObject::connect(m_missionThread,     SIGNAL(updateMissionListWidget(QString)),
-                     &m_mainWindow,    SLOT(updateListWidget(QString)));
-    QObject::connect(m_missionThread,     SIGNAL(sendStartTracking()),
-                     &m_mainWindow,    SLOT(emitTrackerInit()));
-    QObject::connect(m_missionThread,     SIGNAL(sendTrackAlgoChoosen(QString)),
-                     &m_mainWindow,    SLOT(emitTrackerChoice(QString)));
-    QObject::connect(m_missionThread,      SIGNAL(makeOneMeasure()),
-                     &m_mainWindow,                SLOT(emitSonarRequest()));
-    QObject::connect(m_missionThread,      SIGNAL(currentIndexChanged(QString)),
-                     &m_mainWindow,    SLOT(emitAlgoDetectionMissionChoice(QString)));
-    QObject::connect(m_missionThread,      SIGNAL(reInitWidgets()),
-                     &m_mainWindow,    SLOT(reInitWidgetsMission()));
-    QObject::connect(m_missionThread,      SIGNAL(reInitObjectChoice()),
-                     &m_mainWindow,    SLOT(emitObjectChoiceMission()));
-    QObject::connect(m_missionThread,      SIGNAL(sendStatusMission(QString)),
-                     &m_mainWindow,    SLOT(changeStatusMission(QString)));
+    QObject::connect(m_missionThread,   SIGNAL(sigMessageToConsole(std::string)),
+                     this,              SLOT(handleMissionThreadMessages(std::string)));
+    //QObject::connect(m_missionThread,   SIGNAL(updateMissionListWidget(QString)),
+    //                 &m_mainWindow,     SLOT(updateListWidget(QString)));
+
+    QObject::connect(m_missionThread,   SIGNAL(sendStartTracking()),
+                     &m_mainWindow,     SLOT(emitTrackerInit()));
+    QObject::connect(m_missionThread,   SIGNAL(sendTrackAlgoChoosen(QString)),
+                     &m_mainWindow,     SLOT(emitTrackerChoice(QString)));
+
+    QObject::connect(m_missionThread,   SIGNAL(makeOneMeasure()),
+                     &m_mainWindow,     SLOT(emitSonarRequest()));
+    //QObject::connect(m_missionThread,   SIGNAL(currentIndexChanged(QString)),
+    //                 &m_mainWindow,     SLOT(emitAlgoDetectionMissionChoice(QString)));
+
+    QObject::connect(m_missionThread,   SIGNAL(reInitWidgets()),
+                     &m_mainWindow,     SLOT(reInitWidgetsMission()));
+    //QObject::connect(m_missionThread,   SIGNAL(reInitObjectChoice()),
+    //                 &m_mainWindow,     SLOT(emitObjectChoiceMission()));
+
+    QObject::connect(m_missionThread,   SIGNAL(sendStatusMission(QString)),
+                     &m_mainWindow,     SLOT(changeStatusMission(QString)));
+
+    QObject::connect(m_missionThread,   SIGNAL(sendLocalizedObject(std::string,double)),
+                     this,              SLOT(handleLocalizedObject(std::string,double)));
+    QObject::connect(this,              SIGNAL(sendLocalizedObject(double,double)),
+                     &m_mainWindow,     SLOT(updateLocalizedObjectInfo(double,double)));
 
 
     m_missionThread->start();
@@ -399,6 +413,11 @@ void Control::handleCollimatorThreadMessages(std::string mess){
     this->m_mainWindow.dispToCuteConsole("[Collimator] "+QString::fromStdString(mess));
 }
 
+void Control::handleMissionThreadMessages(std::string mess){
+    this->m_mainWindow.dispToCuteConsole("[Mission] "+QString::fromStdString(mess));
+}
+
+
 /* Mission slots */
 void Control::addNewMission(QString algo, QString obj){
     m_listMission.push(Mission{algo,obj});
@@ -425,6 +444,8 @@ void Control::disconnectSonarMission(){
 
 void Control::handleLocalizedObject(std::string obj, double dist){
     m_localizedObjectName.push(obj);
+
+    emit sendLocalizedObject(dist, m_locfunc.get_yaw());
 
     struct square_coord coord = LocalizationFunctions::straightFwdXYZ(m_locfunc.get_z(), dist, m_locfunc.get_yaw());
     coord.x += m_locfunc.get_x();

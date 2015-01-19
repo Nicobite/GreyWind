@@ -80,6 +80,7 @@ signals:
     void sendDetectedObject(Point point, Size size);
     void sendConnectionStatus(bool status);
     void sendSizeBlackList(int size);
+    void sendLocalizedObject(double dist, double angle);
 
 public slots:
 
@@ -107,6 +108,8 @@ public slots:
     void subMission();
     void runMission();
     void disconnectSonarMission();
+    void handleMissionThreadMessages(std::string mess);
+
     void collimatorDeinit();
     void handleLocalizedObject(std::string obj, double dist);
 };

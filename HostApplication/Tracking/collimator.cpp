@@ -29,7 +29,7 @@ void Collimator::init(Mat img, Point point, Size size, std::string detecAlgoName
 
         } else{
 
-            if(m_algoname == "PatternMatching"){
+            if(m_algoname == "PatternMatching" || m_algoname == "PM"){
                 emit sigMessageToConsole("Initializing current tracking algorithm (PatternMatching)...");
 
                 //New algorithm
@@ -38,7 +38,7 @@ void Collimator::init(Mat img, Point point, Size size, std::string detecAlgoName
                 emit sigMessageToConsole("Algorithm is running.");
                 m_running = true;
 
-            } else if(m_algoname == "DetectionAlgo"){
+            } else if(m_algoname == "DetectionAlgo" || m_algoname == "DetectAlgo"){
 
                 emit sigMessageToConsole("Initializing current tracking algorithm(DetectionAlgo)...");
                 m_tracker->initialise(img, point, size, detecAlgoName, detectObjName);
@@ -47,7 +47,7 @@ void Collimator::init(Mat img, Point point, Size size, std::string detecAlgoName
                 //m_tracker = new PCMDetectionAlgo(m_object2detect);
                 //emit sigMessageToConsole("Algorithm is running.");
 
-            }else if(m_algoname == "LucasKannade"){
+            }else if(m_algoname == "LucasKannade" || m_algoname =="LK"){
 
                 emit sigMessageToConsole("Initializing current tracking algorithm(Lucas-Kannade)...");
                 emit sigMessageToConsole("Not yet implemented.  Algorithm removed.");
@@ -69,19 +69,27 @@ void Collimator::deinit(){
         DEBUG("> MissionThread::run()::DEINIT TRACKER NULL");
     }
     m_running = false;
+
     if(m_algoname == "<none>"){
         emit sigMessageToConsole("Detection algorithm is removed.");
 
     } else{
-        if(m_algoname == "PatternMatching"){
+        if(m_algoname == "PatternMatching" || m_algoname == "PM"){
             emit sigMessageToConsole("Changing current tracking algorithm to PatternMatching...");
             m_tracker =  new PMTrackingAlgo();
 
-        } else if(m_algoname == "LucasKannade"){
+        }else if(m_algoname == "DetectionAlgo" || m_algoname == "DetectAlgo"){
+
+            emit sigMessageToConsole("Changing current tracking algorithm to DetectionAlgo...");
+            m_tracker =  new DetectionTrackingAlgo();
+
+        }else if(m_algoname == "LucasKannade" || m_algoname == "LK"){
             emit sigMessageToConsole("Changing current detection algorithm to Lucas-Kannade...");
             emit sigMessageToConsole("Not yet implemented.  Algorithm removed.");
         }
     }
+
+
 }
 
 void Collimator::run(){
@@ -201,16 +209,16 @@ void Collimator::changeAlgo(std::string algoname){
             emit sigMessageToConsole("Detection algorithm is removed.");
 
         } else{
-            if(m_algoname == "PatternMatching"){
+            if(m_algoname == "PatternMatching" || m_algoname == "PM"){
                 emit sigMessageToConsole("Changing current tracking algorithm to PatternMatching...");
                 m_tracker =  new PMTrackingAlgo();
 
-            }else if(m_algoname == "DetectionAlgo"){
+            }else if(m_algoname == "DetectionAlgo" || m_algoname == "DetectAlgo"){
 
                 emit sigMessageToConsole("Changing current tracking algorithm to DetectionAlgo...");
                 m_tracker =  new DetectionTrackingAlgo();
 
-            }else if(m_algoname == "LucasKannade"){
+            }else if(m_algoname == "LucasKannade" || m_algoname == "LK"){
                 emit sigMessageToConsole("Changing current detection algorithm to Lucas-Kannade...");
                 emit sigMessageToConsole("Not yet implemented.  Algorithm removed.");
             }
