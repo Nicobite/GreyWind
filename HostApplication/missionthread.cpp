@@ -220,7 +220,7 @@ double MissionThread::filteredMeasurement(){
         while(!m_gotNewSonarData);
         m_gotNewSonarData = false;
         res += m_latestSonarData;
-        usleep(10000);
+        usleep(100000);
     }
     res /= 10;
     return res;

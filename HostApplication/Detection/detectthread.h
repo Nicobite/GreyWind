@@ -7,6 +7,7 @@
 #include "includes.h"
 #include "haarfacedetectionalgo.h"
 #include "pcmdetectionalgo.h"
+#include "pmdetectionalgo.h"
 #include <QDir>
 
 using namespace cv;

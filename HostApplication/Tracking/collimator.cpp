@@ -4,6 +4,7 @@ Collimator::Collimator(QObject *parent):
     QThread(parent)
 {
     m_running = false;
+    m_finished = false;
     m_tracker = NULL;
 
 }
@@ -11,6 +12,10 @@ Collimator::Collimator(QObject *parent):
 Collimator::~Collimator()
 {
     m_running = false;
+    m_finished = true;
+
+    this->quit();
+    this->wait();
     delete m_tracker;
 }
 
@@ -80,7 +85,7 @@ void Collimator::deinit(){
 }
 
 void Collimator::run(){
-    while(!m_running);
+    while(!m_running && !m_finished);
     while(m_running){
         if(!m_FIFO.empty()){
             // Popping element
@@ -130,7 +135,7 @@ void Collimator::run(){
                     emit sigDirections("NOT_IN_RANGE");
                 }
             }
-            //usleep(2000);
+            usleep(33000);
             DEBUG("Popping...");
             m_FIFO.pop();
         }

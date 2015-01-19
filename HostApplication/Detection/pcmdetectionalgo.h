@@ -30,7 +30,7 @@ protected:
     void loadContour();
     void loadTemplates();
 
-    Rect getAverageShapeSize(Mat& frame, vector<Point>& contour_template, Point& pos);
+    Rect getAverageShapeSize(Mat& frame, vector<Point>& contour_template, Point& pos, float &score);
 
     void detectPattern(Mat &frame, Mat &templ, Rect &size, Point &pos, float &score);
 

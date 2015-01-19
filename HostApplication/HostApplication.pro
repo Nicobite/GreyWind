@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     GUI/glwidget.cpp \
     GUI/webview.cpp \
     missionthread.cpp \
-    Tracking/detectiontrackingalgo.cpp
+    Tracking/detectiontrackingalgo.cpp \
+    Detection/pmdetectionalgo.cpp
 
 LIBS += `pkg-config opencv --libs`
 
@@ -77,7 +78,8 @@ HEADERS  += Detection/laserdetect.hpp \
     GUI/glwidget.h \
     GUI/webview.h \
     missionthread.h \
-    Tracking/detectiontrackingalgo.h
+    Tracking/detectiontrackingalgo.h \
+    Detection/pmdetectionalgo.h
 
 FORMS    += GUI/help.ui \
     GUI/mainwindow.ui \

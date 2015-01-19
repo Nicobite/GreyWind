@@ -29,6 +29,7 @@ public:
 
 private:
     bool m_running;
+    bool m_finished;
     bool m_aligned;
     std::string m_algoname;
     TrackingAlgo *m_tracker;

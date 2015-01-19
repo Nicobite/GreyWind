@@ -23,9 +23,10 @@ void PCMDetectionAlgo::detect(Mat &frame){
     unsigned int iter=0;
     bool found=false;
     Point position_contour;
+    float contour_score;
 
     Scalar avg = mean(frame);
-    Rect size = getAverageShapeSize(frame, m_contour_template, position_contour);
+    Rect size = getAverageShapeSize(frame, m_contour_template, position_contour, contour_score);
 
     //Try the last working index
     if(!found){
@@ -41,9 +42,9 @@ void PCMDetectionAlgo::detect(Mat &frame){
         float match_score;
         detectPattern(frame, tempTempl, size, match_pos, match_score);
 
-        char mess[50];
-        sprintf(mess, "PCM Distance: %i", norm(Mat(match_pos), Mat(position_contour)));
-        DEBUG(mess);
+        //char mess[50];
+        //sprintf(mess, "PCM Distance: %i", norm(Mat(match_pos), Mat(position_contour)));
+        //DEBUG(mess);
 
         if(norm(Mat(match_pos), Mat(position_contour))<=40){
             found = true;
@@ -69,9 +70,9 @@ void PCMDetectionAlgo::detect(Mat &frame){
         float match_score;
         detectPattern(frame, tempTempl, size, match_pos, match_score);
 
-        char mess[50];
-        sprintf(mess, "PCM Distance: %d", int(norm(Mat(match_pos), Mat(position_contour))));
-        DEBUG(mess);
+        //char mess[50];
+        //sprintf(mess, "PCM Distance: %d", int(norm(Mat(match_pos), Mat(position_contour))));
+        //DEBUG(mess);
 
         if(norm(Mat(match_pos), Mat(position_contour))<=40){
             found = true;
@@ -135,7 +136,7 @@ void PCMDetectionAlgo::loadTemplates(){
     }
 }
 
-Rect PCMDetectionAlgo::getAverageShapeSize(Mat& frame, vector<Point>& contour_template, Point& pos){
+Rect PCMDetectionAlgo::getAverageShapeSize(Mat& frame, vector<Point>& contour_template, Point& pos, float& score){
 
     vector<vector<Point> > contoursTempl;
     vector<Vec4i> hierarchyTempl;
@@ -169,7 +170,7 @@ Rect PCMDetectionAlgo::getAverageShapeSize(Mat& frame, vector<Point>& contour_te
             }
         }
     }
-
+    score = indexScore;
     if(bestIndex != -1){
         char title[100];
 #if SHOW_DEBUG==1
