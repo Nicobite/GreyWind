@@ -584,7 +584,7 @@ void MainWindow::startMission(){
 
         QString objectname = objective.mid(1,10).remove(QChar(' '), Qt::CaseInsensitive);
         QString detectAlgoname = objective.mid(12,10).remove(QChar(' '), Qt::CaseInsensitive);
-        QString trackAlgoname = objective.mid(23,10).remove(QChar(' '), Qt::CaseInsensitive);;
+        QString trackAlgoname = objective.mid(23,10).remove(QChar(' '), Qt::CaseInsensitive);
         this->dispToCuteConsole("[Mission] Objective : "+objectname+detectAlgoname+trackAlgoname);
 
         emit detectObjectMissionChoosen(objectname.toStdString());
@@ -645,9 +645,10 @@ void MainWindow::changeStatusMission(QString text){
             this->ui->subAlgoObject->setEnabled(false);
 
             QString objective = ui->listWidget->item(2+2*m_current_objective)->text();
-            QString objectname = objective.mid(1,10);
-            QString detectAlgoname = objective.mid(12,10);
-            QString trackAlgoname = objective.mid(23,10);
+            QString objectname = objective.mid(1,10).remove(QChar(' '), Qt::CaseInsensitive);
+            QString detectAlgoname = objective.mid(12,10).remove(QChar(' '), Qt::CaseInsensitive);
+            QString trackAlgoname = objective.mid(23,10).remove(QChar(' '), Qt::CaseInsensitive);
+            this->dispToCuteConsole("[Mission] Objective : "+objectname+detectAlgoname+trackAlgoname);
 
             emit detectObjectMissionChoosen(objectname.toStdString());
             emit detectionAlgoMissionChoosen(detectAlgoname.toStdString());

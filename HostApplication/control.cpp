@@ -171,9 +171,6 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
 
     m_missionThread->start();
     m_mainWindow.show();
-
-    m_collimator.start();
-
 }
 
 Control::~Control(){
@@ -259,8 +256,14 @@ void Control::handleFrame(Mat frame){
 }
 
 void Control::handleTrackerInitialisation(){
-    while(!m_frameSaved&& !m_objDetected);
-    m_collimator.init(m_imgDetected, m_centerDetected, m_sizeDetected, m_currentDetectAlgo, m_currentDetectObject);
+    int i=0;
+    while(!m_frameSaved&& !m_objDetected  && i < 10000000){
+        i++;
+    }
+    if(i<10000000){
+        m_collimator.init(m_imgDetected, m_centerDetected, m_sizeDetected, m_currentDetectAlgo, m_currentDetectObject);
+        m_collimator.start();
+    }
 }
 
 void Control::handleValidatedObject(Point point, Size size){

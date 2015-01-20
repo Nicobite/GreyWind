@@ -61,7 +61,7 @@ void Collimator::init(Mat img, Point point, Size size, std::string detecAlgoName
 }
 
 void Collimator::deinit(){
-    emit sigMessageToConsole("Removing previous detection algorithm...");
+    emit sigMessageToConsole("Removing previous tracking algorithm...");
 
     if(m_tracker != NULL){
         delete m_tracker;
@@ -69,6 +69,7 @@ void Collimator::deinit(){
         DEBUG("> MissionThread::run()::DEINIT TRACKER NULL");
     }
     m_running = false;
+    m_finished = false;
 
     if(m_algoname == "<none>"){
         emit sigMessageToConsole("Detection algorithm is removed.");

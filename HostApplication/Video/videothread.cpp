@@ -111,9 +111,8 @@ void VideoThread::run() //TODO + TODO2 make better folders
             p.setFont(QFont("Times", 16, QFont::Bold));
             p.drawText(img.rect(), Qt::AlignCenter, "No display source is selected.");
             emit sendVideoFrame(img.rgbSwapped());
-            usleep(33333);
         }
-        usleep(1000);
+        usleep(25000);
     }
     DEBUG("[VideoThread] just before last realease");
     capture->release();
