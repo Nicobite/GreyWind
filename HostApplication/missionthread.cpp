@@ -21,6 +21,7 @@ MissionThread::~MissionThread(){
 
 
 void MissionThread::run(){
+
     switch (mission_status) {
 
         case MISSION_NOT_STARTED:
@@ -100,6 +101,8 @@ void MissionThread::run(){
         emit sendStartTracking();
         mission_status=MEASUREMENT;
         emit missionStatusChanged();
+        m_measureNo = 0;
+        m_dist = 0.0;
 
             break;
 
@@ -113,18 +116,36 @@ void MissionThread::run(){
             //emit makeOneMeasure();
 
             //Serdar: mean-filtered measurement
-            double dist = filteredMeasurement();
-            char mess[30];
-            sprintf(mess, "Distance: %f", dist);
-            emit sendStatusMission(mess);
 
-            //Serdar: sending localized objects to Control
-            sendLocalizedObject(objectToDetect, dist);
-            //fin Serdar
 
-            mission_status=MISSION_FINISHED;
-            emit missionStatusChanged();
-            emit setLaserState(Qt::Unchecked);
+
+
+            if(m_measureNo < 10){
+               if(!m_gotNewSonarData){
+                   emit makeOneMeasure();
+                   usleep(100000);
+               } else{
+                   m_gotNewSonarData = false;
+
+                   m_dist += m_latestSonarData;
+                   m_measureNo++;
+               }
+            } else{
+                m_dist /= 10;
+
+                char mess[30];
+                sprintf(mess, "Distance: %f", m_dist);
+                emit sendStatusMission(mess);
+
+                //Serdar: sending localized objects to Control
+                sendLocalizedObject(objectToDetect, m_dist);
+                //fin Serdar
+
+                mission_status=MISSION_FINISHED;
+                emit missionStatusChanged();
+                emit setLaserState(Qt::Unchecked);
+            }
+
         }
 
             break;
@@ -194,6 +215,7 @@ void MissionThread::updateTrackStatus(std::string st)
 void MissionThread::acquireSonarData(int distance){
     m_latestSonarData=distance;
     m_gotNewSonarData=true;
+    emit missionStatusChanged();
 }
 
 void MissionThread::reInitMission()
@@ -216,15 +238,16 @@ void MissionThread::reInitMission()
 double MissionThread::filteredMeasurement(){
     double res = 0.0;
     for(int i=0; i<10; i++){
-        emit makeOneMeasure();
         int  j = 0;
-        while(!m_gotNewSonarData && j<100000){
+        while(!m_gotNewSonarData && j<10){
+            emit makeOneMeasure();
+            usleep(1000000);
             j++;
         }
-        if(j<100000){
+        if(j<10){
             m_gotNewSonarData = false;
             res += m_latestSonarData;
-            usleep(100000);
+            usleep(1000000);
         } else{
             res = -10;
             break;

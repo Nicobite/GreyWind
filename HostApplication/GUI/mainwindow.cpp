@@ -629,7 +629,7 @@ void MainWindow::changeStatusMission(QString text){
                 angleInfo = "no sensor";
             } else{
                 distanceInfo = QString::number(m_locDistance);
-                angleInfo == QString::number(m_locAngle);
+                angleInfo = QString::number(m_locAngle);
                 distanceInfo.truncate(10);
                 angleInfo.truncate(10);
             }
@@ -637,8 +637,7 @@ void MainWindow::changeStatusMission(QString text){
             distanceInfo = "aborted";
             angleInfo = "aborted";
         }
-        QString newinfo = objective.mid(0,34)+distanceInfo+QString(10-distanceInfo.size(), ' ') +
-                         "|"+ angleInfo + QString(10-angleInfo.size(), ' ')+"|";
+        QString newinfo = objective.mid(0,34)+distanceInfo+QString(10-distanceInfo.size(), ' ') +"|"+ angleInfo + QString(10-angleInfo.size(), ' ')+"|";
         ui->listWidget->item(2+2*m_current_objective)->setText(newinfo);
 
         this->clearBlackList();
@@ -668,6 +667,8 @@ void MainWindow::changeStatusMission(QString text){
             this->ui->subAlgoObject->setEnabled(true);
             this->ui->startMission->setEnabled(true);
 
+            emit detectAlgoChanged("<none>");
+            emit detectObjectChanged("<none>");
             m_current_objective = 0;
         }
     }

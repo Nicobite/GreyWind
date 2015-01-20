@@ -150,8 +150,10 @@ Control::Control(int childPID, char * childSemFD, int childPipeWrFD,QObject *par
     QObject::connect(m_missionThread,   SIGNAL(sendTrackAlgoChoosen(QString)),
                      &m_mainWindow,     SLOT(emitTrackerChoice(QString)));
 
-    QObject::connect(m_missionThread,   SIGNAL(makeOneMeasure()),
-                     &m_mainWindow,     SLOT(emitSonarRequest()));
+    //QObject::connect(m_missionThread,   SIGNAL(makeOneMeasure()),
+    //                 &m_mainWindow,     SLOT(emitSonarRequest()));
+    QObject::connect(m_missionThread,   SIGNAL(setLaserState(int)),
+                     &m_mainWindow,     SLOT(emitLaserState(int)));
     //QObject::connect(m_missionThread,   SIGNAL(currentIndexChanged(QString)),
     //                 &m_mainWindow,     SLOT(emitAlgoDetectionMissionChoice(QString)));
 
@@ -393,11 +395,15 @@ void Control::connectDrone(){
         // * Distance measurement request: mainWindow -> droneInterface
         QObject::connect(&m_mainWindow,                             SIGNAL(sonarRequest()),
                          this->m_interface->get_sensor_thread(),    SLOT(requestSonarData()));
+        QObject::connect(m_missionThread,   SIGNAL(makeOneMeasure()),
+                         this->m_interface->get_sensor_thread(),    SLOT(requestSonarData()));
         // * Distance measurement response: droneInterface -> mainWindow
         QObject::connect(this->m_interface->get_sensor_thread(),    SIGNAL(newSonarData(int)),
                          &m_mainWindow,                             SLOT(updateSonarView(int)));
         QObject::connect(this->m_interface->get_sensor_thread(),    SIGNAL(newSonarData(int)),
                          &m_mainWindow,                             SLOT(updateSonarViewMission(int)));
+        QObject::connect(this->m_interface->get_sensor_thread(),    SIGNAL(newSonarData(int)),
+                         m_missionThread,                             SLOT(acquireSonarData(int)));
 
         if(m_interface->get_daemon()->is_control_running()){
             QObject::connect(&m_mainWindow,                                         SIGNAL(pressCmd(int)),
@@ -448,12 +454,11 @@ void Control::disconnectSonarMission(){
 void Control::handleLocalizedObject(std::string obj, double dist){
     m_localizedObjectName.push(obj);
 
-    emit sendLocalizedObject(dist, m_locfunc.get_yaw());
-
     struct square_coord coord = LocalizationFunctions::straightFwdXYZ(m_locfunc.get_z(), dist, m_locfunc.get_yaw());
     coord.x += m_locfunc.get_x();
     coord.y += m_locfunc.get_y();
     m_localizedObjectPos.push(coord);
+    emit sendLocalizedObject(dist, m_locfunc.get_yaw());
 
     //TEST
     emit m_mainWindow.to3DView(QString(obj.c_str()),coord.x,coord.y,coord.z);

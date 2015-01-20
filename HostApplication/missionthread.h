@@ -37,6 +37,8 @@ private:
     bool m_gotNewSonarData;
     int  m_latestSonarData;
 
+    int m_measureNo;
+    double m_dist;
 
     void run();
 

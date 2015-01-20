@@ -84,7 +84,12 @@ void laserDetect::bestcontours2Coordinates(vector<vector<Point>  > contours){
         } else{
             std::cout << "BestContour : "<< res << " " << arcLength(contours[i], false) << " " << contourArea(contours[i]) << endl;
 
-            if(res< indexScore){
+            float radius=0;
+            Point2f center;
+            minEnclosingCircle( (Mat)contours[i], center, radius );
+
+            if(res< indexScore && (center.x >= 330) && (center.x <= 370) &&
+              (center.y >= 240) && (center.y <= 280)){
                 indexScore = res;
                 bestIndex = i;
             }
