@@ -25,7 +25,7 @@ WebView::~WebView(){
 }
 
 void WebView::updateView(){
-    emit objToJS("b",100,100,0);
+    emit objToJS("pyr",100,100,0);
 }
 
 void WebView::addObjToView(QString type, int x, int y, int z){

@@ -22,10 +22,6 @@ var ROOMFLOOR = -200;
 init();
 trackball();
 animate();
-//document.addEventListener( 'mousedown', onMouseDown, false );
-//document.addEventListener( 'mouseup', onMouseUp, false );
-//document.addEventListener( 'click', onMouseClick, false );
-
 
 /* USEFUL FUNCTIONS */
 
@@ -45,7 +41,7 @@ function init() {
 	
 	object.add( drawOrigin() 	);
 	object.add( drawRoom() 		);
-	object.add( drawPyramid(0,0,0,"rgb(100,225,225)")	);
+	//object.add( drawPyramid(0,0,0,"rgb(100,225,225)")	);
 	
 	cppCom.objToJS.connect(cppSlot);
 	
@@ -55,23 +51,19 @@ function init() {
 
 */
 function cppSlot(type,x,y,z){
-	var typeColor;
-	
 	switch(type) {
 		case "face":
-		    typeColor = "rgb(255,120,120)";
+		    object.add( drawCube(x,y,z,"rgb(255,120,120)") );
 		    break;
 		case "pyr":
-		    typeColor = "rgb(100,225,225)";
+		    object.add( drawPyramid(x,y,z,"rgb(100,225,225)") );
 		    break;
 		case "b":
-		    typeColor = "rgb(255,240,55)";
+		    object.add( drawCube(x,y,z,"rgb(255,240,55)") );
 		    break;
 		default:
-		    typeColor = "rgb(150,150,150)";
+		    object.add( drawCube(x,y,z,"rgb(140,140,140)") );
 	}
-
-	object.add( drawCube(x,y,z,typeColor) );
 }
 
 /**
@@ -131,12 +123,13 @@ function drawOrigin(){
 
 ///////////////////////
 function drawPyramid(x,y,z,color1){
-	var pyramidGeometry = new THREE.CylinderGeometry(0, 1.5, 1.5, 4, 1, false); 
+	var pyramidGeometry = new THREE.CylinderGeometry(0, 60, 80, 4, 1, false); 
 	var material2 = new THREE.MeshBasicMaterial( { color: color1, wireframe: false } );
 	var pyramidMesh = new THREE.Mesh( pyramidGeometry, material2 );
 	pyramidMesh.position.x = x;
 	pyramidMesh.position.y = y;
 	pyramidMesh.position.z = z;
+	pyramidMesh.rotation.x = Math.PI/2;
 	return pyramidMesh;
 	
 }
