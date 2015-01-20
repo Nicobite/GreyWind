@@ -13,8 +13,10 @@ WebView::WebView(QWidget *parent) :
     ui->widget->show();
 
     ui->widget->load(QUrl("qrc:/Web/test.html"));
+    //ui->widget->settings()->setObjectCacheCapacities(0,0,0);
     //ui->widget->load(QUrl("file:///home/nikko/Desktop/three.js2/test.html")); // OLD
     ui->widget->page()->mainFrame()->addToJavaScriptWindowObject("cppCom", this);
+
 
 }
 
@@ -31,6 +33,16 @@ void WebView::addObjToView(QString type, int x, int y, int z){
     emit objToJS(type,x,y,z);
 }
 
+
+/**
+ * @brief WebView::reloadPage
+ * Actually doesn't reload the page. Destroys the UI then recreates it. For some reason, a standard reload also causes the JS to go in error state.
+ */
 void WebView::reloadPage(){
-    ui->widget->reload(); //TODO This puts the JS in an error state for some reason
+    //ui->widget->reload(); //TODO This puts the JS in an error state for some reason
+    delete ui;
+    ui->setupUi(this);
+    ui->widget->show();
+    ui->widget->load(QUrl("qrc:/Web/test.html"));
+    ui->widget->page()->mainFrame()->addToJavaScriptWindowObject("cppCom", this);//*/
 }
