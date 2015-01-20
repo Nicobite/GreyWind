@@ -454,4 +454,7 @@ void Control::handleLocalizedObject(std::string obj, double dist){
     coord.x += m_locfunc.get_x();
     coord.y += m_locfunc.get_y();
     m_localizedObjectPos.push(coord);
+
+    //TEST
+    emit m_mainWindow.to3DView(QString(obj.c_str()),coord.x,coord.y,coord.z);
 }

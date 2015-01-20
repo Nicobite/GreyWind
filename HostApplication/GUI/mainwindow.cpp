@@ -108,6 +108,11 @@ MainWindow::MainWindow(QWidget *parent) :
     m_current_objective = 0;
     m_isLocalized = false;
 
+
+    // 3D
+    QObject::connect(this       ,   SIGNAL(to3DView),
+                     &m_3DWindow,   SLOT(addObjToView()));
+
 }
 
 MainWindow::~MainWindow(){

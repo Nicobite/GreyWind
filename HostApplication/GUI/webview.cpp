@@ -26,6 +26,11 @@ void WebView::updateView(){
     emit objToJS("b",100,100,0);
 }
 
+void WebView::addObjToView(QString type, int x, int y, int z){
+    //TODO un switch ou alors modifier l'autre
+    emit objToJS(type,x,y,z);
+}
+
 void WebView::reloadPage(){
     ui->widget->reload(); //TODO This puts the JS in an error state for some reason
 }
