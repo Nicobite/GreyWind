@@ -22,6 +22,7 @@ LocalizationFunctions::~LocalizationFunctions(){
 
 // Coords are centered around starting point of drone
 struct square_coord LocalizationFunctions::straightFwdXYZ(int altitude,int distance,float yaw){
+    yaw = yaw/180*M_PI;
     return {    distance*qCos(yaw)  ,
                 distance*qSin(yaw)  ,
                 altitude            };

@@ -110,8 +110,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     // 3D
-    QObject::connect(this       ,   SIGNAL(to3DView),
-                     &m_3DWindow,   SLOT(addObjToView()));
+    QObject::connect(this       ,   SIGNAL(to3DView(QString, int, int, int)),
+                     &m_3DWindow,   SLOT(addObjToView(QString, int, int, int)));
 
 }
 

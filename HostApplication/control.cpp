@@ -459,7 +459,7 @@ void Control::handleLocalizedObject(std::string obj, double dist){
     coord.y += m_locfunc.get_y();
     m_localizedObjectPos.push(coord);
     emit sendLocalizedObject(dist, m_locfunc.get_yaw());
-
+    DEBUG("[Localisation] Object x:"+QString::number(coord.x)+", y:"+QString::number(coord.y)+", z:"+QString::number(coord.z));
     //TEST
-    emit m_mainWindow.to3DView(QString(obj.c_str()),coord.x,coord.y,coord.z);
+    emit m_mainWindow.to3DView(QString(obj.c_str()),coord.y,coord.x,coord.z);
 }
