@@ -43,17 +43,12 @@ function init() {
 	renderer.setSize( window.innerWidth * FACTOR, window.innerHeight * FACTOR );
 	document.body.appendChild( renderer.domElement );
 	
-	object.add( drawOrigin() );
-	object.add( drawRoom() );
+	object.add( drawOrigin() 	);
+	object.add( drawRoom() 		);
+	object.add( drawPyramid(0,0,0,"rgb(100,225,225)")	);
 	
-	/* The tricky part */
 	cppCom.objToJS.connect(cppSlot);
 	
-	
-	
-	//object.add( drawCube(500,0,0,0x000000) );
-	//object.add( drawCube(0,500,0,0x55f000) );
-	//object.add( drawCube(0,0,-500,0xf55000) );
 }
 
 /**
@@ -63,10 +58,10 @@ function cppSlot(type,x,y,z){
 	var typeColor;
 	
 	switch(type) {
-		case "f":
+		case "face":
 		    typeColor = "rgb(255,120,120)";
 		    break;
-		case "p":
+		case "pyr":
 		    typeColor = "rgb(100,225,225)";
 		    break;
 		case "b":
@@ -134,6 +129,19 @@ function drawOrigin(){
 }
 
 
+///////////////////////
+function drawPyramid(x,y,z,color1){
+	var pyramidGeometry = new THREE.CylinderGeometry(0, 1.5, 1.5, 4, 1, false); 
+	var material2 = new THREE.MeshBasicMaterial( { color: color1, wireframe: false } );
+	var pyramidMesh = new THREE.Mesh( pyramidGeometry, material2 );
+	pyramidMesh.position.x = x;
+	pyramidMesh.position.y = y;
+	pyramidMesh.position.z = z;
+	return pyramidMesh;
+	
+}
+///////////////////////
+
 
 /**
 	Renders the scene from the PoV of the camera
@@ -193,37 +201,3 @@ function onMouseDown(event){
 
 function onMouseUp(event){
 }
-
-/* Not by me but quite a good idea (Trackball is better) */	
-/*function onDocumentMouseMove( event ) {
-	alert('Mouse move detected');
-	event.preventDefault();
-	//alert('Mouse move detected')
-	if ( isMouseDown ) {
-		alert('You have clicked');
-		theta = - ( ( event.clientX - onMouseDownPosition.x ) * 0.5 )
-				+ onMouseDownTheta;
-		phi = ( ( event.clientY - onMouseDownPosition.y ) * 0.5 )
-				+ onMouseDownPhi;
-
-		phi = Math.min( 180, Math.max( 0, phi ) );
-
-		camera.position.x = radious * Math.sin( theta * Math.PI / 360 )
-                            * Math.cos( phi * Math.PI / 360 );
-		camera.position.y = radious * Math.sin( phi * Math.PI / 360 );
-		camera.position.z = radious * Math.cos( theta * Math.PI / 360 )
-                           * Math.cos( phi * Math.PI / 360 );
-		camera.updateMatrix();
-	}
-	mouse3D = projector.unprojectVector(
-		new THREE.Vector3(
-			( event.clientX / renderer.domElement.width ) * 2 - 1,
-			- ( event.clientY / renderer.domElement.height ) * 2 + 1,
-			0.5
-		),
-		camera
-	);
-	ray.direction = mouse3D.subSelf( camera.position ).normalize();
-	interact();
-	render();
-}//*/

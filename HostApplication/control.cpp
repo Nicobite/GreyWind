@@ -446,7 +446,7 @@ void Control::disconnectSonarMission(){
 }
 
 void Control::handleLocalizedObject(std::string obj, double dist){
-    m_localizedObjectName.push(obj);
+    m_localizedObjectName.push(obj);//face, pyr
 
     emit sendLocalizedObject(dist, m_locfunc.get_yaw());
 
