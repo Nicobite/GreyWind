@@ -58,6 +58,9 @@ function cppSlot(type,x,y,z){
 		case "pyr":
 		    object.add( drawPyramid(x,y,z,"rgb(100,225,225)") );
 		    break;
+		case "pyr1":
+		    object.add( drawPyramid(x,y,z,"rgb(208,32,144)") );
+		    break;
 		case "b":
 		    object.add( drawCube(x,y,z,"rgb(255,240,55)") );
 		    break;
